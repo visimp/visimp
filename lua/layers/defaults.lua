@@ -9,7 +9,7 @@ function L.configure(cfg)
 end
 
 function L.on_load()
-  print('hello', L.config.tab_space)
+  -- TODO: use L.config.tab_space
 end
 
 return L

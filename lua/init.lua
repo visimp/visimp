@@ -44,7 +44,10 @@ function M.init()
     require('paq-nvim').paq(p)
   end
 
-  print('T.T')
+  -- Load layers
+  for _, l in ipairs(M.layers) do
+    loader.load(l)
+  end
 end
 
 return M

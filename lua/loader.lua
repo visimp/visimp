@@ -33,7 +33,7 @@ function M.are_cyclic(loading, list)
   end
 
   for _, id in ipairs(list) do
-    if loading[id] ~= nil then
+    if loading[id] then
       return true
     end
 
@@ -69,17 +69,17 @@ end
 -- layer to properly initialize your editor.
 -- @param id The layer identifier
 function M.load(id)
-  if M.layers[id] ~= nil then
-    error('Attempted to load an undefined layer: ' .. id)
+  if M.loaded[id] then
+    return
   end
 
-  local layer = M.layers[id]
+  local layer = M.get(id)
   for _, did in ipairs(layer.dependencies()) do
     M.load(did) -- did = Dependency IDentifier
   end
 
   layer.load()
-  loaded[id] = true
+  M.loaded[id] = true
 end
 
 --- Returns the requested layer by its id.
