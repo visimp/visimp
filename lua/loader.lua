@@ -1,26 +1,67 @@
 local l = require('layer')
 local M = {
   layers = {},
+  loaded = {}
 }
 
 --- Registers a new layer in the current configuration
 -- @param layer The layer to register
-function M.define(layer)
+function M.define_layer(layer)
   M.layers[layer.identifier] = layer
 end
 
 --- Attempts to require the given layer within the default configuration.
+-- The procedure either throws an error or defines the layer.
 -- @param id The layer identifier, by convention the same as the module name
--- @return The success of the operation
-local function attempt_require(id)
+function M.define_builtin(id)
   -- TODO: should be relative to the final module name
   local ok, module = pcall(require, 'layers.' .. id)
-  -- if we got a module then register it
-  if ok then
-    M.define(module)
+  if not ok then
+    error('Requested invalid builtin layer: ' .. id)
   end
 
-  return ok
+  M.define_layer(module)
+end
+
+--- Returns true if the list of layers have a cyclic relationship
+-- @param loading A table of already loading packages
+-- @param ... The list of layer identifiers
+-- @return False if the list of layers does not produce a cyclic graph
+function M.are_cyclic(loading, list)
+  if list == nil or #list == 0 then
+    return false
+  end
+
+  for _, id in ipairs(list) do
+    if loading[id] ~= nil then
+      return true
+    end
+
+    loading[id] = true
+    if M.are_cyclic(loading, M.layers[id].dependencies()) then
+      return true
+    end
+  end
+
+  return false
+end
+
+--- Fills the given packages list for all the needed packages by the requested
+-- layers.
+-- @param packs A table of initial packages
+-- @param list A list of layer identifiers
+function M.packages(packs, list)
+  if list == nil or #list == 0 then
+    return
+  end
+
+  for _, id in ipairs(list) do
+    local l = M.layers[id]
+    for _, v in ipairs(l.packages()) do 
+      table.insert(packs, v)
+    end
+    M.packages(packs, l.dependencies())
+  end
 end
 
 --- Loads a registered layer by its identifier with its dependecies.
@@ -28,24 +69,17 @@ end
 -- layer to properly initialize your editor.
 -- @param id The layer identifier
 function M.load(id)
-  if M.layers[id] == nil and (not attempt_require(id)) then
-    error("Requested invalid layer: " .. id)
-  end
-  if M.layers[id].loading_status == l.loaded then return end
-  -- fail hard on dependency loops
-  if M.layers[id].loading_status == l.loading then
-    error("Layer " .. id .. " generates a dependency loop")
+  if M.layers[id] ~= nil then
+    error('Attempted to load an undefined layer: ' .. id)
   end
 
-  print("loading "..id)
   local layer = M.layers[id]
-  layer.loading_status = l.loading
-  for _, did in ipairs(layer.depends_on) do
+  for _, did in ipairs(layer.dependencies()) do
     M.load(did) -- did = Dependency IDentifier
   end
 
-  layer.on_load()
-  layer.loading_status = l.loaded
+  layer.load()
+  loaded[id] = true
 end
 
 --- Returns the requested layer by its id.
@@ -54,11 +88,8 @@ end
 -- @param id The layer id
 -- @return The requested layer
 function M.get(id)
-  if M.layers[id] ~= nil then
+  if M.layers[id] == nil then
     error('Requested an undefined layer: ' .. id)
-  end
-  if M.layers[id].loading_status ~= l.loaded then
-    error('Requested an unloaded/a loading layer: ' .. id)
   end
 
   return M.layers[id]

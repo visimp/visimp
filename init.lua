@@ -1,3 +1,10 @@
-local loader = require('loader')
+local visimp = require('.')
+local gruvbox = require('themes.gruvbox')
 
-loader.load('defaults')
+visimp.configs = {
+  defaults = {
+    tab_space = 4
+  },
+  theme = gruvbox
+}
+visimp.init()

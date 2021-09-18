@@ -1,21 +1,30 @@
 local M = {}
 
-M.unloaded = 'l'
-M.loaded = 'L'
-M.loading = '~'
-
 --- Returns an empty new layer for the given identifier
 -- @param id A string used as the layer identifier
 -- @return layer The newly created layer
 function M.new_layer(id)
   local layer = {
     identifier = id,
-    loading_status = M.unloaded,
-    depends_on = {},
+    default_config = {},
+    config = {},
 
-    on_load = function() end
+    configure = function() end,
+    dependencies = function() return {} end,
+    packages = function() return {} end,
+    load = function() end
   }
   return layer
+end
+
+--- Returns true if the given argument is a proper layer
+-- @param layer The hypothetical layer to analyze
+-- @return A boolean value containing the result of the check
+function M.is_layer(layer)
+  return layer ~= nil and type(layer.identifier) == 'string' and
+    layer.identifier ~= nil and type(layer.configure) == 'function' and
+    type(layer.dependencies) == 'function' and type(packages) == 'function' and
+    type(layer.load) == 'function'
 end
 
 return M
