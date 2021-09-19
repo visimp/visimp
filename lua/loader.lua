@@ -17,7 +17,7 @@ function M.define_builtin(id)
   -- TODO: should be relative to the final module name
   local ok, module = pcall(require, 'layers.' .. id)
   if not ok then
-    error('Requested invalid builtin layer: ' .. id)
+    error('Requested invalid builtin layer: ' .. id .. '\n' .. module)
   end
 
   M.define_layer(module)
