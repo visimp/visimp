@@ -41,7 +41,7 @@ function M.init()
   for _, p in ipairs(packages) do
     print('paq '..p)
     -- TODO: customizable
-    require('paq-nvim').paq(p)
+    require('paq').paq(p)
   end
 
   -- Load layers

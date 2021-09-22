@@ -1,10 +1,12 @@
+-- TODO: customize
+vim.cmd 'packadd paq-nvim'
 local visimp = require('.')
 local gruvbox = require('themes.gruvbox')
 
 visimp.configs = {
   defaults = {
-    indent = 4
+    folmethod = 'marker'
   },
-  theme = gruvbox
+  theme = gruvbox()
 }
 visimp.init()
