@@ -1,2 +1,1 @@
-TODO: attempt to require with pcall(require, module) by default, other
-stuff can be set up by the user ofc
+opinionated & modular neovim lua config
