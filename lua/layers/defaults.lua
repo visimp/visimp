@@ -15,6 +15,7 @@ L.default_config = {
 
 function L.configure(cfg)
   L.config = L.default_config
+  cfg = cfg or {}
   for k,v in pairs(cfg) do
     L.config[k] = v
   end

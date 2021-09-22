@@ -2,7 +2,7 @@ local loader = require('loader')
 local layer = require('layer')
 local M = {}
 
-M.layers = {'defaults', 'theme'}
+M.layers = {'defaults', 'theme', 'treesitter'}
 M.configs = {}
 
 function M.init()
@@ -39,7 +39,6 @@ function M.init()
   local packages = {}
   loader.packages(packages, M.layers)
   for _, p in ipairs(packages) do
-    print('paq '..p)
     -- TODO: customizable
     require('paq').paq(p)
   end

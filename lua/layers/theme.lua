@@ -16,7 +16,7 @@ end
 function L.load()
   local ok, lush = pcall(require, 'lush')
   if not ok then
-    error('Lush not installed')
+    error('Lush not installed:\n' .. lush)
   end
   if L.config == nil then
     error('No theme chosen')
