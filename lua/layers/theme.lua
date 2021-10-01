@@ -1,3 +1,4 @@
+local package = require('pak').register
 local L = require('layer').new_layer('theme')
 
 -- NOTE: in this context L.config is the theme function passed to lush
@@ -9,8 +10,8 @@ function L.configure(theme)
   L.config = theme
 end
 
-function L.packages()
-  return {'rktjmp/lush.nvim'}
+function L.preload()
+  package('rktjmp/lush.nvim')
 end
 
 function L.load()

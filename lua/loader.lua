@@ -1,6 +1,7 @@
 local l = require('layer')
 local M = {
   layers = {},
+  preloaded = {},
   loaded = {}
 }
 
@@ -46,22 +47,21 @@ function M.are_cyclic(loading, list)
   return false
 end
 
---- Fills the given packages list for all the needed packages by the requested
--- layers.
--- @param packs A table of initial packages
+--- Calls the preaload function for the given layer and its dependencies
+-- @param id The layer identifier
 -- @param list A list of layer identifiers
-function M.packages(packs, list)
-  if list == nil or #list == 0 then
+function M.preload(id)
+  if M.preloaded[id] then
     return
   end
 
-  for _, id in ipairs(list) do
-    local l = M.layers[id]
-    for _, v in ipairs(l.packages()) do 
-      table.insert(packs, v)
-    end
-    M.packages(packs, l.dependencies())
+  local layer = M.get(id)
+  for _, did in ipairs(layer.dependencies()) do
+    M.preload(did) -- did = Dependency IDentifier
   end
+
+  layer.preload()
+  M.preloaded[id] = true
 end
 
 --- Loads a registered layer by its identifier with its dependecies.

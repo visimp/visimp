@@ -1,3 +1,6 @@
+-- TODO: customize
+vim.cmd 'packadd paq-nvim'
+
 local loader = require('loader')
 local layer = require('layer')
 local M = {}
@@ -15,7 +18,7 @@ function M.init()
       -- sanitize any custom layer into its id
       M.layers[i] = l.identifier
     else
-      error('Invalid layer provided: ' .. vim.inspect(layer))
+      error('Invalid layer provided:\n' .. vim.inspect(layer))
     end
   end
 
@@ -35,13 +38,12 @@ function M.init()
     error('The selected layers cause a cyclic dependency graph')
   end
 
-  -- Get packages
-  local packages = {}
-  loader.packages(packages, M.layers)
-  for _, p in ipairs(packages) do
-    -- TODO: customizable
-    require('paq').paq(p)
+  -- preload layers
+  for _, l in ipairs(M.layers) do
+    loader.preload(l)
   end
+
+  -- require'paq-nvim'.sync()
 
   -- Load layers
   for _, l in ipairs(M.layers) do

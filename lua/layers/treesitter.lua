@@ -1,3 +1,4 @@
+local package = require('pak').register
 local L = require('layer').new_layer('treesitter')
 
 local default_config = {
@@ -15,8 +16,8 @@ function L.configure(cfg)
   end
 end
 
-function L.packages()
-  return {'nvim-treesitter/nvim-treesitter'}
+function L.preload()
+  package('nvim-treesitter/nvim-treesitter')
 end
 
 function L.load()
@@ -29,6 +30,9 @@ function L.load()
     highlight = { enable = L.config.highlight },
     indent = { enable = L.config.indent }
   })
+end
+
+function L.ensure_language(lang)
 end
 
 return L

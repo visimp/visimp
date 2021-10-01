@@ -1,5 +1,3 @@
--- TODO: customize
-vim.cmd 'packadd paq-nvim'
 local visimp = require('.')
 local gruvbox = require('themes.gruvbox')
 

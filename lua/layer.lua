@@ -11,7 +11,7 @@ function M.new_layer(id)
 
     configure = function() end,
     dependencies = function() return {} end,
-    packages = function() return {} end,
+    preload = function() end,
     load = function() end
   }
   return layer
