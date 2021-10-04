@@ -5,7 +5,8 @@ local loader = require('loader')
 local layer = require('layer')
 local M = {}
 
-M.layers = {'defaults', 'theme', 'treesitter'}
+M.layers = {'defaults', 'theme', 'treesitter', 'languages'}
+M.languages = {}
 M.configs = {}
 
 function M.init()

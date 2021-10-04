@@ -27,10 +27,12 @@ function L.load()
   })
 end
 
-function L.ensure_languages(lang)
+-- Ensures the given tree sitter parsers are installed
+-- @param lang The array of languages to check
+function L.langs(lang)
+  print(vim.inspect(lang))
   local ts = get_module('install')
   ts.ensure_installed(lang)
 end
 
 return L
-

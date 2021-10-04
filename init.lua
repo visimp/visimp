@@ -5,6 +5,9 @@ visimp.configs = {
   defaults = {
     folmethod = 'marker'
   },
+  languages = {
+    'c'
+  },
   theme = gruvbox()
 }
 visimp.init()
