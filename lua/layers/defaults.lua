@@ -13,14 +13,6 @@ L.default_config = {
   colorcolumn = 80
 }
 
-function L.configure(cfg)
-  L.config = L.default_config
-  cfg = cfg or {}
-  for k,v in pairs(cfg) do
-    L.config[k] = v
-  end
-end
-
 function L.load()
   opt('o', 'swapfile', false)                                                  -- do not use swap files
   opt('o', 'backup', false)                                                    -- do not use backups

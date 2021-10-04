@@ -9,11 +9,18 @@ function M.new_layer(id)
     default_config = {},
     config = {},
 
-    configure = function() end,
     dependencies = function() return {} end,
     preload = function() end,
     load = function() end
   }
+  function layer.configure(cfg)
+    layer.config = layer.default_config
+    cfg = cfg or {}
+    for k,v in pairs(cfg) do
+      layer.config[k] = v
+    end
+  end
+
   return layer
 end
 

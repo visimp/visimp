@@ -1,30 +1,25 @@
 local package = require('pak').register
 local L = require('layer').new_layer('treesitter')
 
-local default_config = {
+local function get_module(mod)
+  local ok, ts = pcall(require, 'nvim-treesitter.' .. mod)
+  if not ok then
+    error('TreeSitter not installed:\n' .. ts)
+  end
+  return ts
+end
+
+L.default_config = {
   highlight = true,
   indent = true,
 }
-
-L.config = default_config
-
-function L.configure(cfg)
-  L.config = default_config
-  cfg = cfg or {}
-  for k,v in pairs(cfg) do
-    L.config[k] = v
-  end
-end
 
 function L.preload()
   package('nvim-treesitter/nvim-treesitter')
 end
 
 function L.load()
-  local ok, ts = pcall(require, 'nvim-treesitter.configs')
-  if not ok then
-    error('TreeSitter not installed:\n' .. ts)
-  end
+  local ts = get_module('configs')
 
   ts.setup({
     highlight = { enable = L.config.highlight },
@@ -32,7 +27,9 @@ function L.load()
   })
 end
 
-function L.ensure_language(lang)
+function L.ensure_languages(lang)
+  local ts = get_module('install')
+  ts.ensure_installed(lang)
 end
 
 return L

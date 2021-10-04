@@ -2,6 +2,7 @@ local package = require('pak').register
 local L = require('layer').new_layer('theme')
 
 -- NOTE: in this context L.config is the theme function passed to lush
+-- whereas L.theme is the lushified theme potentially used by other extensions
 
 L.theme = nil
 L.default_config = nil
