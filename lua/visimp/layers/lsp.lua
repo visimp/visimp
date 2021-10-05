@@ -20,6 +20,9 @@ function L.preload()
   if not L.config.skip_install then
     package('kabouzeid/nvim-lspinstall')
   end
+
+  -- load the needed vimscript section of nvim lsp
+  vim.cmd('packadd nvim-lspconfig')
 end
 
 function L.load()
