@@ -16,7 +16,8 @@ function L.preload()
   for _, lang in ipairs(L.config) do
     local ok, ll = pcall(require, 'visimp.languages.' .. lang)
     if not ok then
-      error('Cannot find language: ' .. lang .. '\n' .. ll)
+      error('Cannot find language: ' .. lang .. ' (resolved to visimp.languages.'
+      .. lang .. ')\n' .. ll)
     end
 
     loader.define_layer(ll)
@@ -36,7 +37,6 @@ function L.preload()
 end
 
 function L.load()
-
   -- Load languages
   for _, l in ipairs(L.config) do
     loader.load(l)

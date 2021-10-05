@@ -43,6 +43,7 @@ function L.load()
   opt('b', 'expandtab', true)                                                  -- use spaces when tab is hit
   opt('b', 'shiftwidth', L.config.indent)                                      -- size on an indent (< or >)
   opt('b', 'smartindent', true)                                                -- uses tabs/spaces wisely where needed
+  vim.cmd('syntax enable')                                                     -- enable syntax highlighting
 end
 
 return L

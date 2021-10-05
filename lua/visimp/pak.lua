@@ -4,10 +4,10 @@ local uv = vim.loop
 local print_err = vim.api.nvim_err_writeln
 
 local cfg = {
-    paqdir = vim.fn.stdpath("data") .. "/site/pack/paqs/",
+    pakdir = vim.fn.stdpath("data") .. "/site/pack/paks/",
     verbose = true,
 }
-local LOGFILE = vim.fn.stdpath("cache") .. "/paq.log"
+local LOGFILE = vim.fn.stdpath("cache") .. "/pak.log"
 local packages = {} -- 'name' = {options} pairs
 local num_pkgs = 0
 local last_ops = {} -- 'name' = 'op' pairs
@@ -150,7 +150,7 @@ local function remove(packdir)
         end
     end
     for name, dir in pairs(to_rm) do
-        if name ~= "paq-nvim" then
+        if name ~= "pak-nvim" then
             local ok = vim.fn.delete(dir, "rf")
             report("remove", ok == 0 and "ok" or "err", name, c)
         end
@@ -191,7 +191,7 @@ function register(args)
         return
     end
 
-    local dir = cfg.paqdir .. (args.opt and "opt/" or "start/") .. name
+    local dir = cfg.pakdir .. (args.opt and "opt/" or "start/") .. name
 
     packages[name] = {
         name = name,
@@ -206,26 +206,26 @@ end
 
 do
     vim.tbl_map(vim.cmd, {
-        "command! PakInstall  lua require('pak'):install()",
-        "command! PakUpdate   lua require('pak'):update()",
-        "command! PakClean    lua require('pak'):clean()",
-        "command! PaqRunHooks lua require('pak'):run_hooks()",
-        "command! PakSync     lua require('pak'):sync()",
-        "command! PakList     lua require('pak').list()",
-        "command! PakLogOpen  lua require('pak').log_open()",
-        "command! PakLogClean lua require('pak').log_clean()"
+        "command! PakInstall  lua require('visimp.pak'):install()",
+        "command! PakUpdate   lua require('visimp.pak'):update()",
+        "command! PakClean    lua require('visimp.pak'):clean()",
+        "command! PakRunHooks lua require('visimp.pak'):run_hooks()",
+        "command! PakSync     lua require('visimp.pak'):sync()",
+        "command! PakList     lua require('visimp.pak').list()",
+        "command! PakLogOpen  lua require('visimp.pak').log_open()",
+        "command! PakLogClean lua require('visimp.pak').log_clean()"
     })
 end
 
 return {
   register = register,
-    install = function(self) Counter "install" vim.tbl_map(install, packages) return self end,
-    update = function(self) Counter "update" vim.tbl_map(update, packages) return self end,
-    clean = function(self) Counter "remove" remove(cfg.paqdir .. "start/") remove(cfg.paqdir .. "opt/") return self end,
-    sync = function(self) self:clean():update():install() return self end,
-    run_hooks = function(self) vim.tbl_map(run_hook, packages) return self end,
-    list = list,
-    setup = function(self, args) for k,v in pairs(args) do cfg[k] = v end return self end,
-    log_open = function(self) vim.cmd("sp " .. LOGFILE) return self end,
-    log_clean = function(self) uv.fs_unlink(LOGFILE) print("Paq log file deleted") return self end,
+  install = function(self) Counter "install" vim.tbl_map(install, packages) return self end,
+  update = function(self) Counter "update" vim.tbl_map(update, packages) return self end,
+  clean = function(self) Counter "remove" remove(cfg.pakdir .. "start/") remove(cfg.pakdir .. "opt/") return self end,
+  sync = function(self) self:clean():update():install() return self end,
+  run_hooks = function(self) vim.tbl_map(run_hook, packages) return self end,
+  list = list,
+  setup = function(self, args) for k,v in pairs(args) do cfg[k] = v end return self end,
+  log_open = function(self) vim.cmd("sp " .. LOGFILE) return self end,
+  log_clean = function(self) uv.fs_unlink(LOGFILE) print("Paq log file deleted") return self end,
 }

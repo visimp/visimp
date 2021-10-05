@@ -10,7 +10,7 @@ function L.dependencies()
   return {'treesitter'}
 end
 
-function L.load()
+function L.preload()
   local ts = layers.get('treesitter')
   local langs = {}
   if L.config.c then

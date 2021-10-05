@@ -2,7 +2,7 @@ local L = require('visimp.layer').new_layer('treesitter')
 local package = require('visimp.pak').register
 
 local function get_module(mod)
-  local ok, ts = pcall(require, 'nvim-treesitter.' .. mod)
+  local ok, ts = pcall(require, 'nvim-treesitter' .. (mod and '.' .. mod or ''))
   if not ok then
     error('TreeSitter not installed:\n' .. ts)
   end
@@ -16,13 +16,19 @@ L.default_config = {
 
 function L.preload()
   package('nvim-treesitter/nvim-treesitter')
+
+  -- load the needed vimscript section of treesitter
+  vim.cmd('packadd nvim-treesitter')
 end
 
 function L.load()
-  local ts = get_module('configs')
+  local config = get_module('configs')
 
-  ts.setup({
-    highlight = { enable = L.config.highlight },
+  config.setup({
+    highlight = {
+      enable = L.config.highlight,
+      additional_vim_regex_highlighting = false
+    },
     indent = { enable = L.config.indent }
   })
 end

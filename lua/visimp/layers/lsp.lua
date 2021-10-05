@@ -24,7 +24,6 @@ end
 
 function L.load()
   local lsp = get_lsp()
-  -- print(vim.inspect(lsp))
 end
 
 return L
