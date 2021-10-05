@@ -1,11 +1,8 @@
--- TODO: customize
-vim.cmd 'packadd paq-nvim'
-
-local loader = require('loader')
-local layer = require('layer')
+local loader = require('visimp.loader')
+local layer = require('visimp.layer')
 local M = {}
 
-M.layers = {'defaults', 'theme', 'treesitter', 'languages'}
+M.layers = {'defaults', 'theme', 'treesitter', 'lsp', 'languages'}
 M.languages = {}
 M.configs = {}
 
@@ -40,7 +37,7 @@ function M.init()
     loader.preload(l)
   end
 
-  -- require'paq-nvim'.sync()
+  -- TODO: pak auto install missing
 
   -- Load layers
   for _, l in ipairs(M.layers) do

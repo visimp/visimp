@@ -1,5 +1,5 @@
-local L = require('layer').new_layer('c')
-local layers = require('loader')
+local L = require('visimp.layer').new_layer('c')
+local layers = require('visimp.loader')
 
 L.default_config = {
   c = true,

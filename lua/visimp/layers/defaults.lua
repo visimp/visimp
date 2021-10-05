@@ -1,5 +1,5 @@
-local L = require('layer').new_layer('defaults')
-local utils = require('utils')
+local L = require('visimp.layer').new_layer('defaults')
+local utils = require('visimp.utils')
 local opt = utils.opt
 local vfn = utils.vfn
 

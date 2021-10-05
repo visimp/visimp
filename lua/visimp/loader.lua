@@ -1,4 +1,4 @@
-local l = require('layer')
+local l = require('visimp.layer')
 local M = {
   layers = {},
   preloaded = {},
@@ -15,10 +15,10 @@ end
 -- The procedure either throws an error or defines the layer.
 -- @param id The layer identifier, by convention the same as the module name
 function M.define_builtin(id)
-  -- TODO: should be relative to the final module name
-  local ok, module = pcall(require, 'layers.' .. id)
+  local ok, module = pcall(require, 'visimp.layers.' .. id)
   if not ok then
-    error('Requested invalid builtin layer: ' .. id .. '\n' .. module)
+    error('Requested invalid builtin layer: ' .. id .. ' (resolved to ' ..
+    'visimp.layers.' .. id .. ')\n' .. module)
   end
 
   M.define_layer(module)

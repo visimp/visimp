@@ -1,6 +1,6 @@
-local L = require('layer').new_layer('languages')
-local loader = require('loader')
-local init = require('.')
+local L = require('visimp.layer').new_layer('languages')
+local loader = require('visimp.loader')
+local visimp = require('visimp')
 
 L.default_config = {}
 function L.configure(cfg)
@@ -14,20 +14,18 @@ end
 
 function L.preload()
   for _, lang in ipairs(L.config) do
-    local ok, module = pcall(require, 'languages.' .. lang)
+    local ok, ll = pcall(require, 'visimp.languages.' .. lang)
     if not ok then
-      error('Cannot find language: ' .. lang .. '\n' .. module)
+      error('Cannot find language: ' .. lang .. '\n' .. ll)
     end
 
-    loader.define_layer(module)
+    loader.define_layer(ll)
   end
-end
 
-function L.load()
   -- Configure layers
   for _, l in ipairs(L.config) do
     local ll = loader.get(l)
-    local cfg = init.configs[ll.identifier] or {}
+    local cfg = visimp.configs[ll.identifier] or {}
     loader.get(l).configure(cfg)
   end
 
@@ -35,6 +33,9 @@ function L.load()
   for _, l in ipairs(L.config) do
     loader.preload(l)
   end
+end
+
+function L.load()
 
   -- Load languages
   for _, l in ipairs(L.config) do

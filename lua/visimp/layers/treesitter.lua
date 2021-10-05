@@ -1,5 +1,5 @@
-local package = require('pak').register
-local L = require('layer').new_layer('treesitter')
+local L = require('visimp.layer').new_layer('treesitter')
+local package = require('visimp.pak').register
 
 local function get_module(mod)
   local ok, ts = pcall(require, 'nvim-treesitter.' .. mod)

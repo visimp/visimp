@@ -1,6 +1,5 @@
 -- all credits for the original version to the paq package manager author
 -- will later be slimmed down to include just what's needed and no more
-local vim = vim.api.nvim_call_function("has", {"nvim-0.5"}) and vim or require("paq.compat")
 local uv = vim.loop
 local print_err = vim.api.nvim_err_writeln
 

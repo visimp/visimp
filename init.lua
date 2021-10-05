@@ -1,5 +1,5 @@
-local visimp = require('.')
-local gruvbox = require('themes.gruvbox')
+local visimp = require('visimp')
+local gruvbox = require('visimp.themes.gruvbox')
 
 visimp.configs = {
   defaults = {
