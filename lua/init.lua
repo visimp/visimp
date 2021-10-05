@@ -26,11 +26,7 @@ function M.init()
   -- Configure layers
   for _, l in ipairs(M.layers) do
     local ll = loader.get(l)
-    local cfg = ll.default_config
-    if M.configs[ll.identifier] ~= nil then
-      cfg = M.configs[ll.identifier]
-    end
-
+    local cfg = M.configs[ll.identifier] or {}
     loader.get(l).configure(cfg)
   end
 

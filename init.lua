@@ -3,7 +3,7 @@ local gruvbox = require('themes.gruvbox')
 
 visimp.configs = {
   defaults = {
-    folmethod = 'marker'
+    foldmethod = 'marker'
   },
   languages = {
     'c'

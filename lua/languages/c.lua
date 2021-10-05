@@ -13,14 +13,12 @@ end
 function L.load()
   local ts = layers.get('treesitter')
   local langs = {}
-  print(vim.inspect(L.config))
   if L.config.c then
     table.insert(langs, 'c')
   end
   if L.config.cpp then
     table.insert(langs, 'cpp')
   end
-  print('here')
   ts.langs(langs)
 end
 
