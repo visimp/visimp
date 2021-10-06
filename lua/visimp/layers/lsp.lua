@@ -19,6 +19,7 @@ local function get_lspinstall(pkg)
 end
 
 L.servers = {}
+L.callbacks = {}
 L.default_config = {
   -- Can be set to false to disable installing all language servers
   install = true
@@ -56,8 +57,10 @@ function L.load()
     local name = srv.server == nil and srv.language or srv.server
     lsp[name].setup{
       settings = srv.settings,
-      on_attach = function()
-        print('attached')
+      on_attach = function(client, bufnr)
+        for _, fn in ipairs(L.callbacks) do
+          fn(client, bufnr)
+        end
       end
     }
   end
@@ -73,6 +76,12 @@ function L.use_server(lang, srv, settings)
     server = srv,
     settings = settings
   })
+end
+
+--- Adds an on_attach function which gets called when LSPs get enabled on buffers
+-- @param fn The callback function
+function L.on_attach(fn)
+  table.insert(L.callbacks, fn)
 end
 
 return L
