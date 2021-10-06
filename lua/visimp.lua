@@ -3,7 +3,6 @@ local layer = require('visimp.layer')
 local M = {}
 
 M.layers = {'defaults', 'theme', 'treesitter', 'lsp', 'languages'}
-M.languages = {}
 M.configs = {}
 
 function M.init()

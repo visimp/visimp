@@ -8,4 +8,13 @@ end
 
 M.vfn = vim.api.nvim_call_function -- alias to get vim paths
 
+function M.contains(table, val)
+   for i=1,#table do
+      if table[i] == val then 
+         return true
+      end
+   end
+   return false
+end
+
 return M
