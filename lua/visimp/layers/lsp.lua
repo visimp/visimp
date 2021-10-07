@@ -1,25 +1,11 @@
 local L = require('visimp.layer').new_layer('lsp')
 local package = require('visimp.pak').register
-local contains = require('visimp.utils').contains
-
-local function get_lsp(pkg)
-  local ok, lsp = pcall(require, 'lspconfig')
-  if not ok then
-    error('Neovim LSP not installed:\n' .. lsp)
-  end
-  return lsp
-end
-
-local function get_lspinstall(pkg)
-  local ok, lsp = pcall(require, 'lspinstall')
-  if not ok then
-    error('Neovim LSP install not installed:\n' .. lsp)
-  end
-  return lsp
-end
+local utils = require('visimp.utils')
+local contains, get_module = utils.contains, utils.get_module
 
 L.servers = {}
 L.callbacks = {}
+L.capabilities = nil
 L.default_config = {
   -- Can be set to false to disable installing all language servers
   install = true
@@ -36,9 +22,9 @@ function L.preload()
 end
 
 function L.load()
-  local lsp = get_lsp()
+  local lsp = get_module('lspconfig')
   if L.config.install then
-    local ins = get_lspinstall()
+    local ins = get_module('lspinstall')
 
     for _, srv in ipairs(L.servers) do
       if srv.server == nil then -- nil means default auto install
@@ -50,18 +36,19 @@ function L.load()
 
     -- If we are using lsp install let it change nvim lspconfig default 
     -- configurations. 
-    get_lspinstall().setup()
+    ins.setup()
   end
 
   for _, srv in ipairs(L.servers) do
     local name = srv.server == nil and srv.language or srv.server
     lsp[name].setup{
       settings = srv.settings,
-      on_attach = function(client, bufnr)
+      capabilities = L.capabilities,
+      on_attach = function(...)
         for _, fn in ipairs(L.callbacks) do
-          fn(client, bufnr)
+          fn(...)
         end
-      end
+      end,
     }
   end
 end
@@ -82,6 +69,12 @@ end
 -- @param fn The callback function
 function L.on_attach(fn)
   table.insert(L.callbacks, fn)
+end
+
+--- Sets the capabilities table
+-- @param fn The hook
+function L.on_capabilities(tbl)
+  L.capabilities = tbl
 end
 
 return L

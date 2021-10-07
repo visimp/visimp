@@ -26,25 +26,27 @@ end
 
 --- Returns true if the list of layers have a cyclic relationship
 -- @param loading A table of already loading packages
--- @param ... The list of layer identifiers
+-- @param list The list of layer identifiers
 -- @return False if the list of layers does not produce a cyclic graph
 function M.are_cyclic(loading, list)
   if list == nil or #list == 0 then
-    return false
+    return nil
   end
 
   for _, id in ipairs(list) do
     if loading[id] then
-      return true
+      return id
     end
 
     loading[id] = true
-    if M.are_cyclic(loading, M.layers[id].dependencies()) then
-      return true
+    local val = M.are_cyclic(loading, M.layers[id].dependencies())
+    if val ~= nil then
+      return val
     end
+    loading[id] = false
   end
 
-  return false
+  return nil
 end
 
 --- Calls the preaload function for the given layer and its dependencies

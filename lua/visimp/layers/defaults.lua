@@ -10,40 +10,44 @@ L.default_config = {
 
   scrolloff = 5,
   sidescrolloff = 10,
-  colorcolumn = 80
+  colorcolumn = 80,
+
+  completeopt = 'menuone,noinsert,noselect'
 }
 
 function L.load()
-  opt('o', 'swapfile', false)                                                  -- do not use swap files
-  opt('o', 'backup', false)                                                    -- do not use backups
-  opt('o', 'writebackup', false)                                               -- do not write backups
-  opt('o', 'undofile', true)                                                   -- use undo files
-  opt('o', 'undodir', vfn('stdpath', {"data"}) .. "/undo")                     -- set the undodir to $XDG_DATA/nvim/undo
-  opt('o', 'updatetime', 50)                                                   -- make vim's updates quicker so it feels snappier
-  opt('o', 'hidden', true)                                                     -- don't show verbose messages on the bottom
-  opt('o', 'showmode', false)                                                  -- shows the mode in the status line
-  opt('o', 'termguicolors', true)                                              -- enable true colors in modern terminals
+  opt('o', 'swapfile', false)                                                  -- Do not use swap files
+  opt('o', 'backup', false)                                                    -- Do not use backups
+  opt('o', 'writebackup', false)                                               -- Do not write backups
+  opt('o', 'undofile', true)                                                   -- Use undo files
+  opt('o', 'undodir', vfn('stdpath', {"data"}) .. "/undo")                     -- Set the undodir to $XDG_DATA/nvim/undo
+  opt('o', 'updatetime', 50)                                                   -- Make vim's updates quicker so it feels snappier
+  opt('o', 'hidden', true)                                                     -- Don't show verbose messages on the bottom
+  opt('o', 'showmode', false)                                                  -- Shows the mode in the status line
+  opt('o', 'termguicolors', true)                                              -- Enable true colors in modern terminals
 
-  opt('o', 'incsearch', true)                                                  -- search while typing (incrementally)
-  opt('o', 'hlsearch', false)                                                  -- do not hightlight searches 
-  opt('o', 'showmatch', false)                                                 -- do not show search matched words in files
-  opt('o', 'smartcase', true)                                                  -- ignore case when searching if everything is lowercase
+  opt('o', 'incsearch', true)                                                  -- Search while typing (incrementally)
+  opt('o', 'hlsearch', false)                                                  -- Do not hightlight searches 
+  opt('o', 'showmatch', false)                                                 -- Do not show search matched words in files
+  opt('o', 'smartcase', true)                                                  -- Ignore case when searching if everything is lowercase
 
-  opt('w', 'wrap', false)                                                      -- do not wrap lines
-  opt('w', 'number', true)                                                     -- add line numbers to the left gutter
-  opt('w', 'relativenumber', L.config.relativenumber)                          -- make line numbers relative
+  opt('w', 'wrap', false)                                                      -- Do not wrap lines
+  opt('w', 'number', true)                                                     -- Add line numbers to the left gutter
+  opt('w', 'relativenumber', L.config.relativenumber)                          -- Make line numbers relative
   if L.config.foldmethod ~= nil then
-    opt('w', 'foldmethod', L.config.foldmethod)                                -- fold with {{{ and }}} markers
+    opt('w', 'foldmethod', L.config.foldmethod)                                -- Fold with {{{ and }}} markers
   end
-  opt('o', 'scrolloff', L.config.scrolloff)                                    -- leave n lines from the bottom while scrolling down
-  opt('o', 'sidescrolloff', L.config.sidescrolloff)                            -- leave n lines frm the right while scrolling right
-  opt('w', 'colorcolumn', tostring(L.config.colorcolumn))                      -- show a column ruler at 80 chars
+  opt('o', 'scrolloff', L.config.scrolloff)                                    -- Leave n lines from the bottom while scrolling down
+  opt('o', 'sidescrolloff', L.config.sidescrolloff)                            -- Leave n lines frm the right while scrolling right
+  opt('w', 'colorcolumn', tostring(L.config.colorcolumn))                      -- Show a column ruler at 80 chars
 
-  opt('b', 'tabstop', L.config.indent)                                         -- number of spaces each tab shows
-  opt('b', 'expandtab', true)                                                  -- use spaces when tab is hit
-  opt('b', 'shiftwidth', L.config.indent)                                      -- size on an indent (< or >)
-  opt('b', 'smartindent', true)                                                -- uses tabs/spaces wisely where needed
-  vim.cmd('syntax enable')                                                     -- enable syntax highlighting
+  opt('b', 'tabstop', L.config.indent)                                         -- Number of spaces each tab shows
+  opt('b', 'expandtab', true)                                                  -- Use spaces when tab is hit
+  opt('b', 'shiftwidth', L.config.indent)                                      -- Size on an indent (< or >)
+  opt('b', 'smartindent', true)                                                -- Uses tabs/spaces wisely where needed
+
+  vim.cmd('syntax enable')                                                     -- Enable syntax highlighting
+  vim.opt.completeopt = L.config.completeopt                                   -- Define how completion works
 end
 
 return L

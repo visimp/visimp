@@ -1,9 +1,9 @@
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
-local M = {}
-
-M.layers = {'defaults', 'theme', 'treesitter', 'lsp', 'languages'}
-M.configs = {}
+local M = {
+  layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages'},
+  configs = {}
+}
 
 function M.init()
   -- Define all needed layers
@@ -27,8 +27,9 @@ function M.init()
   end
 
   -- Check for cyclic dependecy graphs
-  if loader.are_cyclic({}, M.layers) then
-    error('The selected layers cause a cyclic dependency graph')
+  local dep = loader.are_cyclic({}, M.layers)
+  if dep ~= nil then
+    error('The selected layers cause a cyclic dependency graph (faulty: ' .. dep .. ')')
   end
 
   -- preload layers

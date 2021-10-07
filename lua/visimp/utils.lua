@@ -17,4 +17,12 @@ function M.contains(table, val)
    return false
 end
 
+function M.get_module(mod)
+  local ok, ts = pcall(require, mod)
+  if not ok then
+    error('Plugin \'' .. mod .. '\'not installed:\n' .. ts)
+  end
+  return ts
+end
+
 return M
