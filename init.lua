@@ -1,7 +1,4 @@
-local visimp = require('visimp')
--- local gruvbox = require('visimp.themes.gruvbox')
-
-visimp.configs = {
+require'visimp'{
   defaults = {
     foldmethod = 'marker'
   },
@@ -14,4 +11,3 @@ visimp.configs = {
   -- theme = gruvbox()
   theme = {'lifepillar/vim-gruvbox8', 'gruvbox8', 'dark'}
 }
-visimp.init()
