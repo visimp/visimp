@@ -12,7 +12,8 @@ L.default_config = {
   sidescrolloff = 10,
   colorcolumn = 80,
 
-  completeopt = 'menuone,noinsert,noselect'
+  -- completeopt = 'menuone,noinsert,noselect'
+  completeopt = 'menuone,noselect'
 }
 
 function L.load()
@@ -47,7 +48,7 @@ function L.load()
   opt('b', 'smartindent', true)                                                -- Uses tabs/spaces wisely where needed
 
   vim.cmd('syntax enable')                                                     -- Enable syntax highlighting
-  vim.opt.completeopt = L.config.completeopt                                   -- Define how completion works
+  opt('o', 'completeopt', L.config.completeopt)                                     -- Define how completion works
 end
 
 return L

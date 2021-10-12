@@ -9,12 +9,11 @@ L.default_config = {
 
 function L.preload()
   package('nvim-treesitter/nvim-treesitter')
-
-  -- load the needed vimscript section of treesitter
-  vim.cmd('packadd nvim-treesitter')
 end
 
 function L.load()
+  vim.cmd('packadd nvim-treesitter')
+
   local config = get_module('nvim-treesitter.configs')
 
   config.setup({

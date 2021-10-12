@@ -16,12 +16,11 @@ function L.preload()
   if L.config.install then
     package('kabouzeid/nvim-lspinstall')
   end
-
-  -- Load the needed vimscript section of nvim lsp
-  vim.cmd('packadd nvim-lspconfig')
 end
 
 function L.load()
+  vim.cmd('packadd nvim-lspconfig')
+
   local lsp = get_module('lspconfig')
   if L.config.install then
     local ins = get_module('lspinstall')
@@ -73,8 +72,8 @@ end
 
 --- Sets the capabilities table
 -- @param fn The hook
-function L.on_capabilities(tbl)
-  L.capabilities = tbl
+function L.on_capabilities(fn)
+  L.capabilities = fn
 end
 
 return L
