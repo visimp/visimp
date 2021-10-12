@@ -21,3 +21,5 @@ function L.preload()
     vim.cmd('packadd vimtex')
   end
 end
+
+return L
