@@ -8,6 +8,7 @@ L.default_config = {
   buffer = true,
   -- Autocomplete from lsp suggestions
   lsp = true,
+  lspkind = true,
   mapping = {
     ['<C-d>'] = function(cmp) return cmp.mapping.scroll_docs(-4) end,
     ['<C-f>'] = function(cmp) return cmp.mapping.scroll_docs(4) end,
@@ -33,6 +34,9 @@ function L.preload()
   if L.config.lsp then
     package('hrsh7th/cmp-nvim-lsp')
   end
+  if L.config.lspkind then
+    package('onsails/lspkind-nvim')
+  end
 end
 
 function L.load()
@@ -42,25 +46,29 @@ function L.load()
     vim.cmd('packadd ' .. v)
   end
 
+  local cfg = { sources = {} }
   local cmp = get_module('cmp')
-  local sources = {}
   if L.config.buffer then
     cmp.register_source('buffer', get_module('cmp_buffer').new())
-    table.insert(sources, { name = 'buffer' })
+    table.insert(cfg.sources, { name = 'buffer' })
   end
   if L.config.lsp then
     local mod = get_module('cmp_nvim_lsp')
     mod.setup()
-    table.insert(sources, { name = 'nvim_lsp' })
+    table.insert(cfg.sources, { name = 'nvim_lsp' })
     loader.get('lsp').on_capabilities(
       mod.update_capabilities(vim.lsp.protocol.make_client_capabilities())
     )
   end
+  if L.config.lspkind then
+    local lspkind = get_module('lspkind')
+    cfg.formatting = {
+      format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+    }
+  end
+  cfg.mapping = vim.tbl_map(function (f) return f(cmp) end, L.config.mapping)
 
-  cmp.setup{
-    mapping = vim.tbl_map(function (f) return f(cmp) end, L.config.mapping),
-    sources = sources
-  }
+  cmp.setup(cfg)
 end
 
 return L
