@@ -10,12 +10,12 @@ creation of a simple initial configuration, possibly starting from a template.
 For UNIX-like system:
 ```sh
 git clone --depth=1 https://github.com/lucat1/visimp.git \
-    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/visimp
+    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp
 ```
 
 For Windows:
 ```sh
-git clone https://github.com/lucat1/visimp.git "$env:LOCALAPPDATA\nvim-data\site\visimp"
+git clone https://github.com/lucat1/visimp.git "$env:LOCALAPPDATA\nvim-data\site\pack/paks/start/visimp"
 ```
 
 Then create a neovim `init.lua` as follows:
