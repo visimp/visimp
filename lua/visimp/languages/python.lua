@@ -1,6 +1,5 @@
 local L = require('visimp.layer').new_layer('python')
 local layers = require('visimp.loader')
-local get_module = require('visimp.utils').get_module
 
 L.default_config = {
   -- The lsp server to use. Defaults to nil(clangd) but users can also use

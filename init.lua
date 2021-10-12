@@ -6,7 +6,7 @@ visimp.configs = {
     foldmethod = 'marker'
   },
   languages = {
-    'c', 'python'
+    'c', 'python', 'latex'
   },
   python = {
     lsp = 'pyright' -- Avoid installing pyright, use the system's default
