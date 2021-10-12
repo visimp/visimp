@@ -6,7 +6,10 @@ visimp.configs = {
     foldmethod = 'marker'
   },
   languages = {
-    'c'
+    'c', 'python'
+  },
+  python = {
+    lsp = 'pyright' -- Avoid installing pyright, use the system's default
   },
   theme = gruvbox()
 }
