@@ -1,5 +1,6 @@
 local L = require('visimp.layer').new_layer('latex')
 local layers = require('visimp.loader')
+local package = require('visimp.pak').register
 
 -- TODO: add latex language server
 L.default_config = {
@@ -18,8 +19,11 @@ function L.preload()
 
   if L.config.vimtex then
     package('lervag/vimtex')
-    vim.cmd('packadd vimtex')
   end
+end
+
+function L.load()
+  vim.cmd('packadd vimtex')
 end
 
 return L

@@ -1,6 +1,6 @@
 local L = require('visimp.layer').new_layer('languages')
 local loader = require('visimp.loader')
-local visimp = require('visimp')
+local visimp = require('visimp.setup')
 
 L.default_config = {}
 function L.configure(cfg)
@@ -14,9 +14,7 @@ end
 
 function L.preload()
   for _, lang in ipairs(L.config) do
-    local ok, ll = pcall(require, 'visimp.languages.' .. lang)
-    if not ok then
-      error('Cannot find language: ' .. lang .. ' (resolved to visimp.languages.'
+    local ok, ll = pcall(require, 'visimp.languages.' .. lang) if not ok then error('Cannot find language: ' .. lang .. ' (resolved to visimp.languages.'
       .. lang .. ')\n' .. ll)
     end
 

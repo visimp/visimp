@@ -21,9 +21,7 @@ git clone https://github.com/lucat1/visimp.git "$env:LOCALAPPDATA\nvim-data\site
 Then create a neovim `init.lua` as follows:
 
 ```lua
-local visimp = require('visimp')
-
-visimp.configs = {
+require'visimp'{
   defaults = {
     foldmethod = 'marker'
   },
@@ -35,5 +33,4 @@ visimp.configs = {
   },
   theme = {'lifepillar/vim-gruvbox8', 'gruvbox8', 'dark'}
 }
-visimp.init()
 ```
