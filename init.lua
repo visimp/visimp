@@ -1,5 +1,5 @@
 local visimp = require('visimp')
-local gruvbox = require('visimp.themes.gruvbox')
+-- local gruvbox = require('visimp.themes.gruvbox')
 
 visimp.configs = {
   defaults = {
@@ -11,6 +11,7 @@ visimp.configs = {
   python = {
     lsp = 'pyright' -- Avoid installing pyright, use the system's default
   },
-  theme = gruvbox()
+  -- theme = gruvbox()
+  theme = {'lifepillar/vim-gruvbox8', 'gruvbox8', 'dark'}
 }
 visimp.init()

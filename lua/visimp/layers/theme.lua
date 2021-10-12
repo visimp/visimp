@@ -1,5 +1,6 @@
 local L = require('visimp.layer').new_layer('theme')
 local package = require('visimp.pak').register
+local opt = require('visimp.utils').opt
 
 -- NOTE: in this context L.config is the theme function passed to lush
 -- whereas L.theme is the lushified theme potentially used by other extensions
@@ -8,11 +9,28 @@ L.theme = nil
 L.default_config = nil
 
 function L.configure(theme)
-  L.config = theme
+  if theme == nil or theme == {} then
+    error('No theme chosen')
+  elseif type(theme) == 'table' then
+    if #theme ~= 3 then
+      error('Theme array must be of format {package, theme, colorscheme}')
+    end
+    L.package = theme[1]
+    L.theme = theme[2]
+    L.color = theme[3]
+  elseif type(theme) == 'function' then
+    L.lush = theme
+  else 
+    error('Invalid theme type: ' .. type(theme))
+  end
 end
 
 function L.preload()
-  package('rktjmp/lush.nvim')
+  if L.lush ~= nil then
+    package('rktjmp/lush.nvim')
+  elseif L.package ~= nil then
+    package(L.package)
+  end
 end
 
 function L.load()
@@ -20,12 +38,14 @@ function L.load()
   if not ok then
     error('Lush not installed:\n' .. lush)
   end
-  if L.config == nil then
-    error('No theme chosen')
-  end
 
-  L.theme = lush(L.config(lush))
-  lush(L.theme)
+  if L.lush ~= nil then
+    L.theme = lush(L.lush(lush))
+    lush(L.theme)
+  elseif  L.package ~= nil then
+    vim.cmd('colorscheme ' .. L.theme)
+    opt('o', 'background', L.color)
+  end
 end
 
 function L.get_theme()
