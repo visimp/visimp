@@ -4,6 +4,8 @@ local opt = utils.opt
 local vfn = utils.vfn
 
 L.default_config = {
+  mapleader = ' ',
+
   relativenumber = true,
   foldmethod = nil,
   indent = 2,
@@ -48,7 +50,8 @@ function L.load()
   opt('b', 'smartindent', true)                                                -- Uses tabs/spaces wisely where needed
 
   vim.cmd('syntax enable')                                                     -- Enable syntax highlighting
-  opt('o', 'completeopt', L.config.completeopt)                                     -- Define how completion works
+  opt('o', 'completeopt', L.config.completeopt)                                -- Define how completion works
+  vim.g.mapleader = L.config.mapleader                                         -- Leader key for mappings
 end
 
 return L

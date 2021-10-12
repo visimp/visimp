@@ -1,7 +1,7 @@
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
 local M = {
-  layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages'},
+  layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope'},
   configs = {}
 }
 

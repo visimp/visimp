@@ -15,7 +15,6 @@ function L.load()
   vim.cmd('packadd nvim-treesitter')
 
   local config = get_module('nvim-treesitter.configs')
-
   config.setup({
     highlight = {
       enable = L.config.highlight,
