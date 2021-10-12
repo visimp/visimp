@@ -34,12 +34,12 @@ function L.preload()
 end
 
 function L.load()
-  local ok, lush = pcall(require, 'lush')
-  if not ok then
-    error('Lush not installed:\n' .. lush)
-  end
-
   if L.lush ~= nil then
+    local ok, lush = pcall(require, 'lush')
+    if not ok then
+      error('Lush not installed:\n' .. lush)
+    end
+
     L.theme = lush(L.lush(lush))
     lush(L.theme)
   elseif  L.package ~= nil then
