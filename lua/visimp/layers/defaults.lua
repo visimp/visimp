@@ -14,8 +14,7 @@ L.default_config = {
   sidescrolloff = 10,
   colorcolumn = 80,
 
-  -- completeopt = 'menuone,noinsert,noselect'
-  completeopt = 'menuone,noselect'
+  completeopt = 'menuone,noinsert,noselect'
 }
 
 function L.load()
