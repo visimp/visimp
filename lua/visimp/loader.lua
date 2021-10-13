@@ -8,6 +8,9 @@ local M = {
 --- Registers a new layer in the current configuration
 -- @param layer The layer to register
 function M.define_layer(layer)
+  if type(layer) ~= 'table' then
+    error('Invalid layer format, expected a table, got: ' .. type(layer))
+  end
   M.layers[layer.identifier] = layer
 end
 
