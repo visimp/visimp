@@ -1,5 +1,6 @@
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
+local package = require('visimp.pak').register
 local M = {
   layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope'},
   configs = {}
@@ -7,6 +8,8 @@ local M = {
 
 function M.setup(cfg)
   M.configs = cfg or {}
+  package('lucat1/visimp') -- Let visimp be updated by the package manager
+
   -- Define all needed layers
   for i, l in ipairs(M.layers) do
     if type(l) == 'string' then
