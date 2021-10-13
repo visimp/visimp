@@ -5,7 +5,7 @@ local get_module = require('visimp.utils').get_module
 
 L.default_config = {
   -- Autocopmlete from the buffer
-  buffer = true,
+  buffer = false,
   -- Autocomplete from lsp suggestions
   lsp = true,
   lspkind = true,
@@ -40,14 +40,12 @@ function L.preload()
 end
 
 function L.load()
-  -- TODO: understand why after/plugin/* files are not called with
-  -- packadd and instead we need to register completion sources manually
-  for _, v in ipairs({'nvim-cmp', 'cmp-buffer', 'cmp-nvim-lsp'}) do
-    vim.cmd('packadd ' .. v)
-  end
+  vim.cmd('packadd nvim-cmp')
 
   local cfg = { sources = {} }
   local cmp = get_module('cmp')
+  -- TODO: understand why after/plugin/* files are not called with
+  -- packadd and instead we need to register completion sources manually
   if L.config.buffer then
     cmp.register_source('buffer', get_module('cmp_buffer').new())
     table.insert(cfg.sources, { name = 'buffer' })
