@@ -16,7 +16,7 @@ end
 -- @param map The mapping object
 -- @param fn The call handler
 function M.map(map, fn)
-  local options = { noremap = false }
+  local options = { noremap = false, silent = true }
   if map.opts then
     options = vim.tbl_extend('force', options, opts)
   end

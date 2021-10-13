@@ -1,6 +1,7 @@
 local L = require('visimp.layer').new_layer('lsp')
 local package = require('visimp.pak').register
 local utils = require('visimp.utils')
+local bind = require('visimp.bind').bind
 local contains, get_module = utils.contains, utils.get_module
 
 L.servers = {}
@@ -8,7 +9,22 @@ L.callbacks = {}
 L.capabilities = nil
 L.default_config = {
   -- Can be set to false to disable installing all language servers
-  install = true
+  install = true,
+  binds = {
+    ['buf.declaration'] = { mode = 'n', bind = 'gD' },
+    ['buf.definition'] = { mode = 'n', bind = 'gd' },
+    ['buf.hover'] = { mode = 'n', bind = 'K' },
+    ['buf.implementation'] = { mode = 'n', bind = 'gi' },
+    ['buf.signature_help'] = { mode = 'n', bind = '<C-k>' },
+    ['buf.type_definition'] = { mode = 'n', bind = '<leader>D' },
+    ['buf.rename'] = { mode = 'n', bind = '<leader>rn' },
+    ['buf.code_action'] = { mode = 'n', bind = '<leader>ca' },
+    ['buf.references'] = { mode = 'n', bind = 'gr' },
+    ['diagnostic.show_line_diagnostics'] = { mode = 'n', bind = '<leader>e' },
+    ['diagnostic.goto_prev'] = { mode = 'n', bind = '[d' },
+    ['diagnostic.goto_next'] = { mode = 'n', bind = ']d' },
+    ['buf.formatting'] = { mode = 'n', bind = '<leader>f' }
+  }
 }
 
 function L.preload()
@@ -44,6 +60,16 @@ function L.load()
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = function(...)
+        -- Enable module binds first so they can be overwritten by other
+        -- callbacks if needed
+        bind(L.config.binds, function (key)
+          local scope = vim.lsp
+          for str in string.gmatch(key, '([^.]+)') do
+            scope = scope[str]
+          end
+          return scope
+        end)
+
         for _, fn in ipairs(L.callbacks) do
           fn(...)
         end
