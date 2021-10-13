@@ -1,15 +1,20 @@
 local L = require('visimp.layer').new_layer('latex')
 local layers = require('visimp.loader')
-local package = require('visimp.pak').register
 
--- TODO: add latex language server
 L.default_config = {
-  -- Install and enable the vimtex plugin
-  vimtex = true
+  -- The lsp server to use. Defaults to nil(texlab via lspinstall) but users can 
+  -- also specify another lspconfig server via a string. Set to false to disable.
+  lsp = nil,
+  -- Optional configuration to be provided for the chosen language server
+  lspconfig = nil
 }
 
 function L.dependencies()
-  return {'treesitter'}
+  local deps = {'treesitter'}
+  if L.config.lsp ~= false then
+    table.insert(deps, 'lsp')
+  end
+  return deps
 end
 
 function L.preload()
@@ -17,13 +22,10 @@ function L.preload()
   local ts = layers.get('treesitter')
   ts.langs({'latex'})
 
-  if L.config.vimtex then
-    package('lervag/vimtex')
+  -- Enable the language server
+  if L.config.lsp ~= false then
+    local lsp = layers.get('lsp')
+    lsp.use_server('latex', L.config.lsp, L.config.lspconfig)
   end
 end
-
-function L.load()
-  vim.cmd('packadd vimtex')
-end
-
 return L

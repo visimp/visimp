@@ -2,8 +2,8 @@ local L = require('visimp.layer').new_layer('python')
 local layers = require('visimp.loader')
 
 L.default_config = {
-  -- The lsp server to use. Defaults to nil(clangd) but users can also use
-  -- alternatives such as ccls. Can be set to false to disable this functionality
+  -- The lsp server to use. Defaults to nil(pyright via lspinstall & npm) but
+  -- users can also use alternatives such as 'pyright' for a local installation.
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
   lspconfig = nil
