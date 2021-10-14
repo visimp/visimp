@@ -34,3 +34,8 @@ require'visimp'{
   theme = {'lifepillar/vim-gruvbox8', 'gruvbox8', 'dark'}
 }
 ```
+
+After configuring your `visimp` please be sure to run `:PakInstall` to solve
+all `missing module` errors. Currently, it is requied to at least run one
+installation command, then close the editor and run it again to install _all_
+packages needed by second-level layers.
