@@ -62,7 +62,7 @@ function L.load()
       on_attach = function(...)
         -- Enable module binds first so they can be overwritten by other
         -- callbacks if needed
-        bind(L.config.binds, function (key)
+        bind(L.config.binds, function(key)
           local scope = vim.lsp
           for str in string.gmatch(key, '([^.]+)') do
             scope = scope[str]
