@@ -2,7 +2,7 @@ local loader = require('visimp.loader')
 local layer = require('visimp.layer')
 local package = require('visimp.pak').register
 local M = {
-  layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope'},
+  layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope', 'comment'},
   configs = {}
 }
 
