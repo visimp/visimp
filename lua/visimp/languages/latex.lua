@@ -6,7 +6,9 @@ L.default_config = {
   -- also specify another lspconfig server via a string. Set to false to disable.
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil
+  lspconfig = nil,
+  -- Automatically compile latex via texlab LSP
+  autocompile = true
 }
 
 function L.dependencies()
@@ -26,6 +28,9 @@ function L.preload()
   if L.config.lsp ~= false then
     local lsp = layers.get('lsp')
     lsp.use_server('latex', L.config.lsp, L.config.lspconfig)
+    if L.config.autocompile then
+      vim.cmd('autocmd BufWritePost *.tex :TexlabBuild')
+    end
   end
 end
 return L
