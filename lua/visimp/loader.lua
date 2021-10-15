@@ -27,6 +27,14 @@ function M.define_builtin(id)
   M.define_layer(module)
 end
 
+--- Returns true if the requested layer is builtin (and can be loaded)
+-- @param id The layer identifier
+-- @return Whether the layer is builtin
+function M.is_builtin(id)
+  local ok, module = pcall(require, 'visimp.layers.' .. id)
+  return ok
+end
+
 --- Returns true if the list of layers have a cyclic relationship
 -- @param loading A table of already loading packages
 -- @param list The list of layer identifiers

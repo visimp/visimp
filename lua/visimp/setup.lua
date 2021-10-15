@@ -1,6 +1,8 @@
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
 local package = require('visimp.pak').register
+local contains = require('visimp.utils').contains
+
 local M = {
   layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope', 'comment'},
   configs = {}
@@ -9,6 +11,18 @@ local M = {
 function M.setup(cfg)
   M.configs = cfg or {}
   package('lucat1/visimp') -- Let visimp be updated by the package manager
+
+  -- disable/enable layers which are set to false in the config/configured and
+  -- not enabled by default
+  for k, v in pairs(M.configs) do
+    if v == false then
+      -- disable any undesired layer
+      table.remove(M.layers, k)
+    elseif not contains(M.layers, k) and loader.is_builtin(k) then
+      -- enable any missing builtin layer
+      table.insert(M.layers, k)
+    end
+  end
 
   -- Define all needed layers
   for i, l in ipairs(M.layers) do
