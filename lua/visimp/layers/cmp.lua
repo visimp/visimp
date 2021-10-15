@@ -3,6 +3,8 @@ local loader = require('visimp.loader')
 local package = require('visimp.pak').register
 local get_module = require('visimp.utils').get_module
 
+L.sources = {}
+L.snippet = {}
 L.default_config = {
   -- Autocopmlete from the buffer
   buffer = false,
@@ -42,7 +44,7 @@ end
 function L.load()
   vim.cmd('packadd nvim-cmp')
 
-  local cfg = { sources = {} }
+  local cfg = { sources = L.sources, snippet = L.snippet }
   local cmp = get_module('cmp')
   -- TODO: understand why after/plugin/* files are not called with
   -- packadd and instead we need to register completion sources manually
@@ -67,6 +69,18 @@ function L.load()
   cfg.mapping = vim.tbl_map(function (f) return f(cmp) end, L.config.mapping)
 
   cmp.setup(cfg)
+end
+
+--- Adds a completion source object
+-- @param The source completion object
+function L.add_source(source)
+  table.insert(L.sources, source)
+end
+
+--- Sets the completion snippet handler
+-- @param snippet The snippet object
+function L.set_snippet(snippet)
+  L.snippet = snippet
 end
 
 return L
