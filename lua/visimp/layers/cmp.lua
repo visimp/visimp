@@ -16,7 +16,12 @@ L.default_config = {
     ['<C-f>'] = function(cmp) return cmp.mapping.scroll_docs(4) end,
     ['<C-Space>'] = function(cmp) return cmp.mapping.complete() end,
     ['<C-e>'] = function(cmp) return cmp.mapping.close() end,
-    ['<CR>'] = function(cmp) return cmp.mapping.confirm({ select = true }) end
+    ['<CR>'] = function(cmp) return cmp.mapping.confirm({
+      behaviour = cmp.ConfirmBehavior.Replace,
+      select = true
+    }) end,
+    ['<Tab>'] = function(cmp) return cmp.mapping.select_next_item() end,
+    ['<S-Tab>'] = function(cmp) return cmp.mapping.select_prev_item() end
   }
 }
 
