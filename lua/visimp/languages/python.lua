@@ -19,8 +19,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  local ts = layers.get('treesitter')
-  ts.langs({'python'})
+  layers.get('treesitter').langs({'python'})
 
   -- Enable the language server
   if L.config.lsp ~= false then

@@ -28,16 +28,13 @@ L.default_config = {
 
 function L.preload()
   package('neovim/nvim-lspconfig')
-  if L.config.install then
-    package('kabouzeid/nvim-lspinstall')
-  end
+  package({'kabouzeid/nvim-lspinstall', opt=true})
 end
 
 function L.load()
-  vim.cmd('packadd nvim-lspconfig')
-
   local lsp = get_module('lspconfig')
   if L.config.install then
+    vim.cmd('packadd nvim-lspinstall')
     local ins = get_module('lspinstall')
 
     for _, srv in ipairs(L.servers) do

@@ -26,15 +26,15 @@ function L.configure(theme)
 end
 
 function L.preload()
-  if L.lush ~= nil then
-    package('rktjmp/lush.nvim')
-  elseif L.package ~= nil then
+  package({'rktjmp/lush.nvim', opt=true})
+  if L.package ~= nil then
     package(L.package)
   end
 end
 
 function L.load()
   if L.lush ~= nil then
+    vim.cmd('packadd lush.nivm')
     local ok, lush = pcall(require, 'lush')
     if not ok then
       error('Lush not installed:\n' .. lush)
