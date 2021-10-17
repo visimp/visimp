@@ -1,5 +1,8 @@
 -- all credits for the original version to the paq package manager author
 -- will later be slimmed down to include just what's needed and no more
+
+local window = require('visimp.pak.window')
+
 local uv = vim.loop
 local print_err = vim.api.nvim_err_writeln
 
@@ -164,19 +167,30 @@ local function remove(packdir)
 end
 
 function M.list()
-    local installed = vim.tbl_filter(function(name) return packages[name].exists end, vim.tbl_keys(packages))
-    local removed = vim.tbl_filter(function(name) return last_ops[name] == "remove" end, vim.tbl_keys(last_ops))
-    table.sort(installed)
-    table.sort(removed)
-    local sym_tbl = {install = "+", update = "*", remove = " "}
-    for header, pkgs in pairs {["Installed packages:"] = installed, ["Recently removed:"] = removed} do
-        if #pkgs ~= 0 then
-            print(header)
-            for _, name in ipairs(pkgs) do
-                print("  ", sym_tbl[last_ops[name]] or " ", name)
-            end
-        end
+  local installed = vim.tbl_filter(
+    function(name) return packages[name].exists end,
+    vim.tbl_keys(packages)
+  )
+  local removed = vim.tbl_filter(
+    function(name) return last_ops[name] == "remove" end,
+    vim.tbl_keys(last_ops)
+  )
+  table.sort(installed)
+  table.sort(removed)
+  local sym_tbl = {install = "+", update = "*", remove = "-"}
+  local strs = {}
+  for header, pkgs in pairs {["Installed packages:"] = installed, ["Recently removed:"] = removed} do
+    if #pkgs ~= 0 then
+      table.insert(strs, header)
+      for _, name in ipairs(pkgs) do
+        table.insert(strs, '  ' .. (sym_tbl[last_ops[name]] or ' ') .. ' ' .. name)
+      end
     end
+  end
+
+  window.open()
+  window.set_content(strs)
+  window.lock()
 end
 
 function M.register(args)
