@@ -1,8 +1,5 @@
-local M = {
-  -- Array for exported functions which are mapped to a key
-  fn = {},
-  fns = 1
-}
+local vimfn = require('visimp.utils').vimfn
+local M = {}
 
 --- Checks if a bind object is correct
 -- @param bind The bind object
@@ -18,15 +15,10 @@ end
 function M.map(map, fn)
   local options = { noremap = false, silent = true }
   if map.opts then
-    options = vim.tbl_extend('force', options, opts)
+    options = vim.tbl_extend('force', options, map.opts)
   end
 
-  -- lua function to vimscript call
-  table.insert(M.fn, fn)
-  cmd = '<cmd>lua require\'visimp.bind\'.fn[' .. M.fns .. ']()<CR>'
-  M.fns = M.fns + 1
-
-  vim.api.nvim_set_keymap(map.mode, map.bind, cmd, options)
+  vim.api.nvim_set_keymap(map.mode, map.bind, '<CMD>' .. vimfn(fn) .. '<CR>', options)
 end
 
 --- Sets up the list of binds with the given list/function of handlers

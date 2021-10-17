@@ -6,6 +6,7 @@ L.default_config = {
   highlight = true,
   indent = true,
 }
+L.languages = {}
 
 function L.preload()
   package('nvim-treesitter/nvim-treesitter')
@@ -22,13 +23,15 @@ function L.load()
     },
     indent = { enable = L.config.indent }
   })
+
+  local ts = get_module('nvim-treesitter.install')
+  ts.ensure_installed(L.languages)
 end
 
 -- Ensures the given tree sitter parsers are installed
--- @param lang The array of languages to check
-function L.langs(lang)
-  local ts = get_module('nvim-treesitter.install')
-  ts.ensure_installed(lang)
+-- @param languages The array of languages to check
+function L.langs(languages)
+  vim.list_extend(L.languages, languages)
 end
 
 return L

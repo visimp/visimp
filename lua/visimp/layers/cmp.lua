@@ -10,7 +10,9 @@ L.default_config = {
   buffer = false,
   -- Autocomplete from lsp suggestions
   lsp = true,
+  -- Lsp symbols a la IntelliSense
   lspkind = true,
+
   mapping = {
     ['<C-d>'] = function(cmp) return cmp.mapping.scroll_docs(-4) end,
     ['<C-f>'] = function(cmp) return cmp.mapping.scroll_docs(4) end,
@@ -34,20 +36,22 @@ end
 
 function L.preload()
   package('hrsh7th/nvim-cmp')
-
-  if L.config.buffer then
-    package('hrsh7th/cmp-buffer')
-  end
-  if L.config.lsp then
-    package('hrsh7th/cmp-nvim-lsp')
-  end
-  if L.config.lspkind then
-    package('onsails/lspkind-nvim')
-  end
+  package({'hrsh7th/cmp-buffer', opt=true})
+  package({'hrsh7th/cmp-nvim-lsp', opt=true})
+  package({'onsails/lspkind-nvim', opt=true})
 end
 
 function L.load()
-  vim.cmd('packadd nvim-cmp')
+  -- load optional packages
+  if L.config.buffer then
+    vim.cmd('packadd cmp-buffer')
+  end
+  if L.config.lsp then
+    vim.cmd('packadd cmp-nvim-lsp')
+  end
+  if L.config.lspkind then
+    vim.cmd('packadd lspkind-nvim')
+  end
 
   local cfg = { sources = L.sources, snippet = L.snippet }
   local cmp = get_module('cmp')

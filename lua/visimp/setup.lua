@@ -1,7 +1,6 @@
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
 local package = require('visimp.pak').register
-local contains = require('visimp.utils').contains
 
 local M = {
   layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope', 'comment'},
@@ -18,7 +17,7 @@ function M.setup(cfg)
     if v == false then
       -- disable any undesired layer
       table.remove(M.layers, k)
-    elseif not contains(M.layers, k) and loader.is_builtin(k) then
+    elseif not vim.tbl_contains(M.layers, k) and loader.is_builtin(k) then
       -- enable any missing builtin layer
       table.insert(M.layers, k)
     end

@@ -1,8 +1,7 @@
 local L = require('visimp.layer').new_layer('lsp')
 local package = require('visimp.pak').register
-local utils = require('visimp.utils')
 local bind = require('visimp.bind').bind
-local contains, get_module = utils.contains, utils.get_module
+local get_module = require('visimp.utils').get_module
 
 L.servers = {}
 L.callbacks = {}

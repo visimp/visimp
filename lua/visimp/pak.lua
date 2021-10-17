@@ -31,6 +31,7 @@ local messages = {
         err = "failed to run hook for %s",
     }
 }
+local M = {}
 
 local function Counter(op) counters[op] = {ok=0, err=0, nop=0} end
 
@@ -88,7 +89,7 @@ local function run_hook(pkg)
     end
 end
 
-local function install(pkg)
+local function install_pkg(pkg)
     if pkg.exists then return update_count("install", "nop", nil, num_pkgs) end
     local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
     if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
@@ -102,6 +103,11 @@ local function install(pkg)
         report("install", ok and "ok" or "err", pkg.name)
     end
     call_proc("git", args, nil, post_install)
+end
+
+function M.install(pkg)
+  Counter "install"
+  vim.tbl_map(install_pkg, packages)
 end
 
 local function get_git_hash(dir)
@@ -157,7 +163,7 @@ local function remove(packdir)
     end
 end
 
-local function list()
+function M.list()
     local installed = vim.tbl_filter(function(name) return packages[name].exists end, vim.tbl_keys(packages))
     local removed = vim.tbl_filter(function(name) return last_ops[name] == "remove" end, vim.tbl_keys(last_ops))
     table.sort(installed)
@@ -173,7 +179,7 @@ local function list()
     end
 end
 
-function register(args)
+function M.register(args)
     if type(args) == "string" then args = {args} end
     local name, src
     if args.as then
@@ -199,9 +205,16 @@ function register(args)
         dir = dir,
         exists = vim.fn.isdirectory(dir) ~= 0,
         pin = args.pin,
+        run = args.run,
         url = args.url or "https://github.com/" .. args[1] .. ".git"
     }
     num_pkgs = num_pkgs + 1
+end
+
+function M.clean()
+  Counter('remove')
+  remove(cfg.pakdir .. 'start/')
+  remove(cfg.pakdir .. 'opt/')
 end
 
 do
@@ -217,15 +230,17 @@ do
     })
 end
 
-return {
-  register = register,
-  install = function(self) Counter "install" vim.tbl_map(install, packages) return self end,
-  update = function(self) Counter "update" vim.tbl_map(update, packages) return self end,
-  clean = function(self) Counter "remove" remove(cfg.pakdir .. "start/") remove(cfg.pakdir .. "opt/") return self end,
-  sync = function(self) self:clean():update():install() return self end,
-  run_hooks = function(self) vim.tbl_map(run_hook, packages) return self end,
-  list = list,
-  setup = function(self, args) for k,v in pairs(args) do cfg[k] = v end return self end,
-  log_open = function(self) vim.cmd("sp " .. LOGFILE) return self end,
-  log_clean = function(self) uv.fs_unlink(LOGFILE) print("Paq log file deleted") return self end,
-}
+return M
+
+-- return {
+--   register = register,
+--   install = function(self) Counter "install" vim.tbl_map(install_pkg, packages) return self end,
+--   update = function(self) Counter "update" vim.tbl_map(update, packages) return self end,
+--   clean = function(self) Counter "remove" remove(cfg.pakdir .. "start/") remove(cfg.pakdir .. "opt/") return self end,
+--   sync = function(self) self:clean():update():install() return self end,
+--   run_hooks = function(self) vim.tbl_map(run_hook, packages) return self end,
+--   list = list,
+--   setup = function(self, args) for k,v in pairs(args) do cfg[k] = v end return self end,
+--   log_open = function(self) vim.cmd("sp " .. LOGFILE) return self end,
+--   log_clean = function(self) uv.fs_unlink(LOGFILE) print("Paq log file deleted") return self end,
+-- }
