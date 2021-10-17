@@ -54,15 +54,12 @@ function L.load()
   -- TODO: understand why after/plugin/* files are not called with
   -- packadd and instead we need to register completion sources manually
   if L.config.buffer then
-    cmp.register_source('buffer', get_module('cmp_buffer').new())
     table.insert(cfg.sources, { name = 'buffer' })
   end
   if L.config.lsp then
-    local mod = get_module('cmp_nvim_lsp')
-    mod.setup()
     table.insert(cfg.sources, { name = 'nvim_lsp' })
     loader.get('lsp').on_capabilities(
-      mod.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+      get_module('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     )
   end
   if L.config.lspkind then

@@ -12,7 +12,9 @@ end
 function L.preload()
   package('l3mon4d3/luasnip')
   package('saadparwaiz1/cmp_luasnip')
+end
 
+function L.load()
   -- Configure the completion layer
   local cmp = loader.get('cmp')
   cmp.add_source({ name = 'luasnip' })
@@ -21,6 +23,7 @@ function L.preload()
       get_module('luasnip').lsp_expand(args.body)
     end,
   })
+  cmp.load()
 end
 
 return L
