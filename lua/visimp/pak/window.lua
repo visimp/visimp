@@ -7,14 +7,17 @@ local M = {
   -- The current buffer of the floating window
   buf = nil,
   -- The current floating window pointer
-  win = nil
+  win = nil,
 }
 
+function M.init()
+  M.width = math.ceil(vim.o.columns * M.config.width)
+  M.height = math.ceil(vim.o.lines * M.config.height)
+end
+
 function M.open()
-  local width, height = math.floor(vim.o.columns * M.config.width),
-                        math.floor(vim.o.lines * M.config.height)
-  local row, col = math.floor( ((vim.o.lines - height)/2) - 1 ),
-                   math.floor( (vim.o.columns - width)/2 )
+  local row, col = math.ceil( ((vim.o.lines - M.height)/2) - 1 ),
+                   math.ceil( (vim.o.columns - M.width)/2 )
 
   local cfg = {
     relative = 'editor',
@@ -22,8 +25,8 @@ function M.open()
     style = 'minimal',
     row = row,
     col = col,
-    width = width,
-    height = height
+    width = M.width,
+    height = M.height
   }
   M.buf = vim.api.nvim_create_buf(false, true)
   M.win = vim.api.nvim_open_win(M.buf, true, cfg)
@@ -39,6 +42,14 @@ end
 
 function M.set_content(str)
   vim.api.nvim_buf_set_lines(M.buf, 0, 1, true, str)
+end
+
+function M.set_line(line, str)
+  vim.api.nvim_buf_set_lines(M.buf, line, line, true, str)
+end
+
+function M.set_lines(start, _end, str)
+  vim.api.nvim_buf_set_lines(M.buf, start, _end, true, str)
 end
 
 function M.lock()

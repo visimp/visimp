@@ -2,9 +2,11 @@
 -- will later be slimmed down to include just what's needed and no more
 
 local window = require('visimp.pak.window')
+local count = require('visimp.pak.count')
 
 local uv = vim.loop
 local print_err = vim.api.nvim_err_writeln
+local sym_tbl = {install = '+', update = '*', remove = '-'}
 
 local cfg = {
     pakdir = vim.fn.stdpath("data") .. "/site/pack/paks/",
@@ -12,7 +14,6 @@ local cfg = {
 }
 local LOGFILE = vim.fn.stdpath("cache") .. "/pak.log"
 local packages = {} -- 'name' = {options} pairs
-local num_pkgs = 0
 local last_ops = {} -- 'name' = 'op' pairs
 local counters = {}
 local messages = {
@@ -51,12 +52,12 @@ local function update_count(op, result, _, total)
 end
 
 local function report(op, result, name, total)
-    local total = total or num_pkgs
+    local total = total or #packages
     local cur = update_count(op, result, nil, total)
     local count = cur and string.format("%d/%d", cur, total) or ""
     local msg = messages[op][result]
     local p = result == "err" and print_err or print
-    p(string.format("Paq [%s] " .. msg, count, name))
+    p(string.format("Pak [%s] " .. msg, count, name))
 end
 
 local function call_proc(process, args, cwd, cb)
@@ -93,7 +94,7 @@ local function run_hook(pkg)
 end
 
 local function install_pkg(pkg)
-    if pkg.exists then return update_count("install", "nop", nil, num_pkgs) end
+    if pkg.exists then return update_count("install", "nop", nil, #packages) end
     local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
     if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
     vim.list_extend(args, {pkg.dir})
@@ -126,21 +127,23 @@ local function get_git_hash(dir)
     return head_ref and first_line(dir .. "/.git/" .. head_ref:gsub("ref: ", ""))
 end
 
-local function update(pkg)
-    if not pkg.exists or pkg.pin then return update_count("update", "nop", nil, num_pkgs) end
+function M.update()
+  for _, pkg in pairs(packages) do
+    if not pkg.exists or pkg.pin then return update_count("update", "nop", nil, #packages) end
     local hash = get_git_hash(pkg.dir)
     local post_update = function(ok)
-        if not ok then
-            return report("update", "err", pkg.name)
-        elseif get_git_hash(pkg.dir) ~= hash then
-            last_ops[pkg.name] = "update"
-            report("update", "ok", pkg.name)
-            if pkg.run then run_hook(pkg) end
-        else
-            (cfg.verbose and report or update_count)("update", "nop", pkg.name, num_pkgs) -- blursed
-        end
+      if not ok then
+        return report("update", "err", pkg.name)
+      elseif get_git_hash(pkg.dir) ~= hash then
+        last_ops[pkg.name] = "update"
+        report("update", "ok", pkg.name)
+        if pkg.run then run_hook(pkg) end
+      else
+        (cfg.verbose and report or update_count)("update", "nop", pkg.name, #packages) -- blursed
+    end
     end
     call_proc("git", {"pull", "--recurse-submodules", "--update-shallow"}, pkg.dir, post_update)
+  end
 end
 
 local function remove(packdir)
@@ -159,37 +162,23 @@ local function remove(packdir)
         end
     end
     for name, dir in pairs(to_rm) do
-        if name ~= "pak-nvim" then
-            local ok = vim.fn.delete(dir, "rf")
-            report("remove", ok == 0 and "ok" or "err", name, c)
+        if name ~= 'vismp' then
+          packages[name] = nil
+          local ok = vim.fn.delete(dir, "rf")
+          report("remove", ok == 0 and "ok" or "err", name, c)
         end
     end
 end
 
 function M.list()
-  local installed = vim.tbl_filter(
-    function(name) return packages[name].exists end,
-    vim.tbl_keys(packages)
-  )
-  local removed = vim.tbl_filter(
-    function(name) return last_ops[name] == "remove" end,
-    vim.tbl_keys(last_ops)
-  )
-  table.sort(installed)
-  table.sort(removed)
-  local sym_tbl = {install = "+", update = "*", remove = "-"}
-  local strs = {}
-  for header, pkgs in pairs {["Installed packages:"] = installed, ["Recently removed:"] = removed} do
-    if #pkgs ~= 0 then
-      table.insert(strs, header)
-      for _, name in ipairs(pkgs) do
-        table.insert(strs, '  ' .. (sym_tbl[last_ops[name]] or ' ') .. ' ' .. name)
-      end
-    end
+  local keys = vim.tbl_keys(packages)
+  table.sort(keys)
+  local pkgs = {}
+  for _, k in ipairs(keys) do
+    pkgs[k] = sym_tbl[k] or ' '
   end
 
-  window.open()
-  window.set_content(strs)
+  count.updates(pkgs)
   window.lock()
 end
 
@@ -206,7 +195,7 @@ function M.register(args)
         src = args[1]
     end
     if not name then
-        return print_err("Paq: Failed to parse " .. src)
+        return print_err("Pak: Failed to parse " .. src)
     elseif packages[name] then
         return
     end
@@ -222,7 +211,6 @@ function M.register(args)
         run = args.run,
         url = args.url or "https://github.com/" .. args[1] .. ".git"
     }
-    num_pkgs = num_pkgs + 1
 end
 
 function M.clean()
@@ -231,17 +219,27 @@ function M.clean()
   remove(cfg.pakdir .. 'opt/')
 end
 
+function M.run(cmd)
+  window.init()
+  window.open()
+  if M[cmd] ~= nil then
+    M[cmd]()
+  else
+    error('Invalid pak call: ' .. cmd)
+  end
+end
+
 do
-    vim.tbl_map(vim.cmd, {
-        "command! PakInstall  lua require('visimp.pak'):install()",
-        "command! PakUpdate   lua require('visimp.pak'):update()",
-        "command! PakClean    lua require('visimp.pak'):clean()",
-        "command! PakRunHooks lua require('visimp.pak'):run_hooks()",
-        "command! PakSync     lua require('visimp.pak'):sync()",
-        "command! PakList     lua require('visimp.pak').list()",
-        "command! PakLogOpen  lua require('visimp.pak').log_open()",
-        "command! PakLogClean lua require('visimp.pak').log_clean()"
-    })
+  vim.tbl_map(vim.cmd, {
+    "command! PakInstall  lua require('visimp.pak').run('install')",
+    "command! PakUpdate   lua require('visimp.pak').run('update')",
+    "command! PakClean    lua require('visimp.pak').run('clean')",
+    "command! PakRunHooks lua require('visimp.pak').run('run_hooks')",
+    "command! PakSync     lua require('visimp.pak').run('sync')",
+    "command! PakList     lua require('visimp.pak').run('list')",
+    "command! PakLogOpen  lua require('visimp.pak').run('log_open')",
+    "command! PakLogClean lua require('visimp.pak').run('log_clean')"
+  })
 end
 
 return M

@@ -14,7 +14,7 @@ function M.new_layer(id)
     load = function() end
   }
   function layer.configure(cfg)
-    layer.config = vim.tbl_extend('force', layer.default_config, cfg)
+    layer.config = vim.tbl_deep_extend('force', layer.default_config, cfg)
   end
 
   return layer
