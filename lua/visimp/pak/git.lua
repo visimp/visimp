@@ -18,20 +18,20 @@ local function get_git_hash(dir)
 end
 
 local function call_proc(process, args, cwd, cb)
-    local log, stderr, handle
-    log = uv.fs_open(init.logfile, "a+", 0x1A4)
-    stderr = uv.new_pipe(false)
-    stderr:open(log)
-    handle = uv.spawn(
-        process,
-        {args=args, cwd=cwd, stdio={nil, nil, stderr}, env={"GIT_TERMINAL_PROMPT=0"}},
-        vim.schedule_wrap(function(code)
-            uv.fs_close(log)
-            stderr:close()
-            handle:close()
-            cb(code == 0)
-        end)
-    )
+  local log, stderr, handle
+  log = uv.fs_open(init.logfile, "a+", 0x1A4)
+  stderr = uv.new_pipe(false)
+  stderr:open(log)
+  handle = uv.spawn(
+    process,
+    {args=args, cwd=cwd, stdio={nil, nil, stderr}, env={"GIT_TERMINAL_PROMPT=0"}},
+    vim.schedule_wrap(function(code)
+      uv.fs_close(log)
+      stderr:close()
+      handle:close()
+      cb(code == 0)
+    end)
+  )
 end
 
 function M.install()
@@ -46,7 +46,6 @@ function M.install()
       call_proc("git", args, nil, function(ok)
         if ok then
           pkg.exists = true
-          if pkg.run then run_hook(pkg) end
           init.update(pkg.name, true)
         else
           init.update(pkg.name, false)
@@ -66,7 +65,6 @@ function M.update()
     local post_update = function(ok)
       if get_git_hash(pkg.dir) ~= hash then
         last_ops[pkg.name] = "update"
-        if pkg.run then run_hook(pkg) end
       end
       init.update(pkg.name, ok)
     end

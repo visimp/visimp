@@ -17,22 +17,9 @@ local packages = {} -- 'name' = {options} pairs
 local last_ops = {} -- 'name' = 'op' pairs
 local counters = {}
 local messages = {
-    install = {
-        ok = "installed %s",
-        err = "failed to install %s",
-    },
-    update = {
-        ok = "updated %s",
-        err = "failed to update %s",
-        nop = "(up-to-date) %s",
-    },
     remove = {
         ok = "removed %s",
         err = "failed to remove %s",
-    },
-    hook = {
-        ok = "ran hook for %s",
-        err = "failed to run hook for %s",
     }
 }
 local M = {}
@@ -75,22 +62,6 @@ local function call_proc(process, args, cwd, cb)
             cb(code == 0)
         end)
     )
-end
-
-local function run_hook(pkg)
-    local t = type(pkg.run)
-    if t == "function" then
-        vim.cmd("packadd " .. pkg.name)
-        local ok = pcall(pkg.run)
-        report("hook", ok and "ok" or "err", pkg.name)
-    elseif t == "string" then
-        local args = {}
-        for word in pkg.run:gmatch("%S+") do
-            table.insert(args, word)
-        end
-        local post_hook = function(ok) report("hook", ok and "ok" or "err", pkg.name) end
-        call_proc(table.remove(args, 1), args, pkg.dir, post_hook)
-    end
 end
 
 local function remove(packdir)
@@ -147,7 +118,6 @@ do
     'command! PakInstall  lua require(\'visimp.pak\').run(\'install\')',
     'command! PakUpdate   lua require(\'visimp.pak\').run(\'update\')',
     'command! PakClean    lua require(\'visimp.pak\').run(\'clean\')',
-    'command! PakRunHooks lua require(\'visimp.pak\').run(\'run_hooks\')',
     'command! PakSync     lua require(\'visimp.pak\').run(\'sync\')',
     'command! PakList     lua require(\'visimp.pak\').run(\'list\')',
     'command! PakLogOpen  lua require(\'visimp.pak\').run(\'log_open\')',
