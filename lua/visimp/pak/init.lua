@@ -9,6 +9,7 @@ local M = {
   packages = {}
 }
 
+--- Fills the dialog with initial data on registered packages
 function M.fill()
   M.update_count = 0
   local keys = vim.tbl_keys(M.packages)
@@ -20,8 +21,11 @@ function M.fill()
   count.updates(pkgs)
 end
 
-function M.update(name, ok)
-  count.update(name, ok and 'v' or 'x')
+--- Updates the given package entry with the proper symbol
+-- @param name The key of the package entry to update
+-- @param symbol The char to assign in the entry
+function M.update(name, symbol)
+  count.update(name, symbol)
   M.update_count = M.update_count + 1
   if M.update_count == vim.tbl_count(M.packages) then
     window.lock() -- customizable

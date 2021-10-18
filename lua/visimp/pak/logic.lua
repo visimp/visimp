@@ -3,6 +3,7 @@ local count = require('visimp.pak.count')
 local window = require('visimp.pak.window')
 local M = {}
 
+--- Lists all manged packages
 function M.list()
   local keys = vim.tbl_keys(init.packages)
   table.sort(keys)
@@ -15,6 +16,9 @@ function M.list()
   window.lock()
 end
 
+--- Registers a new package
+-- @param args Either a string or a list or a table which represents a valid
+--             object data type
 function M.register(args)
   if type(args) == "string" then args = {args} end
   local name, src

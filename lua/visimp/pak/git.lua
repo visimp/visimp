@@ -4,6 +4,8 @@ local window = require('visimp.pak.window')
 local M = {}
 local uv = vim.loop
 
+--- Returns the git hash of the repository at the given path
+-- @param dir The git directory
 local function get_git_hash(dir)
     local first_line = function(path)
         local file = io.open(path)
@@ -17,6 +19,13 @@ local function get_git_hash(dir)
     return head_ref and first_line(dir .. "/.git/" .. head_ref:gsub("ref: ", ""))
 end
 
+--- Calls the given process in a shell
+-- @param process The process command
+-- @param args A list of arguments to set as argv
+-- @param cwd The working directory of the spawned process
+-- @param cb A function to be run as a callback upon process exit (with an
+--             argument set to true if exit code was equal to zero, false
+--             otherwhise)
 local function call_proc(process, args, cwd, cb)
   local log, stderr, handle
   log = uv.fs_open(init.logfile, "a+", 0x1A4)
@@ -34,11 +43,12 @@ local function call_proc(process, args, cwd, cb)
   )
 end
 
+--- Installs all registered packages
 function M.install()
   init.fill()
   for _, pkg in pairs(init.packages) do
     if pkg.exists then
-      init.update(pkg.name, true)
+      init.update(pkg.name, 'v')
     else
       local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
       if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
@@ -46,32 +56,35 @@ function M.install()
       call_proc("git", args, nil, function(ok)
         if ok then
           pkg.exists = true
-          init.update(pkg.name, true)
+          init.update(pkg.name, 'v')
         else
-          init.update(pkg.name, false)
+          init.update(pkg.name, 'x')
         end
       end)
     end
   end
 end
 
+--- Updates all registered packages
 function M.update()
   init.fill()
   for _, pkg in pairs(init.packages) do
     if not pkg.exists or pkg.pin then
-      init.update(pkg.name, true)
+      init.update(pkg.name, 'x')
     end
     local hash = get_git_hash(pkg.dir)
     local post_update = function(ok)
       if get_git_hash(pkg.dir) ~= hash then
         last_ops[pkg.name] = "update"
       end
-      init.update(pkg.name, ok)
+      init.update(pkg.name, 'v')
     end
     call_proc("git", {"pull", "--recurse-submodules", "--update-shallow"}, pkg.dir, post_update)
   end
 end
 
+--- Removes all unregistered packages in the given directory
+-- @param packdir The directory to look for unregistered packages
 function M.remove(packdir)
   local name, dir, pkg
   local to_rm = {}
@@ -96,6 +109,7 @@ function M.remove(packdir)
   end
 end
 
+--- Cleans all unregistered packages in all runtime directories
 function M.clean()
   init.fill()
   M.remove(init.pakdir .. 'start/')
