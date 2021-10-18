@@ -6,6 +6,7 @@ local M = {
   },
   -- The current buffer of the floating window
   buf = nil,
+  buflen = 1,
   -- The current floating window pointer
   win = nil,
 }
@@ -29,6 +30,7 @@ function M.open()
     height = M.height
   }
   M.buf = vim.api.nvim_create_buf(false, true)
+  M.buflen = 1
   M.win = vim.api.nvim_open_win(M.buf, true, cfg)
 
   vim.api.nvim_win_set_option(M.win, 'winhl', 'FloatBorder:FloatBorder')
@@ -41,7 +43,8 @@ function M.close()
 end
 
 function M.set_content(str)
-  vim.api.nvim_buf_set_lines(M.buf, 0, 1, true, str)
+  vim.api.nvim_buf_set_lines(M.buf, 0, M.buflen, true, str)
+  M.buflen = #str
 end
 
 function M.set_line(line, str)

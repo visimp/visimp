@@ -52,12 +52,12 @@ local function update_count(op, result, _, total)
 end
 
 local function report(op, result, name, total)
-    local total = total or #packages
-    local cur = update_count(op, result, nil, total)
-    local count = cur and string.format("%d/%d", cur, total) or ""
-    local msg = messages[op][result]
-    local p = result == "err" and print_err or print
-    p(string.format("Pak [%s] " .. msg, count, name))
+  local total = total or #packages
+  local cur = update_count(op, result, nil, total)
+  local count = cur and string.format("%d/%d", cur, total) or ""
+  local msg = messages[op][result]
+  local p = result == "err" and print_err or print
+  p(string.format("Pak [%s] " .. msg, count, name))
 end
 
 local function call_proc(process, args, cwd, cb)
@@ -91,27 +91,6 @@ local function run_hook(pkg)
         local post_hook = function(ok) report("hook", ok and "ok" or "err", pkg.name) end
         call_proc(table.remove(args, 1), args, pkg.dir, post_hook)
     end
-end
-
-local function install_pkg(pkg)
-    if pkg.exists then return update_count("install", "nop", nil, #packages) end
-    local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
-    if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
-    vim.list_extend(args, {pkg.dir})
-    local post_install = function(ok)
-        if ok then
-            pkg.exists = true
-            last_ops[pkg.name] = "install"
-            if pkg.run then run_hook(pkg) end
-        end
-        report("install", ok and "ok" or "err", pkg.name)
-    end
-    call_proc("git", args, nil, post_install)
-end
-
-function M.install(pkg)
-  Counter "install"
-  vim.tbl_map(install_pkg, packages)
 end
 
 local function get_git_hash(dir)
@@ -170,6 +149,12 @@ local function remove(packdir)
     end
 end
 
+function M.clean()
+  Counter('remove')
+  remove(cfg.pakdir .. 'start/')
+  remove(cfg.pakdir .. 'opt/')
+end
+
 function M.list()
   local keys = vim.tbl_keys(packages)
   table.sort(keys)
@@ -213,10 +198,37 @@ function M.register(args)
     }
 end
 
-function M.clean()
-  Counter('remove')
-  remove(cfg.pakdir .. 'start/')
-  remove(cfg.pakdir .. 'opt/')
+function M.install(pkg)
+    if pkg.exists then
+      count.update(pkg.name, 'v')
+    else
+      local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
+      if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
+      vim.list_extend(args, {pkg.dir})
+      call_proc("git", args, nil, function(ok)
+        if ok then
+          pkg.exists = true
+          if pkg.run then run_hook(pkg) end
+          count.update(pkg.name, 'v')
+        else
+          count.update(pkg.name, 'x')
+        end
+      end)
+    end
+end
+
+function M.install_all()
+  local keys = vim.tbl_keys(packages)
+  table.sort(keys)
+  local pkgs = {}
+  for _, k in ipairs(keys) do
+    pkgs[k] = '-'
+  end
+
+  count.updates(pkgs)
+  for _, pkg in pairs(packages) do
+    M.install(pkg)
+  end
 end
 
 function M.run(cmd)
@@ -231,7 +243,7 @@ end
 
 do
   vim.tbl_map(vim.cmd, {
-    "command! PakInstall  lua require('visimp.pak').run('install')",
+    "command! PakInstall  lua require('visimp.pak').run('install_all')",
     "command! PakUpdate   lua require('visimp.pak').run('update')",
     "command! PakClean    lua require('visimp.pak').run('clean')",
     "command! PakRunHooks lua require('visimp.pak').run('run_hooks')",
@@ -243,16 +255,3 @@ do
 end
 
 return M
-
--- return {
---   register = register,
---   install = function(self) Counter "install" vim.tbl_map(install_pkg, packages) return self end,
---   update = function(self) Counter "update" vim.tbl_map(update, packages) return self end,
---   clean = function(self) Counter "remove" remove(cfg.pakdir .. "start/") remove(cfg.pakdir .. "opt/") return self end,
---   sync = function(self) self:clean():update():install() return self end,
---   run_hooks = function(self) vim.tbl_map(run_hook, packages) return self end,
---   list = list,
---   setup = function(self, args) for k,v in pairs(args) do cfg[k] = v end return self end,
---   log_open = function(self) vim.cmd("sp " .. LOGFILE) return self end,
---   log_clean = function(self) uv.fs_unlink(LOGFILE) print("Paq log file deleted") return self end,
--- }

@@ -17,8 +17,8 @@ local function find_longest_key()
 end
 
 local function recompute_lines()
-  M.per_line = math.min(math.ceil(window.width / M.longest_word), 4)
-  M.space_between = math.ceil((window.width - 2 - (M.longest_word * M.per_line)) / (M.per_line-1))
+  M.per_line = math.ceil(math.floor(window.width * 0.8) / (M.longest_word*2))
+  M.space_between = math.ceil((window.width - 2 - (M.longest_word * M.per_line)) / (M.per_line+1))
 end
 
 function M.update(package, value)
@@ -44,15 +44,14 @@ end
 function M.display()
   table.sort(M.packages)
   local strs = {}
-  local str = ''
+  local str = string.rep(' ', M.space_between)
   for i, k in ipairs(vim.tbl_keys(M.packages)) do
     if (i-1) % M.per_line == 0 and #str ~= 0 then
       table.insert(strs, str)
-      str = ''
+      str = string.rep(' ', M.space_between)
     end
     local sp = i % M.per_line ~= 0
-    str = str .. rpad(M.packages[k] .. ' ' .. k, sp and M.longest_word or 0) ..
-      (sp and string.rep(' ', M.space_between) or '')
+    str = str .. rpad(M.packages[k] .. ' ' .. k, sp and M.longest_word or 0) .. string.rep(' ', M.space_between)
   end
   window.set_content(strs)
 end
