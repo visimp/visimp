@@ -106,25 +106,6 @@ local function get_git_hash(dir)
     return head_ref and first_line(dir .. "/.git/" .. head_ref:gsub("ref: ", ""))
 end
 
-function M.update()
-  for _, pkg in pairs(packages) do
-    if not pkg.exists or pkg.pin then return update_count("update", "nop", nil, #packages) end
-    local hash = get_git_hash(pkg.dir)
-    local post_update = function(ok)
-      if not ok then
-        return report("update", "err", pkg.name)
-      elseif get_git_hash(pkg.dir) ~= hash then
-        last_ops[pkg.name] = "update"
-        report("update", "ok", pkg.name)
-        if pkg.run then run_hook(pkg) end
-      else
-        (cfg.verbose and report or update_count)("update", "nop", pkg.name, #packages) -- blursed
-    end
-    end
-    call_proc("git", {"pull", "--recurse-submodules", "--update-shallow"}, pkg.dir, post_update)
-  end
-end
-
 local function remove(packdir)
     local name, dir, pkg
     local to_rm = {}
@@ -198,26 +179,17 @@ function M.register(args)
     }
 end
 
-function M.install(pkg)
-    if pkg.exists then
-      count.update(pkg.name, 'v')
-    else
-      local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
-      if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
-      vim.list_extend(args, {pkg.dir})
-      call_proc("git", args, nil, function(ok)
-        if ok then
-          pkg.exists = true
-          if pkg.run then run_hook(pkg) end
-          count.update(pkg.name, 'v')
-        else
-          count.update(pkg.name, 'x')
-        end
-      end)
-    end
+local update_count = 0
+local function update(name, ok)
+  count.update(name, ok and 'v' or 'x')
+  update_count = update_count + 1
+  if update_count == vim.tbl_count(packages) then
+    window.lock() -- customizable
+  end
 end
 
-function M.install_all()
+function M.install()
+  update_count = 0
   local keys = vim.tbl_keys(packages)
   table.sort(keys)
   local pkgs = {}
@@ -227,7 +199,48 @@ function M.install_all()
 
   count.updates(pkgs)
   for _, pkg in pairs(packages) do
-    M.install(pkg)
+    if pkg.exists then
+      update(pkg.name, true)
+    else
+      local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
+      if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
+      vim.list_extend(args, {pkg.dir})
+      call_proc("git", args, nil, function(ok)
+        if ok then
+          pkg.exists = true
+          if pkg.run then run_hook(pkg) end
+          update(pkg.name, true)
+        else
+          update(pkg.name, false)
+        end
+      end)
+    end
+  end
+end
+
+function M.update()
+  update_count = 0
+  local keys = vim.tbl_keys(packages)
+  table.sort(keys)
+  local pkgs = {}
+  for _, k in ipairs(keys) do
+    pkgs[k] = '-'
+  end
+
+  count.updates(pkgs)
+  for _, pkg in pairs(packages) do
+    if not pkg.exists or pkg.pin then
+      update(pkg.name, true)
+    end
+    local hash = get_git_hash(pkg.dir)
+    local post_update = function(ok)
+      if get_git_hash(pkg.dir) ~= hash then
+        last_ops[pkg.name] = "update"
+        if pkg.run then run_hook(pkg) end
+      end
+      update(pkg.name, ok)
+    end
+    call_proc("git", {"pull", "--recurse-submodules", "--update-shallow"}, pkg.dir, post_update)
   end
 end
 
@@ -243,7 +256,7 @@ end
 
 do
   vim.tbl_map(vim.cmd, {
-    "command! PakInstall  lua require('visimp.pak').run('install_all')",
+    "command! PakInstall  lua require('visimp.pak').run('install')",
     "command! PakUpdate   lua require('visimp.pak').run('update')",
     "command! PakClean    lua require('visimp.pak').run('clean')",
     "command! PakRunHooks lua require('visimp.pak').run('run_hooks')",
