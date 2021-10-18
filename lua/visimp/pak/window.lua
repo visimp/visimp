@@ -11,11 +11,13 @@ local M = {
   win = nil,
 }
 
+--- Initializes the window module relative to the size of the vi window
 function M.init()
   M.width = math.ceil(vim.o.columns * M.config.width)
   M.height = math.ceil(vim.o.lines * M.config.height)
 end
 
+--- Opens the floating window and relative buffer
 function M.open()
   local row, col = math.ceil( ((vim.o.lines - M.height)/2) - 1 ),
                    math.ceil( (vim.o.columns - M.width)/2 )
@@ -37,28 +39,40 @@ function M.open()
   vim.api.nvim_win_set_option(M.win, 'winhl', 'Normal:Normal')
 end
 
+--- Closes the floating window
 function M.close()
   vim.api.nvim_win_close(M.win, true)
   vim.api.nvim_buf_delete(M.buf, { force = true })
 end
 
+--- Updates the whole content to the given list of strings
+-- @param str A list of strings
 function M.set_content(str)
   vim.api.nvim_buf_set_lines(M.buf, 0, M.buflen, true, str)
   M.buflen = #str
 end
 
+--- Updates the given single line with the provided new one
+-- @param line The index of the line which needs updating
+-- @param str The new line string
 function M.set_line(line, str)
   vim.api.nvim_buf_set_lines(M.buf, line, line, true, str)
 end
 
+--- Updates a list of lines between start and end
+-- @param start The start of the replacement
+-- @param _end The end of the replacement
+-- @param str The list of strings which will serve as a replacement
 function M.set_lines(start, _end, str)
   vim.api.nvim_buf_set_lines(M.buf, start, _end, true, str)
 end
 
+--- Locks the floating window buffer
 function M.lock()
   vim.api.nvim_buf_set_option(M.buf, 'modifiable', false)
 end
 
+--- Unlocks the floating window buffer
 function M.unlock()
   vim.api.nvim_buf_set_option(M.buf, 'modifiable', false)
 end

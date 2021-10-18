@@ -6,6 +6,7 @@ local M = {
   space_between = 0
 }
 
+--- Finds the longest key among all package names
 local function find_longest_key()
   local keys = vim.tbl_keys(M.packages)
   table.sort(keys, function(a,b) return #a>#b end)
@@ -16,11 +17,15 @@ local function find_longest_key()
   end
 end
 
+--- Computes the amount of lines and spacing between package names
 local function recompute_lines()
   M.per_line = math.ceil(math.floor(window.width * 0.8) / (M.longest_word*2))
   M.space_between = math.ceil((window.width - 2 - (M.longest_word * M.per_line)) / (M.per_line+1))
 end
 
+--- Updates the given package in the current buffer view
+-- @param package The package key
+-- @param value The new char value for the given package
 function M.update(package, value)
   M.packages[package] = value
   if(#package > M.longest_word) then
@@ -30,12 +35,15 @@ function M.update(package, value)
   M.display()
 end
 
+--- Updates the whole buffer view with a table of new/updates packages
+-- @param tbl The table of (packages, values)
 function M.updates(tbl)
   M.packages = vim.tbl_extend('force', M.packages, tbl) find_longest_key()
   recompute_lines()
   M.display()
 end
 
+--- Adds padding to the right of a string
 local function rpad(str, len)
   return str .. string.rep(' ', len - #str)
 end
