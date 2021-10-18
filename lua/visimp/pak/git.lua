@@ -72,4 +72,34 @@ function M.update()
   end
 end
 
+function M.remove(packdir)
+  local name, dir, pkg
+  local to_rm = {}
+  local c = 0
+  local handle = uv.fs_scandir(packdir)
+  while handle do
+    name = uv.fs_scandir_next(handle)
+    if not name then break end
+    pkg = init.packages[name]
+    dir = packdir .. name
+    if not (pkg and pkg.dir == dir) then
+      to_rm[name] = dir
+      c = c + 1
+    end
+  end
+  for name, dir in pairs(to_rm) do
+    if name ~= 'vismp' then
+      init.packages[name] = nil
+      local ok = vim.fn.delete(dir, "rf")
+      init.update(name, ok and 'x' or 'X')
+    end
+  end
+end
+
+function M.clean()
+  init.fill()
+  M.remove(init.pakdir .. 'start/')
+  M.remove(init.pakdir .. 'opt/')
+end
+
 return M

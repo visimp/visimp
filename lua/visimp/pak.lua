@@ -1,106 +1,13 @@
--- all credits for the original version to the paq package manager author
--- will later be slimmed down to include just what's needed and no more
-
 local window = require('visimp.pak.window')
-local count = require('visimp.pak.count')
-
-local uv = vim.loop
-local print_err = vim.api.nvim_err_writeln
-local sym_tbl = {install = '+', update = '*', remove = '-'}
-
-local cfg = {
-    pakdir = vim.fn.stdpath("data") .. "/site/pack/paks/",
-    verbose = true,
-}
-local LOGFILE = vim.fn.stdpath("cache") .. "/pak.log"
-local packages = {} -- 'name' = {options} pairs
-local last_ops = {} -- 'name' = 'op' pairs
-local counters = {}
-local messages = {
-    remove = {
-        ok = "removed %s",
-        err = "failed to remove %s",
-    }
-}
-local M = {}
-
-local function Counter(op) counters[op] = {ok=0, err=0, nop=0} end
-
-local function update_count(op, result, _, total)
-    local c, t = counters[op]
-    if not c then return end
-    c[result] = c[result] + 1
-    t = c[result]
-    if c.ok + c.err + c.nop == total then
-        Counter(op)
-        vim.cmd("packloadall! | silent! helptags ALL")
-    end
-    return t
-end
-
-local function report(op, result, name, total)
-  local total = total or #packages
-  local cur = update_count(op, result, nil, total)
-  local count = cur and string.format("%d/%d", cur, total) or ""
-  local msg = messages[op][result]
-  local p = result == "err" and print_err or print
-  p(string.format("Pak [%s] " .. msg, count, name))
-end
-
-local function call_proc(process, args, cwd, cb)
-    local log, stderr, handle
-    log = uv.fs_open(LOGFILE, "a+", 0x1A4)
-    stderr = uv.new_pipe(false)
-    stderr:open(log)
-    handle = uv.spawn(
-        process,
-        {args=args, cwd=cwd, stdio={nil, nil, stderr}, env={"GIT_TERMINAL_PROMPT=0"}},
-        vim.schedule_wrap(function(code)
-            uv.fs_close(log)
-            stderr:close()
-            handle:close()
-            cb(code == 0)
-        end)
-    )
-end
-
-local function remove(packdir)
-    local name, dir, pkg
-    local to_rm = {}
-    local c = 0
-    local handle = uv.fs_scandir(packdir)
-    while handle do
-        name = uv.fs_scandir_next(handle)
-        if not name then break end
-        pkg = packages[name]
-        dir = packdir .. name
-        if not (pkg and pkg.dir == dir) then
-            to_rm[name] = dir
-            c = c + 1
-        end
-    end
-    for name, dir in pairs(to_rm) do
-        if name ~= 'vismp' then
-          packages[name] = nil
-          local ok = vim.fn.delete(dir, "rf")
-          report("remove", ok == 0 and "ok" or "err", name, c)
-        end
-    end
-end
-
-function M.clean()
-  Counter('remove')
-  remove(cfg.pakdir .. 'start/')
-  remove(cfg.pakdir .. 'opt/')
-end
-
 local logic = require('visimp.pak.logic')
 local git = require('visimp.pak.git')
+
 local M = {
   register = logic.register,
   list = logic.list,
   install = git.install,
-  update = git.update
+  update = git.update,
+  clean = git.clean
 }
 
 function M.run(cmd)
@@ -118,10 +25,7 @@ do
     'command! PakInstall  lua require(\'visimp.pak\').run(\'install\')',
     'command! PakUpdate   lua require(\'visimp.pak\').run(\'update\')',
     'command! PakClean    lua require(\'visimp.pak\').run(\'clean\')',
-    'command! PakSync     lua require(\'visimp.pak\').run(\'sync\')',
     'command! PakList     lua require(\'visimp.pak\').run(\'list\')',
-    'command! PakLogOpen  lua require(\'visimp.pak\').run(\'log_open\')',
-    'command! PakLogClean lua require(\'visimp.pak\').run(\'log_clean\')'
   })
 end
 
