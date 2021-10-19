@@ -33,9 +33,8 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    local lsp = layers.get('lsp')
-    -- NOTE: nvim-lspinstall uses cpp to install clangd (which is the default)
-    lsp.use_server('cpp', L.config.lsp, L.config.lspconfig)
+    layers.get('lsp').use_server('c',
+      L.config.lsp == nil, L.config.lsp or 'clangd', L.config.lspconfig)
   end
 end
 

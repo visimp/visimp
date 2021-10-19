@@ -23,8 +23,8 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    local lsp = layers.get('lsp')
-    lsp.use_server('python', L.config.lsp, L.config.lspconfig)
+    layers.get('lsp').use_server('python',
+      L.config.lsp == nil, L.config.lsp or 'pyright', L.config.lspconfig)
   end
 end
 
