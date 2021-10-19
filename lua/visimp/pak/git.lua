@@ -75,9 +75,10 @@ function M.update()
     local hash = get_git_hash(pkg.dir)
     local post_update = function(ok)
       if get_git_hash(pkg.dir) ~= hash then
-        last_ops[pkg.name] = "update"
+        init.update(pkg.name, 'u')
+      else
+        init.update(pkg.name, 'v')
       end
-      init.update(pkg.name, 'v')
     end
     call_proc("git", {"pull", "--recurse-submodules", "--update-shallow"}, pkg.dir, post_update)
   end
