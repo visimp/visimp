@@ -28,31 +28,27 @@ L.default_config = {
 
 function L.preload()
   package('neovim/nvim-lspconfig')
-  package({'kabouzeid/nvim-lspinstall', opt=true})
+  package({'williamboman/nvim-lsp-installer', opt=true})
 end
 
 function L.load()
   local lsp = get_module('lspconfig')
   if L.config.install then
-    vim.cmd('packadd nvim-lspinstall')
-    local ins = get_module('lspinstall')
+    vim.cmd('packadd nvim-lsp-installer')
+    local has = get_module('nvim-lsp-installer.servers').is_server_installed
+    local install = get_module('nvim-lsp-installer').install
 
     for _, srv in ipairs(L.servers) do
-      if srv.server == nil then -- nil means default auto install
-        if not ins.is_server_installed(srv.language) then
-          ins.install_server(srv.language)
+      if srv.install and type(srv.server) == 'string' then
+        if not has(srv.server) then
+          install(srv.server)
         end
       end
     end
-
-    -- If we are using lsp install let it change nvim lspconfig default 
-    -- configurations. 
-    ins.setup()
   end
 
   for _, srv in ipairs(L.servers) do
-    local name = srv.server == nil and srv.language or srv.server
-    lsp[name].setup{
+    lsp[srv.server].setup{
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = function(...)
@@ -76,11 +72,13 @@ end
 
 --- Enables an LSP server at startup
 -- @param lang The name of the language (used by lspinstall)
+-- @param install True if the server should be installed via lspinstall
 -- @param srv The name of the server executable (if any)
 -- @param settings Any optional settings for the language server
-function L.use_server(lang, srv, settings)
+function L.use_server(lang, install, srv, settings)
   table.insert(L.servers, {
     language = lang,
+    install = install,
     server = srv,
     settings = settings
   })
