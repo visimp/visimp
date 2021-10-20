@@ -10,6 +10,7 @@ function M.new_layer(id)
     config = {},
 
     dependencies = function() return {} end,
+    packages = function() return {} end,
     preload = function() end,
     load = function() end
   }

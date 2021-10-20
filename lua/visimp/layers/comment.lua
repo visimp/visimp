@@ -1,5 +1,4 @@
 local L = require('visimp.layer').new_layer('comment')
-local package = require('visimp.pak').register
 local get_module = require('visimp.utils').get_module
 
 L.default_config = {
@@ -8,8 +7,8 @@ L.default_config = {
   config = {}
 }
 
-function L.preload()
-  package('terrortylor/nvim-comment')
+function L.packages()
+  return {'terrortylor/nvim-comment'}
 end
 
 function L.load()

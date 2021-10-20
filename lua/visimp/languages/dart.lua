@@ -1,7 +1,6 @@
 local L = require('visimp.layer').new_layer('dart')
 local layers = require('visimp.loader')
 local get_module = require('visimp.utils').get_module
-local package = require('visimp.pak').register
 
 L.default_config = {
   -- Uses systems' `dartls` by default, but can be disabled by setting to false
@@ -22,12 +21,20 @@ function L.dependencies()
   return deps
 end
 
-function L.preload()
-  package({'nvim-lua/plenary.nvim', opt=true})
-  package({'akinsho/flutter-tools.nvim', opt=true})
+function L.packages()
+  return {
+    {'nvim-lua/plenary.nvim', opt=true},
+    {'akinsho/flutter-tools.nvim', opt=true}
+  }
+end
 
+function L.preload()
   -- Configure treesitter
   layers.get('treesitter').langs({'dart'})
+
+  if L.config.flutter then
+    vim.cmd('packadd flutter-tools.nvim')
+  end
 
   -- Enable the language server
   if L.config.lsp ~= false and not L.config.flutter then
@@ -37,7 +44,6 @@ end
 
 function L.load()
   if L.config.flutter then
-    vim.cmd('packadd flutter-tools.nvim')
     get_module('flutter-tools').setup(L.config.flutterconfig or {})
   end
 end

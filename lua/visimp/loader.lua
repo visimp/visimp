@@ -1,8 +1,10 @@
 local l = require('visimp.layer')
 local M = {
   layers = {},
+  packaged = {},
   preloaded = {},
-  loaded = {}
+  loaded = {},
+  _packages = {}
 }
 
 --- Registers a new layer in the current configuration
@@ -60,6 +62,23 @@ function M.are_cyclic(loading, list)
   return nil
 end
 
+--- Calls the package function for the given layer and its dependencies
+-- @param id The layer identifier
+-- @param list A list of layer identifiers
+function M.packages(id)
+  if M.packaged[id] then
+    return
+  end
+
+  local layer = M.get(id)
+  for _, did in ipairs(layer.dependencies()) do
+    M.packages(did) -- did = Dependency IDentifier
+  end
+
+  vim.list_extend(M._packages, layer.packages() or {})
+  M.packaged[id] = true
+end
+
 --- Calls the preaload function for the given layer and its dependencies
 -- @param id The layer identifier
 -- @param list A list of layer identifiers
@@ -106,6 +125,12 @@ function M.get(id)
   end
 
   return M.layers[id]
+end
+
+--- Returns the list of required packages
+-- @return The list of required packages
+function M.get_packages()
+  return M._packages
 end
 
 return M
