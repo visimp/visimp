@@ -27,7 +27,7 @@ end
 function L.packages()
   local pkgs = {{'rktjmp/lush.nvim', opt=true}}
   if L.package ~= nil then
-    vim.list_extend(pkgs, { L.package })
+    table.insert(pkgs, L.package)
   end
   return pkgs
 end

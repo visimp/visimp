@@ -22,33 +22,47 @@ local has_words_before = function()
 end
 
 function L.preload()
-  local tab = loader.get('cmp').config.mapping['<Tab>']
-  local stab = loader.get('cmp').config.mapping['<S-Tab>']
-  loader.get('cmp').config.mapping['<S-Tab>'] = function(cmp)
-    return cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        get_module('luasnip').expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        (tab ~= nil and tab or fallback)()
-      end
-    end, { "i", "s" })
-  end
-end
-
-function L.load()
   -- Configure the completion layer
   local cmp = loader.get('cmp')
+
+  if cmp.config.mapping['<Tab>'] == cmp.default_config.mapping['<Tab>'] then
+    cmp.config.mapping['<Tab>'] = function(cmp)
+      return cmp.mapping(function(fallback)
+        local luasnip = get_module('luasnip')
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end, { "i", "s" })
+    end
+  end
+
+  if cmp.config.mapping['<S-Tab>'] == cmp.default_config.mapping['<S-Tab>'] then
+    cmp.config.mapping['<S-Tab>'] = function(cmp)
+      return cmp.mapping(function(fallback)
+        local luasnip = get_module('luasnip')
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, { "i", "s" })
+    end
+  end
+
   cmp.add_source({ name = 'luasnip' })
   cmp.set_snippet({
     expand = function(args)
       get_module('luasnip').lsp_expand(args.body)
-    end,
+    end
   })
-  get_module('luasnip').setup(L.config or {})
 end
 
 return L
