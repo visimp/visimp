@@ -12,6 +12,7 @@ L.default_config = {
   -- Lsp symbols a la IntelliSense
   lspkind = true,
 
+  -- Completion mappings
   mapping = {
     ['<C-d>'] = function(cmp) return cmp.mapping.scroll_docs(-4) end,
     ['<C-f>'] = function(cmp) return cmp.mapping.scroll_docs(4) end,
@@ -21,8 +22,22 @@ L.default_config = {
       behaviour = cmp.ConfirmBehavior.Replace,
       select = true
     }) end,
+
+    -- Could be overwritten by other plugins such as snippet managers
     ['<Tab>'] = function(cmp) return cmp.mapping.select_next_item() end,
     ['<S-Tab>'] = function(cmp) return cmp.mapping.select_prev_item() end
+  },
+
+  -- Broader and general nvim cmp configuration
+  config = {
+    experimental = {
+      ghost_text = true
+    }
+  },
+
+  lspkindconfig = {
+    with_text = false,
+    max_width = 65
   }
 }
 
@@ -62,7 +77,7 @@ end
 
 function L.load()
   local cmp = get_module('cmp')
-  local cfg = { sources = L.sources, snippet = L.snippet }
+  local cfg = vim.tbl_deep_extend('force', L.config.config, { sources = L.sources, snippet = L.snippet })
   if L.config.buffer then
     table.insert(cfg.sources, { name = 'buffer' })
   end
@@ -72,7 +87,7 @@ function L.load()
   if L.config.lspkind then
     local lspkind = get_module('lspkind')
     cfg.formatting = {
-      format = lspkind.cmp_format({with_text = false, maxwidth = 60})
+      format = lspkind.cmp_format(L.config.lspkindconfig)
     }
   end
   cfg.mapping = vim.tbl_map(function (f) return f(cmp) end, L.config.mapping)
