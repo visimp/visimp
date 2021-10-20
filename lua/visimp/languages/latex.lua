@@ -8,7 +8,9 @@ L.default_config = {
   -- Optional configuration to be provided for the chosen language server
   lspconfig = nil,
   -- Automatically compile latex via texlab LSP
-  autocompile = true
+  autocompile = true,
+  -- Sets the latex compiler to tectonic
+  tectonic = false
 }
 
 function L.dependencies()
@@ -24,12 +26,28 @@ function L.preload()
   layers.get('treesitter').langs({'latex'})
 
   -- Enable the language server
+  local cfg = {}
+  if L.config.autocompile then
+    cfg = vim.tbl_deep_extend('force', cfg, {
+      texlab = {
+        build = { onSave = true }
+      }
+    })
+  end
+  if L.config.tectonic then
+    cfg = vim.tbl_deep_extend('force', cfg, {
+      texlab = {
+        build = {
+          executable = 'tectonic',
+          args = { '%f', '--synctex', '--keep-logs', '--keep-intermediates'}
+        }
+      }
+    })
+  end
+  cfg = vim.tbl_deep_extend('force', cfg, L.config.lspconfig or {})
   if L.config.lsp ~= false then
     layers.get('lsp').use_server('latex',
-      L.config.lsp == nil, L.config.lsp or 'texlab', L.config.lspconfig)
-    if L.config.autocompile then
-      vim.cmd('autocmd BufWritePost *.tex :TexlabBuild')
-    end
+      L.config.lsp == nil, L.config.lsp or 'texlab', cfg)
   end
 end
 return L

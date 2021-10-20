@@ -32,7 +32,6 @@ function L.preload()
 end
 
 function L.load()
-  local lsp = get_module('lspconfig')
   if L.config.install then
     vim.cmd('packadd nvim-lsp-installer')
     local has = get_module('nvim-lsp-installer.servers').is_server_installed
@@ -48,7 +47,13 @@ function L.load()
   end
 
   for _, srv in ipairs(L.servers) do
-    lsp[srv.server].setup{
+    local server
+    if L.config.install and srv.install then
+      _, server = get_module('nvim-lsp-installer.servers').get_server(srv.server)
+    else
+      server = get_module('lspconfig')[srv.server]
+    end
+    server:setup{
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = function(...)
