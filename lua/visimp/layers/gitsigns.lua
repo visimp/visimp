@@ -1,13 +1,14 @@
 local L = require('visimp.layer').new_layer('gitsigns')
 local loader = require('visimp.loader')
-local package = require('visimp.pak').register
 local get_module = require('visimp.utils').get_module
 
 L.default_config = {}
 
-function L.preload()
-  package('nvim-lua/plenary.nvim')
-  package('lewis6991/gitsigns.nvim')
+function L.packages()
+  return {
+    'nvim-lua/plenary.nvim',
+    'lewis6991/gitsigns.nvim'
+  }
 end
 
 function L.load()

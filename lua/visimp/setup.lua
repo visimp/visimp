@@ -1,6 +1,6 @@
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
-local package = require('visimp.pak').register
+local register = require('visimp.pak').register
 
 local M = {
   layers = {'defaults', 'theme', 'treesitter', 'lsp', 'cmp', 'languages', 'telescope', 'comment'},
@@ -9,7 +9,7 @@ local M = {
 
 function M.setup(cfg)
   M.configs = cfg or {}
-  package('lucat1/visimp') -- Let visimp be updated by the package manager
+  register('lucat1/visimp') -- Let visimp be updated by the package manager
 
   -- disable/enable layers which are set to false in the config/configured and
   -- not enabled by default
@@ -49,12 +49,21 @@ function M.setup(cfg)
     error('The selected layers cause a cyclic dependency graph (faulty: ' .. dep .. ')')
   end
 
+  -- let layers define needed packages
+  for _, l in ipairs(M.layers) do
+    loader.packages(l)
+  end
+
+  for _, pkg in ipairs(loader.get_packages()) do
+    register(pkg)
+  end
+
+  -- TODO: pak auto install missing
+
   -- preload layers
   for _, l in ipairs(M.layers) do
     loader.preload(l)
   end
-
-  -- TODO: pak auto install missing
 
   -- Load layers
   for _, l in ipairs(M.layers) do

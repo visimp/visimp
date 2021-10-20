@@ -1,5 +1,4 @@
 local L = require('visimp.layer').new_layer('telescope')
-local package = require('visimp.pak').register
 local get_module = require('visimp.utils').get_module
 local bind = require('visimp.bind').bind
 
@@ -11,9 +10,11 @@ L.default_config = {
   }
 }
 
-function L.preload()
-  package('nvim-lua/plenary.nvim')
-  package('nvim-telescope/telescope.nvim')
+function L.packages()
+  return {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim'
+  }
 end
 
 function L.load()

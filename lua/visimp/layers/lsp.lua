@@ -1,5 +1,4 @@
 local L = require('visimp.layer').new_layer('lsp')
-local package = require('visimp.pak').register
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.utils').get_module
 
@@ -26,9 +25,11 @@ L.default_config = {
   }
 }
 
-function L.preload()
-  package('neovim/nvim-lspconfig')
-  package({'williamboman/nvim-lsp-installer', opt=true})
+function L.packages()
+  return {
+    'neovim/nvim-lspconfig',
+    {'williamboman/nvim-lsp-installer', opt=true}
+  }
 end
 
 function L.load()

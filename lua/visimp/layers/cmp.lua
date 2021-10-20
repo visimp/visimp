@@ -1,6 +1,5 @@
 local L = require('visimp.layer').new_layer('cmp')
 local loader = require('visimp.loader')
-local package = require('visimp.pak').register
 local get_module = require('visimp.utils').get_module
 
 L.sources = {}
@@ -27,6 +26,15 @@ L.default_config = {
   }
 }
 
+function L.packages()
+  return {
+    'hrsh7th/nvim-cmp',
+    {'hrsh7th/cmp-buffer', opt=true},
+    {'hrsh7th/cmp-nvim-lsp', opt=true},
+    {'onsails/lspkind-nvim', opt=true}
+  }
+end
+
 function L.dependencies()
   if L.config.lsp then
     return {'lsp'}
@@ -35,24 +43,24 @@ function L.dependencies()
 end
 
 function L.preload()
-  package('hrsh7th/nvim-cmp')
-  package({'hrsh7th/cmp-buffer', opt=true})
-  package({'hrsh7th/cmp-nvim-lsp', opt=true})
-  package({'onsails/lspkind-nvim', opt=true})
-end
-
-function L.load()
   -- load optional packages
   if L.config.buffer then
     vim.cmd('packadd cmp-buffer')
   end
-  if L.config.lsp then
-    vim.cmd('packadd cmp-nvim-lsp')
-  end
+
   if L.config.lspkind then
     vim.cmd('packadd lspkind-nvim')
   end
 
+  if L.config.lsp then
+    vim.cmd('packadd cmp-nvim-lsp')
+    loader.get('lsp').on_capabilities(
+      get_module('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    )
+  end
+end
+
+function L.load()
   local cfg = { sources = L.sources, snippet = L.snippet }
   local cmp = get_module('cmp')
   -- TODO: understand why after/plugin/* files are not called with
@@ -62,9 +70,6 @@ function L.load()
   end
   if L.config.lsp then
     table.insert(cfg.sources, { name = 'nvim_lsp' })
-    loader.get('lsp').on_capabilities(
-      get_module('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-    )
   end
   if L.config.lspkind then
     local lspkind = get_module('lspkind')

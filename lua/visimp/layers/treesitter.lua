@@ -1,5 +1,4 @@
 local L = require('visimp.layer').new_layer('treesitter')
-local package = require('visimp.pak').register
 local get_module = require('visimp.utils').get_module
 
 L.default_config = {
@@ -8,8 +7,8 @@ L.default_config = {
 }
 L.languages = {}
 
-function L.preload()
-  package('nvim-treesitter/nvim-treesitter')
+function L.packages()
+  return {'nvim-treesitter/nvim-treesitter'}
 end
 
 function L.load()

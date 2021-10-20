@@ -1,5 +1,4 @@
 local L = require('visimp.layer').new_layer('theme')
-local package = require('visimp.pak').register
 local opt = require('visimp.utils').opt
 
 -- NOTE: in this context L.config is the theme function passed to lush
@@ -25,8 +24,11 @@ function L.configure(theme)
   end
 end
 
+function L.packages()
+  return {{'rktjmp/lush.nvim', opt=true}}
+end
+
 function L.preload()
-  package({'rktjmp/lush.nvim', opt=true})
   if L.package ~= nil then
     package(L.package)
   end
