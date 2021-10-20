@@ -61,10 +61,8 @@ function L.preload()
 end
 
 function L.load()
-  local cfg = { sources = L.sources, snippet = L.snippet }
   local cmp = get_module('cmp')
-  -- TODO: understand why after/plugin/* files are not called with
-  -- packadd and instead we need to register completion sources manually
+  local cfg = { sources = L.sources, snippet = L.snippet }
   if L.config.buffer then
     table.insert(cfg.sources, { name = 'buffer' })
   end
@@ -74,7 +72,7 @@ function L.load()
   if L.config.lspkind then
     local lspkind = get_module('lspkind')
     cfg.formatting = {
-      format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+      format = lspkind.cmp_format({with_text = false, maxwidth = 60})
     }
   end
   cfg.mapping = vim.tbl_map(function (f) return f(cmp) end, L.config.mapping)
