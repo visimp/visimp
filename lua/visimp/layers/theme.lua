@@ -25,13 +25,11 @@ function L.configure(theme)
 end
 
 function L.packages()
-  return {{'rktjmp/lush.nvim', opt=true}}
-end
-
-function L.preload()
+  local pkgs = {{'rktjmp/lush.nvim', opt=true}}
   if L.package ~= nil then
-    package(L.package)
+    vim.list_extend(pkgs, { L.package })
   end
+  return pkgs
 end
 
 function L.load()
