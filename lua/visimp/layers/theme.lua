@@ -34,7 +34,7 @@ end
 
 function L.load()
   if L.lush ~= nil then
-    vim.cmd('packadd lush.nivm')
+    vim.cmd('packadd lush.nvim')
     local ok, lush = pcall(require, 'lush')
     if not ok then
       error('Lush not installed:\n' .. lush)
