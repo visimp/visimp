@@ -47,6 +47,15 @@ function L.load()
     end
   end
 
+  -- TODO: customizable and generalized
+  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+    vim.lsp.handlers.hover, { border = 'single' }
+  )
+
+  vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+    vim.lsp.handlers.signature_help, { border = 'single' }
+  )
+
   for _, srv in ipairs(L.servers) do
     local server
     if L.config.install and srv.install then
