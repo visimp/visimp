@@ -29,7 +29,9 @@ function L.load()
   local theme = loader.get('theme').get_theme()
 
   -- Attempt to load an existing lualine theme or use one generated from lush
-  local ltheme = #theme >= 3 and (#theme >= 4 and theme[4] or 'auto') or extract_from_lush(ltheme)
+  local ltheme = #theme >= 3
+    and (#theme >= 4 and theme[4] or 'auto')
+    or extract_from_lush(ltheme)
   get_module('lualine').setup(vim.tbl_deep_extend('force', L.config, { theme = ltheme }))
 end
 
