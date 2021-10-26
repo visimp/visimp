@@ -24,7 +24,7 @@ end
 
 function L.packages()
   local pkgs = {{'rktjmp/lush.nvim', opt=true}}
-  if type(L.theme) == 'function' and #L.theme == 3 then
+  if type(L.theme) == 'table' and #L.theme >= 3 then
     table.insert(pkgs, L.theme[1])
   end
   return pkgs
