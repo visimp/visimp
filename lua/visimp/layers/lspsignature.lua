@@ -2,15 +2,15 @@ local L = require('visimp.layer').new_layer('lspsignature')
 local get_module = require('visimp.utils').get_module
 
 L.default_config = {
-  hint_prefix = '> '
+  hint_prefix = '> ',
 }
 
 function L.dependecies()
-  return {'lsp'}
+  return { 'lsp' }
 end
 
 function L.packages()
-  return {'ray-x/lsp_signature.nvim'}
+  return { 'ray-x/lsp_signature.nvim' }
 end
 
 function L.load()

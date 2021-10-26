@@ -8,11 +8,11 @@ L.default_config = {
   -- Optional configuration to be provided for the chosen language server
   lspconfig = nil,
   -- Enable fish support (fish being a superset of bash)
-  fish = false
+  fish = false,
 }
 
 function L.dependencies()
-  local deps = {'treesitter'}
+  local deps = { 'treesitter' }
   if L.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
@@ -21,7 +21,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  local langs = {'bash'}
+  local langs = { 'bash' }
   if L.config.fish then
     table.insert(langs, 'fish')
   end
@@ -29,10 +29,13 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server('bash',
-      L.config.lsp == nil, L.config.lsp or 'bashls', L.config.lspconfig)
+    layers.get('lsp').use_server(
+      'bash',
+      L.config.lsp == nil,
+      L.config.lsp or 'bashls',
+      L.config.lspconfig
+    )
   end
 end
 
 return L
-

@@ -7,7 +7,7 @@ local M = {
   list = logic.list,
   install = git.install,
   update = git.update,
-  clean = git.clean
+  clean = git.clean,
 }
 
 function M.run(cmd)

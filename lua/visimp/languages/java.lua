@@ -6,11 +6,11 @@ L.default_config = {
   -- POSIX tools, but users can also provide their own installation.
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil
+  lspconfig = nil,
 }
 
 function L.dependencies()
-  local deps = {'treesitter'}
+  local deps = { 'treesitter' }
   if L.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
@@ -19,12 +19,16 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({'java'})
+  layers.get('treesitter').langs({ 'java' })
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server('java',
-      L.config.lsp == nil, L.config.lsp or 'jdtls', L.config.lspconfig)
+    layers.get('lsp').use_server(
+      'java',
+      L.config.lsp == nil,
+      L.config.lsp or 'jdtls',
+      L.config.lspconfig
+    )
   end
 end
 

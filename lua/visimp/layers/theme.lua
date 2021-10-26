@@ -12,18 +12,20 @@ function L.configure(theme)
     error('No theme chosen')
   elseif type(theme) == 'table' then
     if #theme < 3 then
-      error('Theme array must be of format {package, theme, colorscheme, [lualine]}')
+      error(
+        'Theme array must be of format {package, theme, colorscheme, [lualine]}'
+      )
     end
     L.theme = theme
   elseif type(theme) == 'function' then
     L.lush = theme
-  else 
+  else
     error('Invalid theme type: ' .. type(theme))
   end
 end
 
 function L.packages()
-  local pkgs = {{'rktjmp/lush.nvim', opt=true}}
+  local pkgs = { { 'rktjmp/lush.nvim', opt = true } }
   if type(L.theme) == 'table' and #L.theme >= 3 then
     table.insert(pkgs, L.theme[1])
   end

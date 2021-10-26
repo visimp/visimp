@@ -3,8 +3,19 @@ local layer = require('visimp.layer')
 local register = require('visimp.pak').register
 
 local M = {
-  layers = {'defaults', 'theme', 'treesitter', 'statusline', 'lsp', 'cmp', 'snippet', 'languages', 'telescope', 'comment'},
-  configs = {}
+  layers = {
+    'defaults',
+    'theme',
+    'treesitter',
+    'statusline',
+    'lsp',
+    'cmp',
+    'snippet',
+    'languages',
+    'telescope',
+    'comment',
+  },
+  configs = {},
 }
 
 function M.setup(cfg)
@@ -46,7 +57,11 @@ function M.setup(cfg)
   -- Check for cyclic dependecy graphs
   local dep = loader.are_cyclic({}, M.layers)
   if dep ~= nil then
-    error('The selected layers cause a cyclic dependency graph (faulty: ' .. dep .. ')')
+    error(
+      'The selected layers cause a cyclic dependency graph (faulty: '
+        .. dep
+        .. ')'
+    )
   end
 
   -- let layers define needed packages

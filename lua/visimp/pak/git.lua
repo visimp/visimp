@@ -7,16 +7,16 @@ local uv = vim.loop
 --- Returns the git hash of the repository at the given path
 -- @param dir The git directory
 local function get_git_hash(dir)
-    local first_line = function(path)
-        local file = io.open(path)
-        if file then
-            local line = file:read()
-            file:close()
-            return line
-        end
+  local first_line = function(path)
+    local file = io.open(path)
+    if file then
+      local line = file:read()
+      file:close()
+      return line
     end
-    local head_ref = first_line(dir .. "/.git/HEAD")
-    return head_ref and first_line(dir .. "/.git/" .. head_ref:gsub("ref: ", ""))
+  end
+  local head_ref = first_line(dir .. '/.git/HEAD')
+  return head_ref and first_line(dir .. '/.git/' .. head_ref:gsub('ref: ', ''))
 end
 
 --- Calls the given process in a shell
@@ -28,12 +28,17 @@ end
 --             otherwhise)
 local function call_proc(process, args, cwd, cb)
   local log, stderr, handle
-  log = uv.fs_open(init.logfile, "a+", 0x1A4)
+  log = uv.fs_open(init.logfile, 'a+', 0x1A4)
   stderr = uv.new_pipe(false)
   stderr:open(log)
   handle = uv.spawn(
     process,
-    {args=args, cwd=cwd, stdio={nil, nil, stderr}, env={"GIT_TERMINAL_PROMPT=0"}},
+    {
+      args = args,
+      cwd = cwd,
+      stdio = { nil, nil, stderr },
+      env = { 'GIT_TERMINAL_PROMPT=0' },
+    },
     vim.schedule_wrap(function(code)
       uv.fs_close(log)
       stderr:close()
@@ -50,10 +55,18 @@ function M.install()
     if pkg.exists then
       init.update(pkg.name, 'v')
     else
-      local args = {"clone", pkg.url, "--depth=1", "--recurse-submodules", "--shallow-submodules"}
-      if pkg.branch then vim.list_extend(args, {"-b", pkg.branch}) end
-      vim.list_extend(args, {pkg.dir})
-      call_proc("git", args, nil, function(ok)
+      local args = {
+        'clone',
+        pkg.url,
+        '--depth=1',
+        '--recurse-submodules',
+        '--shallow-submodules',
+      }
+      if pkg.branch then
+        vim.list_extend(args, { '-b', pkg.branch })
+      end
+      vim.list_extend(args, { pkg.dir })
+      call_proc('git', args, nil, function(ok)
         if ok then
           pkg.exists = true
           init.update(pkg.name, 'v')
@@ -80,7 +93,12 @@ function M.update()
         init.update(pkg.name, 'v')
       end
     end
-    call_proc("git", {"pull", "--recurse-submodules", "--update-shallow"}, pkg.dir, post_update)
+    call_proc(
+      'git',
+      { 'pull', '--recurse-submodules', '--update-shallow' },
+      pkg.dir,
+      post_update
+    )
   end
 end
 
@@ -93,7 +111,9 @@ function M.remove(packdir)
   local handle = uv.fs_scandir(packdir)
   while handle do
     name = uv.fs_scandir_next(handle)
-    if not name then break end
+    if not name then
+      break
+    end
     pkg = init.packages[name]
     dir = packdir .. name
     if not (pkg and pkg.dir == dir) then
@@ -104,7 +124,7 @@ function M.remove(packdir)
   for name, dir in pairs(to_rm) do
     if name ~= 'vismp' then
       init.packages[name] = nil
-      local ok = vim.fn.delete(dir, "rf")
+      local ok = vim.fn.delete(dir, 'rf')
       init.update(name, ok and 'x' or 'X')
     end
   end

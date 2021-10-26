@@ -18,7 +18,12 @@ function M.map(map, fn)
     options = vim.tbl_extend('force', options, map.opts)
   end
 
-  vim.api.nvim_set_keymap(map.mode, map.bind, '<CMD>' .. vimfn(fn) .. '<CR>', options)
+  vim.api.nvim_set_keymap(
+    map.mode,
+    map.bind,
+    '<CMD>' .. vimfn(fn) .. '<CR>',
+    options
+  )
 end
 
 --- Sets up the list of binds with the given list/function of handlers
@@ -32,7 +37,12 @@ function M.bind(binds, handler)
 
   for exec, key in pairs(binds) do
     if not M.is_valid(key) then
-      error('Invalid key bind: \n' .. vim.inspect(key) .. ' -> ' .. vim.inspect(exec))
+      error(
+        'Invalid key bind: \n'
+          .. vim.inspect(key)
+          .. ' -> '
+          .. vim.inspect(exec)
+      )
     end
 
     local hndlr = type(handler) == 'table' and handler[exec] or handler(exec)

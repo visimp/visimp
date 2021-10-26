@@ -5,7 +5,7 @@ local get_module = require('visimp.utils').get_module
 L.default_config = {}
 
 function L.packages()
-  return {'simrat39/symbols-outline.nvim'}
+  return { 'simrat39/symbols-outline.nvim' }
 end
 
 function L.load()

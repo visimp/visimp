@@ -4,18 +4,18 @@ local bind = require('visimp.bind').bind
 
 L.default_config = {
   config = {
-    borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' } 
+    borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
   },
   binds = {
     ['find_files'] = { mode = 'n', bind = '<leader>p' },
-    ['live_grep'] = { mode = 'n', bind = '<leader>f' }
-  }
+    ['live_grep'] = { mode = 'n', bind = '<leader>f' },
+  },
 }
 
 function L.packages()
   return {
     'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim'
+    'nvim-telescope/telescope.nvim',
   }
 end
 

@@ -4,7 +4,7 @@ local get_module = require('visimp.utils').get_module
 L.default_config = {}
 
 function L.packages()
-  return {'terrortylor/nvim-comment'}
+  return { 'terrortylor/nvim-comment' }
 end
 
 function L.load()
