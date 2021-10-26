@@ -3,7 +3,9 @@ local get_module = require('visimp.utils').get_module
 local bind = require('visimp.bind').bind
 
 L.default_config = {
-  config = {},
+  config = {
+    borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' } 
+  },
   binds = {
     ['find_files'] = { mode = 'n', bind = '<leader>p' },
     ['live_grep'] = { mode = 'n', bind = '<leader>f' }

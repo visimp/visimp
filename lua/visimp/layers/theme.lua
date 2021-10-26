@@ -11,12 +11,10 @@ function L.configure(theme)
   if theme == nil or theme == {} then
     error('No theme chosen')
   elseif type(theme) == 'table' then
-    if #theme ~= 3 then
-      error('Theme array must be of format {package, theme, colorscheme}')
+    if #theme < 3 then
+      error('Theme array must be of format {package, theme, colorscheme, [lualine]}')
     end
-    L.package = theme[1]
-    L.theme = theme[2]
-    L.color = theme[3]
+    L.theme = theme
   elseif type(theme) == 'function' then
     L.lush = theme
   else 
@@ -26,8 +24,8 @@ end
 
 function L.packages()
   local pkgs = {{'rktjmp/lush.nvim', opt=true}}
-  if L.package ~= nil then
-    table.insert(pkgs, L.package)
+  if type(L.theme) == 'function' and #L.theme == 3 then
+    table.insert(pkgs, L.theme[1])
   end
   return pkgs
 end
@@ -42,9 +40,9 @@ function L.load()
 
     L.theme = lush(L.lush(lush))
     lush(L.theme)
-  elseif  L.package ~= nil then
-    vim.cmd('colorscheme ' .. L.theme)
-    opt('o', 'background', L.color)
+  elseif L.theme ~= nil then
+    vim.cmd('colorscheme ' .. L.theme[2])
+    opt('o', 'background', L.theme[3])
   end
 end
 
