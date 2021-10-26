@@ -8,7 +8,7 @@ L.default_config = {
 L.languages = {}
 
 function L.packages()
-  return {'nvim-treesitter/nvim-treesitter'}
+  return { 'nvim-treesitter/nvim-treesitter' }
 end
 
 function L.load()
@@ -16,9 +16,9 @@ function L.load()
   config.setup({
     highlight = {
       enable = L.config.highlight,
-      additional_vim_regex_highlighting = false
+      additional_vim_regex_highlighting = false,
     },
-    indent = { enable = L.config.indent }
+    indent = { enable = L.config.indent },
   })
 
   local ts = get_module('nvim-treesitter.install')

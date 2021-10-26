@@ -10,11 +10,11 @@ L.default_config = {
   -- Can be set to false to disable the integration with the Flutter framework
   flutter = true,
   -- Flutter tools configuration
-  flutterconfig = {}
+  flutterconfig = {},
 }
 
 function L.dependencies()
-  local deps = {'treesitter'}
+  local deps = { 'treesitter' }
   if L.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
@@ -23,14 +23,14 @@ end
 
 function L.packages()
   return {
-    {'nvim-lua/plenary.nvim', opt=true},
-    {'akinsho/flutter-tools.nvim', opt=true}
+    { 'nvim-lua/plenary.nvim', opt = true },
+    { 'akinsho/flutter-tools.nvim', opt = true },
   }
 end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({'dart'})
+  layers.get('treesitter').langs({ 'dart' })
 
   if L.config.flutter then
     vim.cmd('packadd flutter-tools.nvim')

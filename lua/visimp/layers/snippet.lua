@@ -5,20 +5,24 @@ local get_module = require('visimp.utils').get_module
 L.default_config = {}
 
 function L.dependencies()
-  return {'cmp'}
+  return { 'cmp' }
 end
 
 function L.packages()
   return {
     'l3mon4d3/luasnip',
-    'saadparwaiz1/cmp_luasnip'
+    'saadparwaiz1/cmp_luasnip',
   }
 end
 
 -- Taken from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0
+    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match('%s')
+      == nil
 end
 
 function L.preload()
@@ -38,7 +42,10 @@ function L.preload()
         else
           fallback()
         end
-      end, { "i", "s" })
+      end, {
+        'i',
+        's',
+      })
     end
   end
 
@@ -53,7 +60,10 @@ function L.preload()
         else
           fallback()
         end
-      end, { "i", "s" })
+      end, {
+        'i',
+        's',
+      })
     end
   end
 
@@ -61,7 +71,7 @@ function L.preload()
   cmp.set_snippet({
     expand = function(args)
       get_module('luasnip').lsp_expand(args.body)
-    end
+    end,
   })
 end
 

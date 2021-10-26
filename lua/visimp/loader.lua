@@ -4,7 +4,7 @@ local M = {
   packaged = {},
   preloaded = {},
   loaded = {},
-  _packages = {}
+  _packages = {},
 }
 
 --- Registers a new layer in the current configuration
@@ -22,8 +22,15 @@ end
 function M.define_builtin(id)
   local ok, module = pcall(require, 'visimp.layers.' .. id)
   if not ok then
-    error('Requested invalid builtin layer: ' .. id .. ' (resolved to ' ..
-    'visimp.layers.' .. id .. ')\n' .. module)
+    error(
+      'Requested invalid builtin layer: '
+        .. id
+        .. ' (resolved to '
+        .. 'visimp.layers.'
+        .. id
+        .. ')\n'
+        .. module
+    )
   end
 
   M.define_layer(module)

@@ -7,7 +7,7 @@ L.default_config = {}
 function L.packages()
   return {
     'nvim-lua/plenary.nvim',
-    'lewis6991/gitsigns.nvim'
+    'lewis6991/gitsigns.nvim',
   }
 end
 

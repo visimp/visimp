@@ -9,10 +9,14 @@ function M.new_layer(id)
     default_config = {},
     config = {},
 
-    dependencies = function() return {} end,
-    packages = function() return {} end,
+    dependencies = function()
+      return {}
+    end,
+    packages = function()
+      return {}
+    end,
     preload = function() end,
-    load = function() end
+    load = function() end,
   }
   function layer.configure(cfg)
     layer.config = vim.tbl_deep_extend('force', layer.default_config, cfg)
@@ -25,10 +29,13 @@ end
 -- @param layer The hypothetical layer to analyze
 -- @return A boolean value containing the result of the check
 function M.is_layer(layer)
-  return layer ~= nil and type(layer.identifier) == 'string' and
-    layer.identifier ~= nil and type(layer.configure) == 'function' and
-    type(layer.dependencies) == 'function' and type(packages) == 'function' and
-    type(layer.load) == 'function'
+  return layer ~= nil
+    and type(layer.identifier) == 'string'
+    and layer.identifier ~= nil
+    and type(layer.configure) == 'function'
+    and type(layer.dependencies) == 'function'
+    and type(packages) == 'function'
+    and type(layer.load) == 'function'
 end
 
 return M

@@ -21,14 +21,14 @@ L.default_config = {
     ['diagnostic.show_line_diagnostics'] = { mode = 'n', bind = '<leader>e' },
     ['diagnostic.goto_prev'] = { mode = 'n', bind = '[d' },
     ['diagnostic.goto_next'] = { mode = 'n', bind = ']d' },
-    ['buf.formatting'] = { mode = 'n', bind = '<leader>f' }
-  }
+    ['buf.formatting'] = { mode = 'n', bind = '<leader>f' },
+  },
 }
 
 function L.packages()
   return {
     'neovim/nvim-lspconfig',
-    {'williamboman/nvim-lsp-installer', opt=true}
+    { 'williamboman/nvim-lsp-installer', opt = true },
   }
 end
 
@@ -49,21 +49,25 @@ function L.load()
 
   -- TODO: customizable and generalized
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover, { border = 'single' }
+    vim.lsp.handlers.hover,
+    { border = 'single' }
   )
 
   vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help, { border = 'single' }
+    vim.lsp.handlers.signature_help,
+    { border = 'single' }
   )
 
   for _, srv in ipairs(L.servers) do
     local server
     if L.config.install and srv.install then
-      _, server = get_module('nvim-lsp-installer.servers').get_server(srv.server)
+      _, server = get_module('nvim-lsp-installer.servers').get_server(
+        srv.server
+      )
     else
       server = get_module('lspconfig')[srv.server]
     end
-    server:setup{
+    server:setup({
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = function(...)
@@ -81,7 +85,7 @@ function L.load()
           fn(...)
         end
       end,
-    }
+    })
   end
 end
 
@@ -95,7 +99,7 @@ function L.use_server(lang, install, srv, settings)
     language = lang,
     install = install,
     server = srv,
-    settings = settings
+    settings = settings,
   })
 end
 

@@ -2,7 +2,7 @@ local M = {
   -- Configuration for the popup floating window
   config = {
     width = 0.8,
-    height = 0.7
+    height = 0.7,
   },
   -- The current buffer of the floating window
   buf = nil,
@@ -19,8 +19,9 @@ end
 
 --- Opens the floating window and relative buffer
 function M.open()
-  local row, col = math.ceil( ((vim.o.lines - M.height)/2) - 1 ),
-                   math.ceil( (vim.o.columns - M.width)/2 )
+  local row, col =
+    math.ceil(((vim.o.lines - M.height) / 2) - 1),
+    math.ceil((vim.o.columns - M.width) / 2)
 
   local cfg = {
     relative = 'editor',
@@ -29,7 +30,7 @@ function M.open()
     row = row,
     col = col,
     width = M.width,
-    height = M.height
+    height = M.height,
   }
   M.buf = vim.api.nvim_create_buf(false, true)
   M.buflen = 1

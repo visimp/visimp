@@ -1,13 +1,15 @@
 local M = {
   -- Array for exported functions which are mapped to a key
   fn = {},
-  fns = 1
+  fns = 1,
 }
 
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
+local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 function M.opt(scope, key, value)
   scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
+  if scope ~= 'o' then
+    scopes['o'][key] = value
+  end
 end
 
 M.vfn = vim.api.nvim_call_function -- alias to get vim paths

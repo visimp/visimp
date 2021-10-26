@@ -6,11 +6,11 @@ L.default_config = {
   -- disabled by setting it to false
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil
+  lspconfig = nil,
 }
 
 function L.dependencies()
-  local deps = {'treesitter'}
+  local deps = { 'treesitter' }
   if L.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
@@ -19,12 +19,16 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({'haskell'})
+  layers.get('treesitter').langs({ 'haskell' })
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server('haskell',
-      L.config.lsp == nil, L.config.lsp or 'hls', L.config.lspconfig)
+    layers.get('lsp').use_server(
+      'haskell',
+      L.config.lsp == nil,
+      L.config.lsp or 'hls',
+      L.config.lspconfig
+    )
   end
 end
 

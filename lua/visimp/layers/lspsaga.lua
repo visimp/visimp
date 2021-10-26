@@ -7,20 +7,20 @@ L.default_config = {
   -- LSPSaga configuration
   config = {},
   binds = {
-    [{'provider', 'lsp_finder'}] = { mode = 'n', bind = 'gh' },
-    [{'codeaction', 'code_action'}] = { mode = 'n', bind = '<leader>ca' },
-    [{'hover', 'render_hover_doc'}] = { mode = 'n', bind = 'K' },
-    [{'rename', 'rename'}] = { mode = 'n', bind = 'gr' }
-  }
+    [{ 'provider', 'lsp_finder' }] = { mode = 'n', bind = 'gh' },
+    [{ 'codeaction', 'code_action' }] = { mode = 'n', bind = '<leader>ca' },
+    [{ 'hover', 'render_hover_doc' }] = { mode = 'n', bind = 'K' },
+    [{ 'rename', 'rename' }] = { mode = 'n', bind = 'gr' },
+  },
 }
 
 function L.packages()
   -- main repository is unmaintained
-  return {'tami5/lspsaga.nvim'}
+  return { 'tami5/lspsaga.nvim' }
 end
 
 function L.dependecies()
-  return {'lsp'}
+  return { 'lsp' }
 end
 
 function L.load()
@@ -28,7 +28,9 @@ function L.load()
   loader.get('lsp').on_attach(function()
     bind(L.config.binds, function(key)
       if type(key) ~= 'table' and #key ~= 2 then
-        error('Invalid bind key for lsp saga: use format {\'submodule\', \'fn\'})')
+        error(
+          'Invalid bind key for lsp saga: use format {\'submodule\', \'fn\'})'
+        )
       end
       return get_module('lspsaga.' .. key[1])[key[2]]
     end)

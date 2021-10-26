@@ -8,11 +8,11 @@ L.default_config = {
   -- alternatives such as ccls. Can be set to false to disable this functionality
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil
+  lspconfig = nil,
 }
 
 function L.dependencies()
-  local deps = {'treesitter'}
+  local deps = { 'treesitter' }
   if L.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
@@ -33,8 +33,12 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server('c',
-      L.config.lsp == nil, L.config.lsp or 'clangd', L.config.lspconfig)
+    layers.get('lsp').use_server(
+      'c',
+      L.config.lsp == nil,
+      L.config.lsp or 'clangd',
+      L.config.lspconfig
+    )
   end
 end
 

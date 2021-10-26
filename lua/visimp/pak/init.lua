@@ -3,10 +3,10 @@ local window = require('visimp.pak.window')
 
 local M = {
   update_count = 0,
-  pakdir = vim.fn.stdpath("data") .. "/site/pack/paks/",
-  logfile = vim.fn.stdpath("cache") .. "/pak.log",
-  sym_tbl = {install = '+', update = '*', remove = '-'},
-  packages = {}
+  pakdir = vim.fn.stdpath('data') .. '/site/pack/paks/',
+  logfile = vim.fn.stdpath('cache') .. '/pak.log',
+  sym_tbl = { install = '+', update = '*', remove = '-' },
+  packages = {},
 }
 
 --- Fills the dialog with initial data on registered packages

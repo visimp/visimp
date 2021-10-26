@@ -9,9 +9,15 @@ function L.configure(cfg)
 
   for _, lang in ipairs(L.config) do
     local ok, ll = pcall(require, 'visimp.languages.' .. lang)
-    if not ok then 
-      error('Cannot find language: ' .. lang .. ' (resolved to visimp.languages.'
-        .. lang .. ')\n' .. ll)
+    if not ok then
+      error(
+        'Cannot find language: '
+          .. lang
+          .. ' (resolved to visimp.languages.'
+          .. lang
+          .. ')\n'
+          .. ll
+      )
     end
 
     loader.define_layer(ll)
