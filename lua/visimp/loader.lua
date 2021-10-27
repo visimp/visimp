@@ -1,4 +1,5 @@
-local l = require('visimp.layer')
+--- Layer lodaer and (layer) dependency manager
+-- @module visimp.loader
 local M = {
   layers = {},
   packaged = {},
