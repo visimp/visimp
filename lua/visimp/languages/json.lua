@@ -1,12 +1,11 @@
-local L = require('visimp.layer').new_layer('lua')
+local L = require('visimp.layer').new_layer('json')
 local layers = require('visimp.loader')
 
 L.default_config = {
-  -- Leave to nil to use sumneko_lua LSP, otherwhise can specify local
-  -- installation or disable by setting to false.
+  -- Leave to nil to use the jsonls LSP, false to disable
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil,
+  lspconfig = nil
 }
 
 function L.dependencies()
@@ -19,17 +18,18 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'lua' })
+  layers.get('treesitter').langs({ 'json' })
 
   -- Enable the language server
   if L.config.lsp ~= false then
     layers.get('lsp').use_server(
-      'lua',
+      'json',
       L.config.lsp == nil,
-      L.config.lsp or 'sumneko_lua',
+      L.config.lsp or 'jsonls',
       L.config.lspconfig
     )
   end
 end
 
-  return L
+return L
+
