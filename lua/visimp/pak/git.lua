@@ -5,7 +5,8 @@ local M = {}
 local uv = vim.loop
 
 --- Returns the git hash of the repository at the given path
--- @param dir The git directory
+-- @param dir string The git directory
+-- @return string The git hash
 local function get_git_hash(dir)
   local first_line = function(path)
     local file = io.open(path)
@@ -20,12 +21,12 @@ local function get_git_hash(dir)
 end
 
 --- Calls the given process in a shell
--- @param process The process command
--- @param args A list of arguments to set as argv
--- @param cwd The working directory of the spawned process
--- @param cb A function to be run as a callback upon process exit (with an
---             argument set to true if exit code was equal to zero, false
---             otherwhise)
+-- @param process string The process command
+-- @param args list A list of arguments to set as argv
+-- @param cwd string The working directory of the spawned process
+-- @param cb function A function to be run as a callback upon process exit
+-- (with an argument set to true if exit code was equal to zero, false
+-- otherwhise)
 local function call_proc(process, args, cwd, cb)
   local log, stderr, handle
   log = uv.fs_open(init.logfile, 'a+', 0x1A4)
@@ -103,7 +104,7 @@ function M.update()
 end
 
 --- Removes all unregistered packages in the given directory
--- @param packdir The directory to look for unregistered packages
+-- @param packdir string The directory to look for unregistered packages
 function M.remove(packdir)
   local name, dir, pkg
   local to_rm = {}
