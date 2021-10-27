@@ -1,4 +1,6 @@
-local vimfn = require('visimp.utils').vimfn
+--- Utilites for binding vi keys to actions
+-- @module visimp.bind
+local vimfn = require('visimp.bridge').vimfn
 local M = {}
 
 --- Checks if a bind object is correct

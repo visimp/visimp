@@ -1,6 +1,6 @@
 local L = require('visimp.layer').new_layer('lsp')
 local bind = require('visimp.bind').bind
-local get_module = require('visimp.utils').get_module
+local get_module = require('visimp.bridge').get_module
 
 L.servers = {}
 L.callbacks = {}

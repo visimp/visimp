@@ -1,6 +1,6 @@
 local L = require('visimp.layer').new_layer('cmp')
 local loader = require('visimp.loader')
-local get_module = require('visimp.utils').get_module
+local get_module = require('visimp.bridge').get_module
 
 L.sources = {}
 L.snippet = {}
