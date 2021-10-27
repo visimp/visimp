@@ -1,3 +1,5 @@
+--- The visimp package manager's popoup manager
+-- @module visimp.pak.window
 local M = {
   -- Configuration for the popup floating window
   config = {

@@ -1,5 +1,5 @@
 local L = require('visimp.layer').new_layer('treesitter')
-local get_module = require('visimp.utils').get_module
+local get_module = require('visimp.bridge').get_module
 
 L.default_config = {
   highlight = true,

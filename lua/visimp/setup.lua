@@ -1,3 +1,5 @@
+--- Setup funciton used to initialize visimp and load user's configurations
+-- @module visimp.setup
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
 local register = require('visimp.pak').register
@@ -18,6 +20,8 @@ local M = {
   configs = {},
 }
 
+--- Configures the visimp distributions and its layers
+---@param cfg table The configuration table
 function M.setup(cfg)
   M.configs = cfg or {}
   register('lucat1/visimp') -- Let visimp be updated by the package manager
