@@ -1,3 +1,5 @@
+--- General utilities to bridge the gap between vimscript and lua
+-- @module visimp.bridge
 local M = {
   -- Array for exported functions which are mapped to a key
   fn = {},
@@ -14,12 +16,15 @@ end
 
 M.vfn = vim.api.nvim_call_function -- alias to get vim paths
 
+--- Lua's builtin prequire with default error message for missing packages
+---@param mod string The lua module name, inside runtimepath
+---@returns any The successful require result
 function M.get_module(mod)
-  local ok, ts = pcall(require, mod)
+  local ok, val = pcall(require, mod)
   if not ok then
-    error('Plugin \'' .. mod .. '\'not installed:\n' .. ts)
+    error('Plugin \'' .. mod .. '\'not installed:\n' .. val)
   end
-  return ts
+  return val
 end
 
 --- Maps a lua function to a vimscript call
@@ -27,7 +32,7 @@ end
 -- @return The vimscript call to execute the function
 function M.vimfn(fn)
   table.insert(M.fn, fn)
-  cmd = 'lua require\'visimp.utils\'.fn[' .. M.fns .. ']()'
+  local cmd = 'lua require\'visimp.bridge\'.fn[' .. M.fns .. ']()'
   M.fns = M.fns + 1
   return cmd
 end

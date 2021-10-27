@@ -1,5 +1,5 @@
 local L = require('visimp.layer').new_layer('theme')
-local opt = require('visimp.utils').opt
+local opt = require('visimp.bridge').opt
 
 -- NOTE: in this context L.config is the theme function passed to lush
 -- whereas L.theme is the lushified theme potentially used by other extensions

@@ -1,3 +1,4 @@
+-- @module visimp.pak.init
 local count = require('visimp.pak.count')
 local window = require('visimp.pak.window')
 

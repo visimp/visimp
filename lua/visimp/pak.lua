@@ -10,6 +10,8 @@ local M = {
   clean = git.clean,
 }
 
+--- Runs a package manager command setting up the visual menu
+-- @param cmd The method name
 function M.run(cmd)
   window.init()
   window.open()
