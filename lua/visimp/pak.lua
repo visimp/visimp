@@ -4,6 +4,7 @@ local git = require('visimp.pak.git')
 
 local M = {
   register = logic.register,
+  any_missing = logic.any_missing,
   list = logic.list,
   install = git.install,
   update = git.update,

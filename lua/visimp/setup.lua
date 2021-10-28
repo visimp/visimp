@@ -2,7 +2,10 @@
 -- @module visimp.setup
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
-local register = require('visimp.pak').register
+
+local pak = require('visimp.pak')
+local window = require('visimp.pak.window')
+local git = require('visimp.pak.git')
 
 local M = {
   layers = {
@@ -20,11 +23,23 @@ local M = {
   configs = {},
 }
 
+local function next()
+  -- preload layers
+  for _, l in ipairs(M.layers) do
+    loader.preload(l)
+  end
+
+  -- Load layers
+  for _, l in ipairs(M.layers) do
+    loader.load(l)
+  end
+end
+
 --- Configures the visimp distributions and its layers
 ---@param cfg table The configuration table
 function M.setup(cfg)
   M.configs = cfg or {}
-  register('lucat1/visimp') -- Let visimp be updated by the package manager
+  pak.register('lucat1/visimp') -- Let visimp be updated by the package manager
 
   -- disable/enable layers which are set to false in the config/configured and
   -- not enabled by default
@@ -74,19 +89,16 @@ function M.setup(cfg)
   end
 
   for _, pkg in ipairs(loader.get_packages()) do
-    register(pkg)
+    pak.register(pkg)
   end
 
-  -- TODO: pak auto install missing
-
-  -- preload layers
-  for _, l in ipairs(M.layers) do
-    loader.preload(l)
-  end
-
-  -- Load layers
-  for _, l in ipairs(M.layers) do
-    loader.load(l)
+  -- auto install missing packages
+  if pak.any_missing() then
+    window.init()
+    window.open()
+    git.install(next)
+  else
+    next()
   end
 end
 

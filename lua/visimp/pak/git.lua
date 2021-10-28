@@ -50,7 +50,8 @@ local function call_proc(process, args, cwd, cb)
 end
 
 --- Installs all registered packages
-function M.install()
+-- @param cb A callback which is called after the installation has completed
+function M.install(cb)
   init.fill()
   for _, pkg in pairs(init.packages) do
     if pkg.exists then
@@ -67,12 +68,18 @@ function M.install()
         vim.list_extend(args, { '-b', pkg.branch })
       end
       vim.list_extend(args, { pkg.dir })
+      local count = 0
       call_proc('git', args, nil, function(ok)
         if ok then
           pkg.exists = true
           init.update(pkg.name, 'v')
         else
           init.update(pkg.name, 'x')
+        end
+
+        count = count + 1
+        if cb ~= nil and count == #init.packages then
+          cb()
         end
       end)
     end
