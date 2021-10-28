@@ -11,6 +11,8 @@ local M = {
   buflen = 1,
   -- The current floating window pointer
   win = nil,
+
+  title = 'Package Management',
 }
 
 --- Initializes the window module relative to the size of the vi window
@@ -51,8 +53,10 @@ end
 --- Updates the whole content to the given list of strings
 -- @param str A list of strings
 function M.set_content(str)
-  vim.api.nvim_buf_set_lines(M.buf, 0, M.buflen, true, str)
-  M.buflen = #str
+  local content = {string.rep(' ', math.ceil((M.width - #M.title)/2)).. M.title, ''}
+  vim.list_extend(content, str)
+  vim.api.nvim_buf_set_lines(M.buf, 0, M.buflen, true, content)
+  M.buflen = #content
 end
 
 --- Updates the given single line with the provided new one
@@ -62,12 +66,18 @@ function M.set_line(line, str)
   vim.api.nvim_buf_set_lines(M.buf, line, line, true, str)
 end
 
+--- Sets the title of the dialog
+-- @param str The title string
+function M.set_title(str)
+  M.title = str
+end
+
 --- Updates a list of lines between start and end
 -- @param start The start of the replacement
 -- @param _end The end of the replacement
 -- @param str The list of strings which will serve as a replacement
 function M.set_lines(start, _end, str)
-  vim.api.nvim_buf_set_lines(M.buf, start, _end, true, str)
+  vim.api.nvim_buf_set_lines(M.buf, start+2, _end+2, true, str)
 end
 
 --- Locks the floating window buffer

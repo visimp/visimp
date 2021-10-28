@@ -5,6 +5,7 @@ local M = {}
 
 --- Lists all manged packages
 function M.list()
+  window.set_title('Package listing')
   local keys = vim.tbl_keys(init.packages)
   table.sort(keys)
   local pkgs = {}
@@ -12,6 +13,7 @@ function M.list()
     pkgs[k] = init.sym_tbl[k] or ' '
   end
 
+  count.set_status('')
   count.updates(pkgs)
   window.lock()
 end

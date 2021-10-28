@@ -52,10 +52,12 @@ end
 --- Installs all registered packages
 -- @param cb A callback which is called after the installation has completed
 function M.install(cb)
+  window.set_title('Installing packages')
   init.fill()
+  local installed = 0
   for _, pkg in pairs(init.packages) do
     if pkg.exists then
-      init.update(pkg.name, 'v')
+      count.update(pkg.name, 'v')
     else
       local args = {
         'clone',
@@ -68,37 +70,52 @@ function M.install(cb)
         vim.list_extend(args, { '-b', pkg.branch })
       end
       vim.list_extend(args, { pkg.dir })
-      local count = 0
-      call_proc('git', args, nil, function(ok)
+      local function on_install(ok)
         if ok then
           pkg.exists = true
-          init.update(pkg.name, 'v')
+          count.update(pkg.name, 'v')
         else
-          init.update(pkg.name, 'x')
+          count.update(pkg.name, 'x')
         end
 
-        count = count + 1
-        if cb ~= nil and count == #init.packages then
-          cb()
+        installed = installed + 1
+        if installed == vim.tbl_count(init.packages) then
+          count.set_status('Installation finished')
+          window.lock()
+          if cb ~= nil then
+            cb()
+          end
         end
-      end)
+      end
+      call_proc('git', args, nil, on_install)
     end
   end
 end
 
 --- Updates all registered packages
-function M.update()
+function M.update(cb)
+  window.set_title('Updating packages')
   init.fill()
+  local updated = 0
   for _, pkg in pairs(init.packages) do
     if not pkg.exists or pkg.pin then
-      init.update(pkg.name, 'x')
+      count.update(pkg.name, 'x')
     end
     local hash = get_git_hash(pkg.dir)
-    local post_update = function(ok)
+    local post_update = function()
       if get_git_hash(pkg.dir) ~= hash then
-        init.update(pkg.name, 'u')
+        count.update(pkg.name, 'u')
       else
-        init.update(pkg.name, 'v')
+        count.update(pkg.name, 'v')
+      end
+
+      updated = updated + 1
+      if updated == vim.tbl_count(init.packages) then
+        count.set_status('Update finished')
+        window.lock()
+        if cb ~= nil then
+          cb()
+        end
       end
     end
     call_proc(
@@ -133,16 +150,19 @@ function M.remove(packdir)
     if name ~= 'vismp' then
       init.packages[name] = nil
       local ok = vim.fn.delete(dir, 'rf')
-      init.update(name, ok and 'x' or 'X')
+      count.update(name, ok and 'x' or 'X')
     end
   end
 end
 
 --- Cleans all unregistered packages in all runtime directories
 function M.clean()
+  window.set_title('Cleaning up old packages')
   init.fill()
   M.remove(init.pakdir .. 'start/')
   M.remove(init.pakdir .. 'opt/')
+  count.set_status('Cleanup complete')
+  window.lock()
 end
 
 return M

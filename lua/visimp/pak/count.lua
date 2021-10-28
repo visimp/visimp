@@ -4,6 +4,7 @@ local M = {
   longest_word = 2,
   per_line = 1,
   space_between = 0,
+  status = ''
 }
 
 --- Finds the longest key among all package names
@@ -53,6 +54,13 @@ local function rpad(str, len)
   return str .. string.rep(' ', len - #str)
 end
 
+--- Sets the bottom line to the given status string
+-- @param str The status string
+function M.set_status(str)
+  M.status = str
+  M.display()
+end
+
 --- Triggers a redraw on the whole window buffer
 function M.display()
   table.sort(M.packages)
@@ -68,6 +76,8 @@ function M.display()
       .. rpad(M.packages[k] .. ' ' .. k, sp and M.longest_word or 0)
       .. string.rep(' ', M.space_between)
   end
+  table.insert(strs, '')
+  table.insert(strs, string.rep(' ', math.ceil((window.width - #M.status)/2)) .. M.status)
   window.set_content(strs)
 end
 
