@@ -47,8 +47,19 @@ function M.register(args)
     dir = dir,
     exists = vim.fn.isdirectory(dir) ~= 0,
     pin = args.pin,
-    url = args.url or 'https://github.com/' .. args[1] .. '.git',
+    url = args.url or ('https://github.com/' .. args[1] .. '.git')
   }
+end
+
+--- Returns true if any packages are not installed (missing)
+-- @returns True if packages are missing
+function M.any_missing()
+  for _, pkg in pairs(init.packages) do
+    if not pkg.exists then
+      return true
+    end
+  end
+  return false
 end
 
 return M
