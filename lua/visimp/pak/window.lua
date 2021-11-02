@@ -53,7 +53,10 @@ end
 --- Updates the whole content to the given list of strings
 -- @param str A list of strings
 function M.set_content(str)
-  local content = {string.rep(' ', math.ceil((M.width - #M.title)/2)).. M.title, ''}
+  local content = {
+    string.rep(' ', math.ceil((M.width - #M.title) / 2)) .. M.title,
+    '',
+  }
   vim.list_extend(content, str)
   vim.api.nvim_buf_set_lines(M.buf, 0, M.buflen, true, content)
   M.buflen = #content
@@ -77,7 +80,7 @@ end
 -- @param _end The end of the replacement
 -- @param str The list of strings which will serve as a replacement
 function M.set_lines(start, _end, str)
-  vim.api.nvim_buf_set_lines(M.buf, start+2, _end+2, true, str)
+  vim.api.nvim_buf_set_lines(M.buf, start + 2, _end + 2, true, str)
 end
 
 --- Locks the floating window buffer

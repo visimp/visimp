@@ -8,7 +8,7 @@ L.default_config = {
   lspconfig = nil,
 
   -- Add the scss treesitter grammar
-  scss = false
+  scss = false,
 }
 
 function L.dependencies()
@@ -21,7 +21,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  local langs = {'css'}
+  local langs = { 'css' }
   if L.config.scss then
     table.insert(langs, 'scss')
   end

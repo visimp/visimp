@@ -4,7 +4,7 @@ local M = {
   longest_word = 2,
   per_line = 1,
   space_between = 0,
-  status = ''
+  status = '',
 }
 
 --- Finds the longest key among all package names
@@ -77,7 +77,10 @@ function M.display()
       .. string.rep(' ', M.space_between)
   end
   table.insert(strs, '')
-  table.insert(strs, string.rep(' ', math.ceil((window.width - #M.status)/2)) .. M.status)
+  table.insert(
+    strs,
+    string.rep(' ', math.ceil((window.width - #M.status) / 2)) .. M.status
+  )
   window.set_content(strs)
 end
 

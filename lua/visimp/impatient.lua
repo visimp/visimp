@@ -14,8 +14,8 @@ local M = {
   cache = {},
   profile = nil,
   dirty = false,
-  path = vim.fn.stdpath('cache')..'/luacache',
-  log = {}
+  path = vim.fn.stdpath('cache') .. '/luacache',
+  log = {},
 }
 
 if _G.use_cachepack == nil then
@@ -37,10 +37,11 @@ local function load_mpack()
   return require('mpack')
 end
 
-local mpack = _G.use_cachepack and require('visimp.impatient.cachepack') or load_mpack()
+local mpack = _G.use_cachepack and require('visimp.impatient.cachepack')
+  or load_mpack()
 
 local function log(...)
-  M.log[#M.log+1] = table.concat({string.format(...)}, ' ')
+  M.log[#M.log + 1] = table.concat({ string.format(...) }, ' ')
 end
 
 function M.print_log()
@@ -58,18 +59,18 @@ function M.enable_profile()
   M.mark_resolve = function(mod, loader)
     local mp = M.profile[mod]
     mp.resolve_end = uv.hrtime()
-    mp.loader  = loader
+    mp.loader = loader
   end
 
   M.print_profile = function()
     M.profile['impatient'] = {
-      exec   = impatient_dur,
-      loader = 'standard'
+      exec = impatient_dur,
+      loader = 'standard',
     }
     ip.print_profile(M.profile)
   end
 
-  vim.cmd[[command! LuaCacheProfile lua _G.__luacache.print_profile()]]
+  vim.cmd([[command! LuaCacheProfile lua _G.__luacache.print_profile()]])
 end
 
 local function hash(modpath)
@@ -124,11 +125,11 @@ local function get_lua_runtime_file(basename, path)
       if ppath:sub(-9) == '/init.lua' then
         ppath = ppath:sub(1, -10) -- a/b/init.lua -> a/b
       else
-        ppath = ppath:sub(1, -5)  -- a/b.lua -> a/b
+        ppath = ppath:sub(1, -5) -- a/b.lua -> a/b
       end
 
       -- path should be of form 'a/b/c.lua' or 'a/b/c/init.lua'
-      local modpath = ppath..'/'..path:sub(#('lua/'..parent)+2)
+      local modpath = ppath .. '/' .. path:sub(#('lua/' .. parent) + 2)
       if fs_stat(modpath) then
         return modpath, true
       end
@@ -149,14 +150,18 @@ local function load_package_with_cache(name)
   end
 
   local basename = name:gsub('%.', '/')
-  local paths = {"lua/"..basename..".lua", "lua/"..basename.."/init.lua"}
+  local paths = {
+    'lua/' .. basename .. '.lua',
+    'lua/' .. basename .. '/init.lua',
+  }
 
   for _, path in ipairs(paths) do
-    local modpath, cache_success  = get_lua_runtime_file(basename, path)
+    local modpath, cache_success = get_lua_runtime_file(basename, path)
     if modpath then
       if M.mark_resolve then
-        local loader = cache_success and 'cached resolve'  or
-                       reduced_rtp   and 'reduced'         or 'standard'
+        local loader = cache_success and 'cached resolve'
+          or reduced_rtp and 'reduced'
+          or 'standard'
         M.mark_resolve(basename, loader)
       end
 
@@ -166,7 +171,11 @@ local function load_package_with_cache(name)
       end
 
       log('Creating cache for module %s', basename)
-      M.cache[basename] = {modpath_mangle(modpath), hash(modpath), string.dump(chunk)}
+      M.cache[basename] = {
+        modpath_mangle(modpath),
+        hash(modpath),
+        string.dump(chunk),
+      }
       M.dirty = true
 
       return chunk
@@ -175,7 +184,7 @@ local function load_package_with_cache(name)
 
   -- Copied from neovim/src/nvim/lua/vim.lua
   for _, trail in ipairs(vim._so_trails) do
-    local path = "lua"..trail:gsub('?', basename) -- so_trails contains a leading slash
+    local path = 'lua' .. trail:gsub('?', basename) -- so_trails contains a leading slash
     local found
     if reduced_rtp then
       found = globpath(reduced_rtp, path, true, true)[1]
@@ -185,7 +194,7 @@ local function load_package_with_cache(name)
     if found then
       if M.mark_resolve then
         local loader = reduced_rtp and 'reduced' or 'standard'
-        M.mark_resolve(basename, loader..'(so)')
+        M.mark_resolve(basename, loader .. '(so)')
       end
 
       -- Making function name in Lua 5.1 (see src/loadlib.c:mkfuncname) is
@@ -193,9 +202,12 @@ local function load_package_with_cache(name)
       -- b) replace all dots by underscores
       -- c) prepend "luaopen_"
       -- So "foo-bar.baz" should result in "luaopen_bar_baz"
-      local dash = name:find("-", 1, true)
+      local dash = name:find('-', 1, true)
       local modname = dash and name:sub(dash + 1) or name
-      local f, err = package.loadlib(found, "luaopen_"..modname:gsub("%.", "_"))
+      local f, err = package.loadlib(
+        found,
+        'luaopen_' .. modname:gsub('%.', '_')
+      )
       return f or error(err)
     end
   end
@@ -272,7 +284,7 @@ local function setup()
     local f = io.open(M.path, 'rb')
     local ok
     ok, M.cache = pcall(function()
-      return mpack.unpack(f:read'*a')
+      return mpack.unpack(f:read('*a'))
     end)
 
     if not ok then
@@ -298,15 +310,14 @@ local function setup()
   insert(package.loaders, 2, load_from_cache)
   insert(package.loaders, 3, load_package_with_cache)
 
-  vim.cmd[[
+  vim.cmd([[
     augroup impatient
       autocmd VimEnter,VimLeave * lua _G.__luacache.save_cache()
     augroup END
 
     command! LuaCacheClear lua _G.__luacache.clear_cache()
     command! LuaCacheLog   lua _G.__luacache.print_log()
-  ]]
-
+  ]])
 end
 
 setup()
