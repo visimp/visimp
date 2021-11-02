@@ -34,7 +34,7 @@ end
 function L.packages()
   -- Load language packages
   for _, l in ipairs(L.config) do
-    loader.get(l).packages()
+    loader.packages(l)
   end
 end
 
