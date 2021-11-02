@@ -49,7 +49,7 @@ function M.register(args)
     dir = dir,
     exists = vim.fn.isdirectory(dir) ~= 0,
     pin = args.pin,
-    url = args.url or ('https://github.com/' .. args[1] .. '.git')
+    url = args.url or ('https://github.com/' .. args[1] .. '.git'),
   }
 end
 

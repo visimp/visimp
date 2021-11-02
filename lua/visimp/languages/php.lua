@@ -6,7 +6,7 @@ L.default_config = {
   -- local binary
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil
+  lspconfig = nil,
 }
 
 function L.dependencies()
