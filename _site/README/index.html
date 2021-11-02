@@ -1,0 +1,19 @@
+<h1>ViSimp</h1>
+<p>The simp counterpart of NvChad</p>
+<h2>Install</h2>
+<p>The installation of <code>visimp</code> requires the cloning of this code base and the
+creation of a simple initial configuration, possibly starting from a template.</p>
+<p>For UNIX-like system:</p>
+<pre><code class="language-sh">git clone --depth=1 https://github.com/lucat1/visimp.git \
+  &quot;${XDG_DATA_HOME:-$HOME/.local/share}&quot;/nvim/site/pack/paks/start/visimp
+</code></pre>
+<p>For Windows:</p>
+<pre><code class="language-sh">git clone https://github.com/lucat1/visimp.git &quot;$env:LOCALAPPDATA\nvim-data\site\pack/paks/start/visimp&quot;
+</code></pre>
+<p>Then you can initialize a default config with the following command:</p>
+<blockquote>
+<p>WARNING: this will delete your previous <code>init.lua</code></p>
+</blockquote>
+<pre><code class="language-sh">cp &quot;${XDG_DATA_HOME:-$HOME/.local/share}&quot;/nvim/site/pack/paks/start/visimp/_init.lua \
+  &quot;${XDG_CONFIG_HOME}&quot;/nvim/init.lua
+</code></pre>

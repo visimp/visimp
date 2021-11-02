@@ -6,7 +6,7 @@ L.default_config = {
   config = {
     defaults = {
       borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-    }
+    },
   },
   binds = {
     ['find_files'] = { mode = 'n', bind = '<leader>p' },
