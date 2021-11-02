@@ -1,5 +1,6 @@
 local L = require('visimp.layer').new_layer('statusline')
 local loader = require('visimp.loader')
+
 local get_module = require('visimp.bridge').get_module
 
 -- lualine modules
@@ -12,24 +13,22 @@ L.default_config = {
   },
   sections = {
     lualine_a = { mode },
-    lualine_b = { 'filename' },
-    lualine_c = { 'branch' },
-    lualine_x = {},
-    lualine_y = { 'filetype', 'progress' },
-    lualine_z = {
-      { 'location', separator = { right = '' }, left_padding = 2 },
+    lualine_b = {
+      { 'filename', symbols = { modified = ' +', readonly = '' } },
     },
+    lualine_c = { 'location', 'progress' },
+    lualine_x = {},
+    lualine_y = { 'filetype' },
+    lualine_z = { 'branch' },
   },
   inactive_sections = {
-    lualine_a = { 'filename' },
-    lualine_b = {},
-    lualine_c = {},
+    lualine_a = { mode },
+    lualine_b = { 'filename' },
+    lualine_c = { 'location' },
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { 'location' },
+    lualine_z = {},
   },
-  tabline = {},
-  extensions = {},
 }
 
 function L.dependencies()
@@ -54,9 +53,11 @@ function L.load()
   -- Attempt to load an existing lualine theme or use one generated from lush
   local ltheme = #theme >= 3 and (#theme >= 4 and theme[4] or 'auto')
     or extract_from_lush(theme)
-  get_module('lualine').setup(
-    vim.tbl_deep_extend('force', L.config, { options = { theme = ltheme } })
-  )
+  get_module('lualine').setup(vim.tbl_deep_extend('force', L.config, {
+    options = {
+      theme = ltheme,
+    },
+  }))
 end
 
 return L
