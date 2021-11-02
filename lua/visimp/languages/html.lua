@@ -5,7 +5,7 @@ L.default_config = {
   -- Leave to nil to use the html LSP from vscode, false to disable
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil
+  lspconfig = nil,
 }
 
 function L.dependencies()

@@ -9,7 +9,7 @@ L.default_config = {
   lspconfig = nil,
 
   -- Enable the typescript grammar
-  typescript = true
+  typescript = true,
 }
 
 function L.dependencies()
@@ -22,7 +22,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  local langs = {'javascript'}
+  local langs = { 'javascript' }
   if L.config.typescript then
     table.insert(langs, 'typescript')
   end
