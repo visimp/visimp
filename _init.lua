@@ -23,9 +23,9 @@ require'visimp'{
   -- Any extra layers can be enabled or configured (which implicitly enabled
   -- them) by adding a field in this configuration. Let's say we want to eanble
   -- the `lspsignature` layer, this is what we'd add:
-  -- lspsignature = {},
+  lspsignature = {},
   --
-  -- Layers can also be disabled by setting a key in this configuration to false
+  -- Layers can also be disabled by setting a key to false
   -- For example the following line disabled the `lspsignature` layer:
   -- lspsignature = false
 
