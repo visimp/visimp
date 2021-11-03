@@ -22,5 +22,5 @@ Then you can initialize a default config with the following command:
 > WARNING: this will delete your previous `init.lua`
 ```sh
 cp "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp/_init.lua \
-  "${XDG_CONFIG_HOME}"/nvim/init.lua
+  "${XDG_CONFIG_HOME:-$HOME}"/nvim/init.lua
 ```
