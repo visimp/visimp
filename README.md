@@ -22,5 +22,8 @@ Then you can initialize a default config with the following command:
 > WARNING: this will delete your previous `init.lua`
 ```sh
 cp "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp/_init.lua \
-  "${XDG_CONFIG_HOME:-$HOME}"/nvim/init.lua
+  "${XDG_CONFIG_HOME:-$HOME}"/.config/nvim/init.lua
 ```
+
+Finally, edit the `init.lua` file you just copied to enable your desired
+languages and configure any needed layer.
