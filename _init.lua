@@ -1,6 +1,5 @@
 require'visimp'{
   languages = {
-    'c',
     -- 'ampl',
     -- 'bash',
     -- 'c',
