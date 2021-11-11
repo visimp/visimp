@@ -5,7 +5,16 @@ local bind = require('visimp.bind').bind
 L.default_config = {
   config = {
     defaults = {
-      borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+      borderchars = {
+        '─',
+        '│',
+        '─',
+        '│',
+        '┌',
+        '┐',
+        '┘',
+        '└',
+      },
     },
   },
   binds = {

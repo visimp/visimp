@@ -14,7 +14,7 @@ L.default_config = {
   sections = {
     lualine_a = { mode },
     lualine_b = {
-      { 'filename', symbols = { modified = ' +', readonly = '' } }
+      { 'filename', symbols = { modified = ' +', readonly = '' } },
     },
     lualine_c = { 'location', 'progress' },
     lualine_x = {},
@@ -23,8 +23,8 @@ L.default_config = {
   },
   inactive_sections = {
     lualine_a = { mode },
-    lualine_b = { 
-      { 'filename', symbols = { modified = ' +', readonly = '' } }
+    lualine_b = {
+      { 'filename', symbols = { modified = ' +', readonly = '' } },
     },
     lualine_c = { 'location' },
     lualine_x = {},

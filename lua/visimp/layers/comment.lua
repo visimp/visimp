@@ -4,11 +4,11 @@ local get_module = require('visimp.bridge').get_module
 L.default_config = {}
 
 function L.packages()
-  return { 'terrortylor/nvim-comment' }
+  return { 'numToStr/Comment.nvim' }
 end
 
 function L.load()
-  get_module('nvim_comment').setup(L.config or {})
+  get_module('Comment').setup(L.config or {})
 end
 
 return L
