@@ -7,12 +7,8 @@ local get_runtime_file = api.nvim_get_runtime_file
 local globpath = vim.fn.globpath
 local fs_stat = uv.fs_stat
 
-local impatient_start = uv.hrtime()
-local impatient_dur
-
 local M = {
   cache = {},
-  profile = nil,
   dirty = false,
   path = vim.fn.stdpath('cache') .. '/luacache',
   log = {},
@@ -24,7 +20,7 @@ end
 
 _G.__luacache = M
 
-local mpack = _G.use_cachepack and require('impatient.cachepack') or vim.mpack
+local mpack = _G.use_cachepack and require('visimp.impatient.cachepack') or vim.mpack
 
 local function log(...)
   M.log[#M.log + 1] = table.concat({ string.format(...) }, ' ')
@@ -34,29 +30,6 @@ function M.print_log()
   for _, l in ipairs(M.log) do
     print(l)
   end
-end
-
-function M.enable_profile()
-  local ip = require('impatient.profile')
-
-  M.profile = {}
-  ip.mod_require(M.profile)
-
-  M.mark_resolve = function(mod, loader)
-    local mp = M.profile[mod]
-    mp.resolve_end = uv.hrtime()
-    mp.loader = loader
-  end
-
-  M.print_profile = function()
-    M.profile['impatient'] = {
-      exec = impatient_dur,
-      loader = 'standard',
-    }
-    ip.print_profile(M.profile)
-  end
-
-  vim.cmd([[command! LuaCacheProfile lua _G.__luacache.print_profile()]])
 end
 
 local function hash(modpath)
@@ -305,7 +278,5 @@ local function setup()
 end
 
 setup()
-
-impatient_dur = uv.hrtime() - impatient_start
 
 return M
