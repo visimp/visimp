@@ -19,26 +19,12 @@ local M = {
 }
 
 if _G.use_cachepack == nil then
-  _G.use_cachepack = not vim.mpack
+  _G.use_cachepack = not (vim.mpack and vim.mpack.encode)
 end
 
 _G.__luacache = M
 
-local function load_mpack()
-  if vim.mpack then
-    return vim.mpack
-  end
-
-  local has_packer, packer_luarocks = pcall(require, 'packer.luarocks')
-  if has_packer then
-    packer_luarocks.setup_paths()
-  end
-
-  return require('mpack')
-end
-
-local mpack = _G.use_cachepack and require('visimp.impatient.cachepack')
-  or load_mpack()
+local mpack = _G.use_cachepack and require('impatient.cachepack') or vim.mpack
 
 local function log(...)
   M.log[#M.log + 1] = table.concat({ string.format(...) }, ' ')
@@ -150,10 +136,8 @@ local function load_package_with_cache(name)
   end
 
   local basename = name:gsub('%.', '/')
-  local paths = {
-    'lua/' .. basename .. '.lua',
-    'lua/' .. basename .. '/init.lua',
-  }
+  local paths =
+    { 'lua/' .. basename .. '.lua', 'lua/' .. basename .. '/init.lua' }
 
   for _, path in ipairs(paths) do
     local modpath, cache_success = get_lua_runtime_file(basename, path)
@@ -252,7 +236,7 @@ function M.save_cache()
   if M.dirty then
     log('Updating cache file: %s', M.path)
     local f = io.open(M.path, 'w+b')
-    f:write(mpack.pack(M.cache))
+    f:write(mpack.encode(M.cache))
     f:flush()
     M.dirty = false
   end
@@ -284,7 +268,7 @@ local function setup()
     local f = io.open(M.path, 'rb')
     local ok
     ok, M.cache = pcall(function()
-      return mpack.unpack(f:read('*a'))
+      return mpack.decode(f:read('*a'))
     end)
 
     if not ok then
