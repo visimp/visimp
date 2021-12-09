@@ -21,7 +21,7 @@ L.default_config = {
     ['diagnostic.show_line_diagnostics'] = { mode = 'n', bind = '<leader>e' },
     ['diagnostic.goto_prev'] = { mode = 'n', bind = '[d' },
     ['diagnostic.goto_next'] = { mode = 'n', bind = ']d' },
-    ['buf.formatting'] = { mode = 'n', bind = '<leader>f' },
+    ['buf.formatting'] = { mode = 'n', bind = 'gf' },
   },
 }
 
