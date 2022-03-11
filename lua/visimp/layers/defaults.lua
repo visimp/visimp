@@ -1,5 +1,6 @@
 local L = require('visimp.layer').new_layer('defaults')
 local bridge = require('visimp.bridge')
+local bind = require('visimp.bind').bind
 local opt = bridge.opt
 local vfn = bridge.vfn
 
