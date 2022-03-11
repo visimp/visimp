@@ -37,7 +37,7 @@ function M.bind(binds, handler)
     error('Invalid bind handler: can either be a function or a table')
   end
 
-  for exec, key in pairs(binds) do
+  for key, exec in pairs(binds) do
     if not M.is_valid(key) then
       error(
         'Invalid key bind: \n'

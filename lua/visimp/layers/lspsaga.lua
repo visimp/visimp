@@ -7,10 +7,10 @@ L.default_config = {
   -- LSPSaga configuration
   config = {},
   binds = {
-    [{ 'provider', 'lsp_finder' }] = { mode = 'n', bind = 'gh' },
-    [{ 'codeaction', 'code_action' }] = { mode = 'n', bind = '<leader>ca' },
-    [{ 'hover', 'render_hover_doc' }] = { mode = 'n', bind = 'K' },
-    [{ 'rename', 'rename' }] = { mode = 'n', bind = 'gr' },
+    [{ mode = 'n', bind = 'gh' }]         = [{ 'provider', 'lsp_finder' }],
+    [{ mode = 'n', bind = '<leader>ca' }] = [{ 'codeaction', 'code_action' }],
+    [{ mode = 'n', bind = 'K' }]          = [{ 'hover', 'render_hover_doc' }],
+    [{ mode = 'n', bind = 'gr' }]         = [{ 'rename', 'rename' }]
   },
 }
 
