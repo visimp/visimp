@@ -1,4 +1,5 @@
 -- Copyright (c) 2020-2021 hoob3rt
+-- Copyright (c) 2022 Luca Tagliavini
 -- MIT license, see LICENSE for more details.
 -- taken from https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/utils/mode.lua
 -- and modified as needed
