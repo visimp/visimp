@@ -32,4 +32,4 @@ require('visimp')({
   --       package url                theme name  background
   --       github username/repo       a string    either dark or bright
   theme = { 'lifepillar/vim-gruvbox8', 'gruvbox8', 'dark' },
-}
+})
