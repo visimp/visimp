@@ -21,9 +21,9 @@ git clone https://github.com/lucat1/visimp.git "$env:LOCALAPPDATA\nvim-data\site
 Then you can initialize a default config with the following command:
 > WARNING: this will delete your previous `init.lua`
 ```sh
-mkdir -p .config/nvim
+mkdir -p "${XDG_DATA_HOME:-$HOME}"/.config/nvim
 cp "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp/_init.lua \
-  "${XDG_CONFIG_HOME:-$HOME}"/.config/nvim/init.lua
+  "${XDG_DATA_HOME:-$HOME}"/.config/nvim/init.lua
 ```
 
 Finally, edit the `init.lua` file you just copied to enable your desired
