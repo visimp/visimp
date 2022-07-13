@@ -4,7 +4,7 @@ local get_module = require('visimp.bridge').get_module
 -- All fields from https://github.com/windwp/nvim-autopairs#default-values
 -- are accepted here. Extra fields are as follows
 L.default_config = {
-  cmp_integration = true
+  cmp_integration = true,
   html = true
 }
 
@@ -17,7 +17,7 @@ end
 
 function L.packages()
   return { 
-    { 'windwp/nvim-autopairs', opt = false },
+    'windwp/nvim-autopairs',
     { 'windwp/nvim-ts-autotag', opt = true }
   }
 end
