@@ -7,7 +7,6 @@ L.default_config = {
   cmp_integration = true,
   html = true
 }
-
 function L.dependecies()
   if L.config.cmp_integration then
     return { 'cmp' }
@@ -33,6 +32,7 @@ function L.load()
     )
   end
   if L.config.html then
+    vim.cmd('packadd nvim-ts-autotag')
     get_module('nvim-ts-autotag').setup()
   end
 end
