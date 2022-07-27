@@ -15,8 +15,8 @@ is invoked passing a description of your intended `visimp` configuration as
 parameter. In the example above, we are using an empty object (`{}`) as our configuration,
 so no layer is enabled. If you want to enable one, use its name as a new key
 (whose value will be an empty object for now). The available layers are listed
-at the bottom of this page. The following configuration enables the `autopairs`,
-`gitsigns`, and `outline` layers:
+at [the bottom of this page](#available-layers). The following configuration
+enables the `autopairs`, `gitsigns`, and `outline` layers:
 
 ```lua
 require('visimp')({
@@ -72,7 +72,8 @@ require('visimp')({
 ```
 
 Before configuring a new layer, you're advised to take a look at its reference
-page. You can look it up in the tables presented in the next section.
+page. You can look it up in the tables presented [in the next
+section](#available-layers).
 
 ## Available Layers
 
@@ -90,7 +91,7 @@ page. You can look it up in the tables presented in the next section.
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
 | [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
 | [`grammarly`](layers/GRAMMARLY.md)       | Grammarly writing assistant support              |
-| [`languages`](layers/LANGUAGES.md)       | Enable language layers                           |
+| [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
 | [`lsp`](layers/LSP.md)                   | Neovim's LSP client and LSPs manager             |
 | [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
 | [`lspsignature`](layers/LSPSIGNATURE.md) | Function signatures as you type                  |
