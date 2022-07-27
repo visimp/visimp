@@ -32,3 +32,8 @@ cp "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp/_init
 
 Finally, edit the `init.lua` file you just copied to enable your desired
 languages and configure any needed layer.
+
+## Configuration
+
+You can start reading about the key ideas of `visimp` in the [Introduction](docs/INTRO.md)
+or you can jump ahead to the [configuration](docs/CONFIG.md) of your client.

@@ -1,8 +1,8 @@
 local L = require('visimp.layer').new_layer('defaults')
 local bridge = require('visimp.bridge')
-local bind = require('visimp.bind').bind
 local opt = bridge.opt
 local vfn = bridge.vfn
+local get_module = bridge.get_module
 
 L.default_config = {
   mapleader = ' ',
@@ -14,11 +14,16 @@ L.default_config = {
   scrolloff = 5,
   sidescrolloff = 10,
   colorcolumn = 80,
-
   completeopt = 'menuone,noinsert,noselect'
 }
 
+function L.packages()
+  return { 'lewis6991/impatient.nvim' }
+end
+
 function L.load()
+  get_module('impatient')
+
   opt('o', 'swapfile', false) -- Do not use swap files
   opt('o', 'backup', false) -- Do not use backups
   opt('o', 'writebackup', false) -- Do not write backups
