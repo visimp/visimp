@@ -92,11 +92,11 @@ section](#available-layers).
 | [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
 | [`grammarly`](layers/GRAMMARLY.md)       | Grammarly writing assistant support              |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
-| [`lsp`](layers/LSP.md)                   | Neovim's LSP client and LSPs manager             |
+| [`lsp`](layers/LSP.md)                   | Manager for Neovim's LSP client and LSP servers  |
 | [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
 | [`lspsignature`](layers/LSPSIGNATURE.md) | Function signatures as you type                  |
 | [`outline`](layers/OUTLINE.md)           | Buffer outline as a tree-like view of symbols    |
-| [`snippet`](layers/SNIPPET.md)           | Code snippet engine                              |
+| [`snippet`](layers/SNIPPET.md)           | Code snippets engine                             |
 | [`statusline`](layers/STATUSLINE.md)     | Customizable status line                         |
 | [`telescope`](layers/TELESCOPE.md)       | Fuzzy finder and related features                |
 | [`theme`](layers/THEME.md)               | Lush theme loader or classic Vim theme manager   |
