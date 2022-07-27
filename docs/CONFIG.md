@@ -78,8 +78,29 @@ page. You can look it up in the tables presented in the next section.
 
 ### Standard Layers
 
-| Layer name | Short description |
-| ---------- | ----------------- |
+| Layer name                               | Short description                                |
+| ---------------------------------------- | ------------------------------------------------ |
+| [`autopairs`](layers/AUTOPAIRS.md)       | Automatic completion of `{`, `(`, and HTML tags  |
+| [`binds`](layers/BINDS.md)               | Custom bindings for native Vim commands          |
+| [`blankline`](layers/BLANKLINE.md)       | Indentation guides                               |
+| [`cmp`](layers/CMP.md)                   | Completion engine                                |
+| [`comment`](layers/COMMENT.md)           | Automatic (un)commenting support                 |
+| [`defaults`](layers/DEFAULTS.md)         | Customizable sane defaults                       |
+| [`diagnostics`](layers/DIAGNOSTICS.md)   | Pretty list of diagnostics, quickfixes, and more |
+| [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
+| [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
+| [`grammarly`](layers/GRAMMARLY.md)       | Grammarly writing assistant support              |
+| [`languages`](layers/LANGUAGES.md)       | Enable language layers                           |
+| [`lsp`](layers/LSP.md)                   | Neovim's LSP client and LSPs manager             |
+| [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
+| [`lspsignature`](layers/LSPSIGNATURE.md) | Function signatures as you type                  |
+| [`outline`](layers/OUTLINE.md)           | Buffer outline as a tree-like view of symbols    |
+| [`snippet`](layers/SNIPPET.md)           | Code snippet engine                              |
+| [`statusline`](layers/STATUSLINE.md)     | Customizable status line                         |
+| [`telescope`](layers/TELESCOPE.md)       | Fuzzy finder and related features                |
+| [`theme`](layers/THEME.md)               | Lush theme loader or classic Vim theme manager   |
+| [`treesitter`](layers/TREESITTER.md)     | Syntax highlighting                              |
+| [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
 
 ### Language layers
 
