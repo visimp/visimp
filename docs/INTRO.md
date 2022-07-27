@@ -25,8 +25,8 @@ Two types of layers exist:
   desired language server or toggle common functionality for the specific
   language.
 
-One layer may `require` others as its dependencies. Layer dependencies are
-always acyclic in Neovim.
+One layer may declare others as its dependencies. Layer dependencies are
+always acyclic in `visimp`. You can read more in the [Layer](LAYER.md) section.
 
 ## Package Manager
 
