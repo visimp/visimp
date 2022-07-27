@@ -5,9 +5,7 @@ local get_module = require('visimp.bridge').get_module
 L.default_config = {}
 
 function L.packages()
-  return {
-    'lukas-reineke/indent-blankline.nvim',
-  }
+  return { 'lukas-reineke/indent-blankline.nvim' }
 end
 
 function L.load()

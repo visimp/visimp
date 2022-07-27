@@ -22,7 +22,6 @@ function L.packages()
 end
 
 function L.load()
-  vim.cmd('packadd impatient.nvim')
   get_module('impatient')
 
   opt('o', 'swapfile', false) -- Do not use swap files
