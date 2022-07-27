@@ -7,6 +7,7 @@ L.default_config = {
   cmp_integration = true,
   html = true
 }
+
 function L.dependecies()
   if L.config.cmp_integration then
     return { 'cmp' }
@@ -15,7 +16,7 @@ function L.dependecies()
 end
 
 function L.packages()
-  return { 
+  return {
     'windwp/nvim-autopairs',
     { 'windwp/nvim-ts-autotag', opt = true }
   }
@@ -27,8 +28,8 @@ function L.load()
     local cmp_autopairs = get_module('nvim-autopairs.completion.cmp')
     local cmp = get_module('cmp')
     cmp.event:on(
-    'confirm_done',
-    cmp_autopairs.on_confirm_done()
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
     )
   end
   if L.config.html then
