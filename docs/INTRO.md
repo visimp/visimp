@@ -35,7 +35,7 @@ package manager automatically installs the plugins needed by each enabled layer.
 In other words, plugins needed uniquely by disabled layers are not installed.
 The most useful package manager commands are:
 
-- `PakInstall`, which automatically installs the needed plugins if some are
+- `:PakInstall`, which automatically installs the needed plugins if some are
   missing;
-- `PakUpdate`, which updates the currently installed packages.
-- `PakList`, which lists the currently installed packages;
+- `:PakUpdate`, which updates the currently installed packages.
+- `:PakList`, which lists the currently installed packages;
