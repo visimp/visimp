@@ -23,12 +23,9 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server(
-      'java',
-      L.config.lsp == nil,
-      L.config.lsp or 'jdtls',
-      L.config.lspconfig
-    )
+    layers
+      .get('lsp')
+      .use_server('java', L.config.lsp == nil, L.config.lsp or 'jdtls', L.config.lspconfig)
   end
 end
 

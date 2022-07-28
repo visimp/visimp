@@ -3,7 +3,7 @@ local get_module = require('visimp.bridge').get_module
 
 -- Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration
 L.default_config = {
-  icons = false
+  icons = false,
 }
 
 function L.packages()
@@ -15,4 +15,3 @@ function L.load()
 end
 
 return L
-
