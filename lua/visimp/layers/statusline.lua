@@ -1,6 +1,5 @@
 local L = require('visimp.layer').new_layer('statusline')
 local loader = require('visimp.loader')
-
 local get_module = require('visimp.bridge').get_module
 
 -- lualine modules
@@ -41,23 +40,19 @@ function L.packages()
   return { 'nvim-lualine/lualine.nvim' }
 end
 
---- Extracts a lualine theme from a lush config
--- @param theme A parsed lush theme
--- @return A lualine theme object
-local function extract_from_lush(_)
-  -- TODO: proper functionality
-  return 'auto'
-end
-
 function L.load()
-  local theme = loader.get('theme').get_theme()
+  -- Respect the theme setting if imposed
+  if not L.config.options.theme then
+    local theme = loader.get('theme').get_theme()
+    local ok, _ = pcall(get_module('lualine.utils.loader').load_theme, theme)
+    if not ok then
+      theme = 'auto'
+    end
+  end
 
-  -- Attempt to load an existing lualine theme or use one generated from lush
-  local ltheme = #theme >= 3 and (#theme >= 4 and theme[4] or 'auto')
-    or extract_from_lush(theme)
   get_module('lualine').setup(vim.tbl_deep_extend('force', L.config, {
     options = {
-      theme = ltheme,
+      theme = theme,
     },
   }))
 end
