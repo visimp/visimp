@@ -1,7 +1,8 @@
 --- Utilites for binding vi keys to actions
 -- @module visimp.bind
-local vimfn = require('visimp.bridge').vimfn
-local M = {}
+local M = {
+  registered = {}
+}
 
 --- Checks if a bind object is correct
 -- @param bind The bind object
@@ -20,10 +21,11 @@ function M.map(map, fn)
     options = vim.tbl_extend('force', options, map.opts)
   end
 
-  vim.api.nvim_set_keymap(
+  table.insert(M.registered, map)
+  vim.keymap.set(
     map.mode,
     map.bind,
-    '<CMD>' .. vimfn(fn) .. '<CR>',
+    fn,
     options
   )
 end
