@@ -9,6 +9,7 @@ L.use_nullls = false
 L.default_config = {
   -- Can be set to false to disable installing all language servers
   install = true,
+  mason = {},
   nullls = {},
   binds = {
     [{ mode = 'n', bind = 'gD' }] = 'buf.declaration',
@@ -30,7 +31,8 @@ L.default_config = {
 function L.packages()
   return {
     'neovim/nvim-lspconfig',
-    { 'williamboman/nvim-lsp-installer', opt = true },
+    { 'williamboman/mason.nvim', opt = true },
+    { 'williamboman/mason-lspconfig.nvim', opt = true },
     -- TODO: should be optional as its required by null-ls, itself being an
     -- optional dependecy. This currently cannot be cahieved as it'll break other
     -- packages which have a hard dependency on plenary. This fix belongs to
@@ -48,17 +50,19 @@ end
 
 function L.load()
   if L.config.install then
-    vim.cmd('packadd nvim-lsp-installer')
-    local has = get_module('nvim-lsp-installer.servers').is_server_installed
-    local install = get_module('nvim-lsp-installer').install
+    vim.cmd('packadd mason.nvim')
+    vim.cmd('packadd mason-lspconfig.nvim')
+    get_module('mason').setup(L.config.mason or {})
 
+    local required = {}
     for _, srv in ipairs(L.servers) do
       if srv.install and type(srv.server) == 'string' then
-        if not has(srv.server) then
-          install(srv.server)
-        end
+        table.insert(required, srv.server)
       end
     end
+    get_module('mason-lspconfig').setup({
+      ensure_installed = required,
+    })
   end
 
   -- TODO: customizable and generalized
@@ -85,6 +89,7 @@ function L.load()
   end
 
   local on_attach = function(...)
+    print('on_attach')
     -- Enable module binds first so they can be overwritten by other
     -- callbacks if needed
     bind(L.config.binds, function(key)
@@ -101,15 +106,7 @@ function L.load()
   end
 
   for _, srv in ipairs(L.servers) do
-    local server
-    if L.config.install and srv.install then
-      _, server = get_module('nvim-lsp-installer.servers').get_server(
-        srv.server
-      )
-    else
-      server = get_module('lspconfig')[srv.server]
-    end
-    server:setup({
+    get_module('lspconfig')[srv.server].setup({
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = on_attach,
