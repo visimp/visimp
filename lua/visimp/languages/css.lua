@@ -29,12 +29,9 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server(
-      'css',
-      L.config.lsp == nil,
-      L.config.lsp or 'cssls',
-      L.config.lspconfig
-    )
+    layers
+      .get('lsp')
+      .use_server('css', L.config.lsp == nil, L.config.lsp or 'cssls', L.config.lspconfig)
   end
 end
 

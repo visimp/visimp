@@ -1,4 +1,4 @@
-require 'visimp' {
+require('visimp')({
   languages = {
     -- 'ampl',
     -- 'bash',
@@ -23,6 +23,6 @@ require 'visimp' {
     theme = 'gruvbox-community/gruvbox',
     colorscheme = 'gruvbox',
     background = 'dark',
-    lualine = 'gruvbox'
+    lualine = 'gruvbox',
   },
-}
+})

@@ -23,12 +23,9 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server(
-      'go',
-      L.config.lsp == nil,
-      L.config.lsp or 'gopls',
-      L.config.lspconfig
-    )
+    layers
+      .get('lsp')
+      .use_server('go', L.config.lsp == nil, L.config.lsp or 'gopls', L.config.lspconfig)
   end
 end
 

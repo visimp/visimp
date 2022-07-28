@@ -4,7 +4,7 @@ local opt = require('visimp.bridge').opt
 L.default_config = {
   package = 'gruvbox-community/gruvbox',
   colorscheme = 'gruvbox',
-  background = 'dark'
+  background = 'dark',
   -- Optionally the following property can be set to change the lualine's theme.
   -- By default the colorscheme value is used
   -- lualine = 'gruvbox'
