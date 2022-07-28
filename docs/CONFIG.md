@@ -97,7 +97,7 @@ section](#available-layers).
 | [`snippet`](layers/SNIPPET.md)           | Code snippets engine                             |
 | [`statusline`](layers/STATUSLINE.md)     | Customizable status line                         |
 | [`telescope`](layers/TELESCOPE.md)       | Fuzzy finder and related features                |
-| [`theme`](layers/THEME.md)               | Lush theme loader or classic Vim theme manager   |
+| [`theme`](layers/THEME.md)               | Install and enable classic vim themes            |
 | [`treesitter`](layers/TREESITTER.md)     | Syntax highlighting                              |
 | [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
 
