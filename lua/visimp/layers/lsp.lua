@@ -34,7 +34,7 @@ function L.packages()
     { 'williamboman/mason.nvim', opt = true },
     { 'williamboman/mason-lspconfig.nvim', opt = true },
     -- TODO: should be optional as its required by null-ls, itself being an
-    -- optional dependecy. This currently cannot be cahieved as it'll break other
+    -- optional dependecy. This currently cannot be achieved as it'll break other
     -- packages which have a hard dependency on plenary. This fix belongs to
     -- the package manager dependency resolution.
     'nvim-lua/plenary.nvim',
