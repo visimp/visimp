@@ -8,12 +8,14 @@ local window = require('visimp.pak.window')
 local git = require('visimp.pak.git')
 
 local M = {
+  -- Layers which get enabled by default unless disabled
   layers = {
     'defaults',
     'theme',
     'treesitter',
     'statusline',
     'lsp',
+    'lspsignature',
     'cmp',
     'snippet',
     'languages',

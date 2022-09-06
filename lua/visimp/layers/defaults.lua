@@ -14,7 +14,7 @@ L.default_config = {
   scrolloff = 5,
   sidescrolloff = 10,
   colorcolumn = 80,
-  completeopt = 'menuone,noinsert,noselect'
+  completeopt = 'menuone,noinsert,noselect',
 }
 
 function L.packages()

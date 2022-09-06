@@ -1,6 +1,6 @@
 local L = require('visimp.layer').new_layer('lspformat')
 local get_module = require('visimp.bridge').get_module
-local layers = require('visimp.loader')
+local get_layer = require('visimp.loader').get
 
 L.default_config = {
   -- Aplies an autocommand to fix the behavious when quitting and wiring.
@@ -18,7 +18,7 @@ function L.packages()
 end
 
 function L.preload()
-  layers.get('lsp').on_attach(get_module('lsp-format').on_attach)
+  get_layer('lsp').on_attach(get_module('lsp-format').on_attach)
 end
 
 function L.load()

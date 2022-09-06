@@ -1,13 +1,15 @@
 local L = require('visimp.layer').new_layer('whichkey')
 local get_module = require('visimp.bridge').get_module
-
--- TODO: this layer needs changes throughout the codebase to save all keymaps
--- along with descrption for them. This would make some eye candy which-key
--- displays.
+local get_registered = require('visimp.bind').get_registered
+local get_layer = require('visimp.loader').get
 
 -- All fields from https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
-L.default_config = {
-}
+L.default_config = {}
+L.once_on_attach_has_been_called = false
+
+function L.dependencies()
+  return { 'lsp' }
+end
 
 function L.packages()
   return { 'folke/which-key.nvim' }
@@ -15,6 +17,24 @@ end
 
 function L.load()
   get_module('which-key').setup(L.config or {})
+  get_layer('lsp').on_attach(L.register_all)
+  L.register_all()
+end
+
+function L.once_on_attach()
+  if L.once_on_attach_has_been_called then
+    return
+  end
+  L.register_all()
+end
+
+function L.register_all()
+  local whichkey = get_module('which-key')
+  local defs = {}
+  for _, l in ipairs(get_registered()) do
+    defs[l.bind] = l.desc or l.rhs or ''
+  end
+  whichkey.register(defs)
 end
 
 return L

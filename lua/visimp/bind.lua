@@ -1,7 +1,8 @@
 --- Utilites for binding vi keys to actions
 -- @module visimp.bind
-local vimfn = require('visimp.bridge').vimfn
-local M = {}
+local M = {
+  registered = {},
+}
 
 --- Checks if a bind object is correct
 -- @param bind The bind object
@@ -20,12 +21,16 @@ function M.map(map, fn)
     options = vim.tbl_extend('force', options, map.opts)
   end
 
-  vim.api.nvim_set_keymap(
-    map.mode,
-    map.bind,
-    '<CMD>' .. vimfn(fn) .. '<CR>',
-    options
-  )
+  table.insert(M.registered, map)
+  vim.keymap.set(map.mode, map.bind, fn, options)
+end
+
+--- Returns the list of registered keymaps
+-- This can be used by layers to act upon registered custom binds
+-- @return The list of registered keymap structures (the right-hand-side of a
+--         bind assignment)
+function M.get_registered()
+  return M.registered
 end
 
 --- Sets up the list of binds with the given list/function of handlers
@@ -33,8 +38,12 @@ end
 -- @param handler Either a table of bind actions of a function for manually
 --                assigning a bind function to a key
 function M.bind(binds, handler)
-  if type(handler) ~= 'function' and type(handler) ~= 'table' then
-    error('Invalid bind handler: can either be a function or a table')
+  if
+    type(handler) ~= 'function'
+    and type(handler) ~= 'table'
+    and handler ~= nil
+  then
+    error('Invalid bind handler: can either be a function or a table or nil')
   end
 
   for key, exec in pairs(binds) do
@@ -47,7 +56,9 @@ function M.bind(binds, handler)
       )
     end
 
-    local hndlr = type(handler) == 'table' and handler[exec] or handler(exec)
+    local hndlr = handler == nil and exec
+      or type(handler) == 'table' and handler[exec]
+      or handler(exec)
     M.map(key, hndlr)
   end
 end

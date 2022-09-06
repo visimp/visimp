@@ -23,12 +23,14 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server(
-      'haskell',
-      L.config.lsp == nil,
-      L.config.lsp or 'hls',
-      L.config.lspconfig
-    )
+    layers
+      .get('lsp')
+      .use_server(
+        'haskell',
+        L.config.lsp == nil,
+        L.config.lsp or 'hls',
+        L.config.lspconfig
+      )
   end
 end
 

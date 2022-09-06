@@ -33,12 +33,9 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers.get('lsp').use_server(
-      'c',
-      L.config.lsp == nil,
-      L.config.lsp or 'clangd',
-      L.config.lspconfig
-    )
+    layers
+      .get('lsp')
+      .use_server('c', L.config.lsp == nil, L.config.lsp or 'clangd', L.config.lspconfig)
   end
 end
 
