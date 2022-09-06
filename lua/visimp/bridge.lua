@@ -1,10 +1,6 @@
 --- General utilities to bridge the gap between vimscript and lua
 -- @module visimp.bridge
-local M = {
-  -- Array for exported functions which are mapped to a key
-  fn = {},
-  fns = 1,
-}
+local M = {}
 
 local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 function M.opt(scope, key, value)
@@ -25,16 +21,6 @@ function M.get_module(mod)
     error('Plugin \'' .. mod .. '\'not installed:\n' .. val)
   end
   return val
-end
-
---- Maps a lua function to a vimscript call
--- @param fn A lua function
--- @return The vimscript call to execute the function
-function M.vimfn(fn)
-  table.insert(M.fn, fn)
-  local cmd = 'lua require\'visimp.bridge\'.fn[' .. M.fns .. ']()'
-  M.fns = M.fns + 1
-  return cmd
 end
 
 return M
