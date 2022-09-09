@@ -1,4 +1,4 @@
-require('visimp')({
+require 'visimp' {
   languages = {
     -- 'ampl',
     -- 'bash',
@@ -13,7 +13,7 @@ require('visimp')({
     -- 'javascript',
     -- 'json',
     -- 'latex',
-    'lua',
+    -- 'lua',
     -- 'php',
     -- 'python',
     -- 'toml'
@@ -25,4 +25,4 @@ require('visimp')({
     background = 'dark',
     lualine = 'gruvbox',
   },
-})
+}
