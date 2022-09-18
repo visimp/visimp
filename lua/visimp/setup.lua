@@ -16,6 +16,7 @@ local M = {
     'statusline',
     'lsp',
     'lspsignature',
+    'lspformat',
     'cmp',
     'snippet',
     'languages',
