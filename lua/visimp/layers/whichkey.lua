@@ -5,7 +5,6 @@ local get_layer = require('visimp.loader').get
 
 -- All fields from https://github.com/folke/which-key.nvim#%EF%B8%8F-configuration
 L.default_config = {}
-L.once_on_attach_has_been_called = false
 
 function L.dependencies()
   return { 'lsp' }
@@ -18,13 +17,6 @@ end
 function L.load()
   get_module('which-key').setup(L.config or {})
   get_layer('lsp').on_attach(L.register_all)
-  L.register_all()
-end
-
-function L.once_on_attach()
-  if L.once_on_attach_has_been_called then
-    return
-  end
   L.register_all()
 end
 
