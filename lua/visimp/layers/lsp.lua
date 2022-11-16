@@ -21,9 +21,11 @@ L.default_config = {
     [{ mode = 'n', bind = '<leader>rn', desc = 'Rename the current symbol' }] = vim.lsp.buf.rename,
     [{ mode = 'n', bind = '<leader>ca', desc = 'Run a code action' }] = vim.lsp.buf.code_action,
     [{ mode = 'n', bind = 'gr', desc = 'Go to references' }] = vim.lsp.buf.references,
-    [{ mode = 'n', bind = '<leader>e', desc = 'Show line diagnostics' }] = vim.lsp.diagnostic.show_line_diagnostics,
-    [{ mode = 'n', bind = '[d', desc = 'Go to previous diagnostic' }] = vim.lsp.diagnostic.goto_prev,
-    [{ mode = 'n', bind = ']d', desc = 'Go to next diagnostic' }] = vim.lsp.diagnostic.goto_next,
+    [{ mode = 'n', bind = '<leader>e', desc = 'Show line diagnostics' }] = function() 
+      vim.diagnostic.open_float({ border = 'single' })
+    end,
+    [{ mode = 'n', bind = '[d', desc = 'Go to previous diagnostic' }] = vim.diagnostic.goto_prev,
+    [{ mode = 'n', bind = ']d', desc = 'Go to next diagnostic' }] = vim.diagnostic.goto_next,
     [{ mode = 'n', bind = 'gf', desc = 'Format the current buffer' }] = vim.lsp.buf.formatting,
   },
 }
