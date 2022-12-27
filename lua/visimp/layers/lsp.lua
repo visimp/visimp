@@ -11,6 +11,8 @@ L.use_nullls = false
 L.default_config = {
   -- Can be set to false to disable installing all language servers
   install = true,
+  -- Can be set to nil to disable LSP progress reports
+  progress = {},
   mason = {},
   nullls = {},
   binds = {
@@ -47,6 +49,7 @@ function L.packages()
     -- the package manager dependency resolution.
     'nvim-lua/plenary.nvim',
     { 'jose-elias-alvarez/null-ls.nvim', opt = true },
+    { 'j-hui/fidget.nvim', opt = true },
   }
 end
 
@@ -71,6 +74,11 @@ function L.load()
     get_module('mason-lspconfig').setup({
       ensure_installed = required,
     })
+  end
+
+  if L.config.progress ~= nil then
+    vim.cmd('packadd fidget.nvim')
+    get_module('fidget').setup()
   end
 
   -- null-ls sources
