@@ -24,7 +24,7 @@ function L.preload()
     layers.get('lsp').use_server(
       'ocaml',
       L.config.lsp == nil,
-      L.config.lsp or 'ocamlls',
+      L.config.lsp or 'ocamllsp',
       L.config.lspconfig
     )
   end
