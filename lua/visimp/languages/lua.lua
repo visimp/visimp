@@ -26,7 +26,7 @@ function L.preload()
     layers.get('lsp').use_server(
       'lua',
       L.config.lsp == nil,
-      L.config.lsp or 'sumneko_lua',
+      L.config.lsp or 'lua_ls',
       L.config.lspconfig
     )
   end
