@@ -12,7 +12,7 @@ function L.packages()
   }
 end
 
-function L.dependecies()
+function L.dependencies()
   if L.config.icons then
     return { 'icons' }
   end
