@@ -18,6 +18,7 @@ function L.dependencies()
   else
     return { }
   end
+end
 
 function L.load()
   get_module('nvim-tree').setup(L.config)
