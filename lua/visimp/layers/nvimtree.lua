@@ -12,12 +12,11 @@ function L.packages()
   }
 end
 
-function L.dependencies()
+function L.dependecies()
   if L.config.icons then
     return { 'icons' }
-  else
-    return { }
   end
+  return {}
 end
 
 function L.load()
