@@ -83,9 +83,9 @@ function L.preload()
 
   if L.config.lsp then
     vim.cmd('packadd cmp-nvim-lsp')
-    loader.get('lsp').on_capabilities(
-      get_module('cmp_nvim_lsp').default_capabilities()
-    )
+    loader
+      .get('lsp')
+      .on_capabilities(get_module('cmp_nvim_lsp').default_capabilities())
   end
 end
 

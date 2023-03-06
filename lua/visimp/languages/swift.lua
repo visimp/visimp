@@ -25,8 +25,8 @@ function L.preload()
   -- Enable the language server
   if L.config.lsp ~= false then
     layers
-        .get('lsp')
-        .use_server('swift', false, L.config.lsp or 'sourcekit', L.config.lspconfig)
+      .get('lsp')
+      .use_server('swift', false, L.config.lsp or 'sourcekit', L.config.lspconfig)
   end
 end
 

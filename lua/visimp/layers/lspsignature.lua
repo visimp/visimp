@@ -5,7 +5,7 @@ L.default_config = {
   hint_prefix = '> ',
 }
 
-function L.dependecies()
+function L.dependencies()
   return { 'lsp' }
 end
 

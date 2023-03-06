@@ -8,7 +8,7 @@ L.default_config = {
   html = true,
 }
 
-function L.dependecies()
+function L.dependencies()
   if L.config.cmp_integration then
     return { 'cmp' }
   end

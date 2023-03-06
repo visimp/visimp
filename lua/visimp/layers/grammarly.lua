@@ -6,7 +6,7 @@ local layers = require('visimp.loader')
 -- are accepted here.
 L.default_config = {}
 
-function L.dependecies()
+function L.dependencies()
   return { 'lsp' }
 end
 
