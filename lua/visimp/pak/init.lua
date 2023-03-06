@@ -4,7 +4,10 @@ local window = require('visimp.pak.window')
 
 local M = {
   pakdir = vim.fn.stdpath('data') .. '/site/pack/paks/',
-  logfile = (vim.fn.has("nvim-0.8") == 1 and vim.fn.stdpath("log") or vim.fn.stdpath("cache")) .. "/paq.log",
+  logfile = (
+    vim.fn.has('nvim-0.8') == 1 and vim.fn.stdpath('log')
+    or vim.fn.stdpath('cache')
+  ) .. '/paq.log',
   sym_tbl = { install = '+', update = '*', remove = '-' },
   packages = {},
 }

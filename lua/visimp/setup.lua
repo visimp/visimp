@@ -21,7 +21,7 @@ local M = {
     'snippet',
     'languages',
     'telescope',
-    'comment'
+    'comment',
   },
   configs = {},
 }

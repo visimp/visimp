@@ -3,7 +3,7 @@ local get_module = require('visimp.bridge').get_module
 
 -- for nvim-tree default config see https://github.com/nvim-tree/nvim-tree.lua
 L.default_config = {
-  icons = false
+  icons = false,
 }
 
 function L.packages()
