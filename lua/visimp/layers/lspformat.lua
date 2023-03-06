@@ -9,7 +9,7 @@ L.default_config = {
   wq_fix = true,
 }
 
-function L.dependecies()
+function L.dependencies()
   return { 'lsp' }
 end
 

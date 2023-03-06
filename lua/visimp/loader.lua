@@ -102,7 +102,7 @@ function M.preload(id)
   M.preloaded[id] = true
 end
 
---- Loads a registered layer by its identifier with its dependecies.
+--- Loads a registered layer by its identifier with its dependencies.
 -- This function also takes care of calling all the needed functions on each
 -- layer to properly initialize your editor.
 -- @param id string The layer identifier
