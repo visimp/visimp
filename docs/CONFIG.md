@@ -100,6 +100,8 @@ section](#available-layers).
 | [`theme`](layers/THEME.md)               | Install and enable classic vim themes            |
 | [`treesitter`](layers/TREESITTER.md)     | Syntax highlighting                              |
 | [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
+| [`nvimtree`](layers/NVIMTREE.md)         | File explorer tree                               |
+| [`icons`](layers/ICONS.md)               | Adds file type icons                             |
 
 ### Language layers
 
