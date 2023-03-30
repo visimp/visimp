@@ -6,14 +6,13 @@ local get_module = bridge.get_module
 
 L.default_config = {
   mapleader = ' ',
-
   relativenumber = true,
   foldmethod = nil,
   indent = 2,
-
   scrolloff = 5,
   sidescrolloff = 10,
   colorcolumn = 80,
+  mousemodel = 'extend',
   completeopt = 'menuone,noinsert,noselect',
 }
 
@@ -53,6 +52,8 @@ function L.load()
   opt('b', 'expandtab', true) -- Use spaces when tab is hit
   opt('b', 'shiftwidth', L.config.indent) -- Size on an indent (< or >)
   opt('b', 'smartindent', true) -- Uses tabs/spaces wisely where needed
+
+  opt('o', 'mousemodel', L.config.mousemodel) -- Show a column ruler at 80 chars
 
   vim.cmd('syntax enable') -- Enable syntax highlighting
   opt('o', 'completeopt', L.config.completeopt) -- Define how completion works
