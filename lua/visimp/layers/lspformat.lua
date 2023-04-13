@@ -24,9 +24,7 @@ end
 function L.load()
   if L.config.wq_fix then
     -- Taken from https://github.com/lukas-reineke/lsp-format.nvim#wq-will-not-format
-    vim.cmd(
-      [[cabbrev wq execute 'lua vim.lsp.buf.formatting_seq_sync()' <bar> wq]]
-    )
+    vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
   end
 
   get_module('lsp-format').setup(L.config or {})
