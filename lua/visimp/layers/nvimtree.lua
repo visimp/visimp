@@ -19,8 +19,18 @@ function L.dependencies()
   return {}
 end
 
+local function shallow_copy(t)
+  local u = {}
+  for k, v in pairs(t) do
+    u[k] = v
+  end
+  return setmetatable(u, getmetatable(t))
+end
+
 function L.load()
-  get_module('nvim-tree').setup(L.config)
+  local config = shallow_copy(L.config)
+  config.icons = nil
+  get_module('nvim-tree').setup(config)
 end
 
 return L
