@@ -50,7 +50,8 @@ function L.packages()
     -- the package manager dependency resolution.
     'nvim-lua/plenary.nvim',
     { 'jose-elias-alvarez/null-ls.nvim', opt = true },
-    { 'j-hui/fidget.nvim', opt = true },
+    -- TODO: remove `branch: 'legacy'` once fidget.nvim has been rewritten
+    { 'j-hui/fidget.nvim', opt = true, branch = 'legacy' },
   }
 end
 
