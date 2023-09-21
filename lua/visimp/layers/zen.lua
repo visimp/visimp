@@ -11,11 +11,13 @@ L.default_config = {
     local colorcolumn = get_layer('defaults').config.colorcolumn
     if colorcolumn ~= nil then
       opt('b', 'textwidth', colorcolumn)
+      vim.opt.wrap = true
       vim.bo.formatoptions = vim.bo.formatoptions .. 'a'
     end
   end,
   on_close = function()
     opt('b', 'textwidth', 0)
+    vim.opt.wrap = false
     vim.bo.formatoptions = vim.bo.formatoptions:gsub('a', '')
   end,
 }
