@@ -2,7 +2,7 @@ local L = require('visimp.layer').new_layer('hcl')
 local layers = require('visimp.loader')
 
 L.default_config = {
-  -- wether to use or disable the terraform lsp
+  -- whether to use or disable the terraform lsp
   terraform = true,
   -- if the previous field is set to true, this object will be given to the LSP
   -- as configuration
