@@ -1,4 +1,4 @@
---- Setup funciton used to initialize visimp and load user's configurations
+--- Setup function used to initialize visimp and load user's configurations
 -- @module visimp.setup
 local loader = require('visimp.loader')
 local layer = require('visimp.layer')
@@ -81,8 +81,8 @@ function M.setup(cfg)
   if dep ~= nil then
     error(
       'The selected layers cause a cyclic dependency graph (faulty: '
-        .. dep
-        .. ')'
+      .. dep
+      .. ')'
     )
   end
 
