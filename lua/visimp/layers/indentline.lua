@@ -9,7 +9,7 @@ function L.packages()
 end
 
 function L.load()
-  get_module('indent_blankline').setup(L.config or {})
+  get_module('ibl').setup(L.config or {})
 end
 
 return L
