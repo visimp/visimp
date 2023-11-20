@@ -1,4 +1,4 @@
---- Layer lodaer and (layer) dependency manager
+--- Layer loader and (layer) dependency manager
 -- @module visimp.loader
 local M = {
   layers = {},
@@ -25,12 +25,12 @@ function M.define_builtin(id)
   if not ok then
     error(
       'Requested invalid builtin layer: '
-        .. id
-        .. ' (resolved to '
-        .. 'visimp.layers.'
-        .. id
-        .. ')\n'
-        .. module
+      .. id
+      .. ' (resolved to '
+      .. 'visimp.layers.'
+      .. id
+      .. ')\n'
+      .. module
     )
   end
 

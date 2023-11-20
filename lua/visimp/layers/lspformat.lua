@@ -3,8 +3,8 @@ local get_module = require('visimp.bridge').get_module
 local get_layer = require('visimp.loader').get
 
 L.default_config = {
-  -- Aplies an autocommand to fix the behavious when quitting and wiring.
-  -- Because the formatter is async by deafult the code wouldn't be patched
+  -- Applies an autocommand to fix the behaviours when quitting and wiring.
+  -- Because the formatter is async by default the code wouldn't be patched
   -- without this fix when wiring and closing the editor at the same time.
   wq_fix = true,
 }
