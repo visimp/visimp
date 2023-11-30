@@ -14,6 +14,10 @@ L.default_config = {
   -- Can be set to nil to disable LSP progress reports
   progress = {},
   mason = {},
+  -- Strings used as keys are considered null-ls source names, and their values
+  -- the respective configs. When non-strings are used as keys (e.g. implicit
+  -- number indices in arrays), their values are assumed to be null-ls source
+  -- names w/o configs.
   nullls = {},
   binds = {
     [{ mode = 'n', bind = 'gD', desc = 'Go to declaration' }] = vim.lsp.buf.declaration,
@@ -56,9 +60,18 @@ function L.packages()
 end
 
 function L.preload()
-  if table.getn(L.config.nullls) then
+  if next(L.config.nullls) then
     L.use_nullls = true
   end
+end
+
+local function add_source(sources, new_source_name, config)
+  local module =
+    get_module(string.format('null-ls.builtins.%s', new_source_name))
+  if config then
+    module = module.with(config)
+  end
+  table.insert(sources, module)
 end
 
 function L.load()
@@ -87,11 +100,14 @@ function L.load()
   local sources = {}
   if L.use_nullls then
     vim.cmd('packadd null-ls.nvim')
-    for _, mod in ipairs(L.config.nullls) do
-      table.insert(
-        sources,
-        get_module(string.format('null-ls.builtins.%s', mod))
-      )
+    for k, v in pairs(L.config.nullls) do
+      -- source config is specified
+      if type(k) == 'string' then
+        add_source(sources, k, v)
+      else
+        -- source config is not specified
+        add_source(sources, v)
+      end
     end
   end
 
