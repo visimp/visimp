@@ -13,11 +13,10 @@ require 'visimp' {
 
 Requiring the `visimp` script returns a "setup" function. This procedure
 is invoked by passing a description of your intended `visimp` configuration as
-parameter. In the example above, we are using an empty object (`{}`) as our 
+parameter. In the example above, we are using an empty object (`{}`) as our
 configuration, so no layer is enabled, besides the default ones. If you want
 to enable one, use its name as a new key (whose value will be an empty object
-for now). The available layers are listed at [the bottom of this
-page](#available-layers). The following configuration enables the `autopairs`,
+for now). The available layers are listed at [the bottom of this page](#available-layers). The following configuration enables the `autopairs`,
 `gitsigns`, and `outline` layers:
 
 ```lua
@@ -70,8 +69,7 @@ require 'visimp' {
 ```
 
 Before configuring a new layer, you're advised to take a look at its reference
-page. You can look it up in the tables presented [in the next
-section](#available-layers).
+page. You can look it up in the tables presented [in the next section](#available-layers).
 
 ## Available Layers
 
@@ -83,16 +81,21 @@ section](#available-layers).
 | [`binds`](layers/BINDS.md)               | Custom bindings for native Vim commands          |
 | [`blankline`](layers/BLANKLINE.md)       | Indentation guides                               |
 | [`cmp`](layers/CMP.md)                   | Completion engine                                |
+| [`colorizer`](layers/COLORIZER.md)       | Color highlighter                                |
 | [`comment`](layers/COMMENT.md)           | Automatic (un)commenting support                 |
+| [`coq`](layers/COQ.md)                   | Coq proof assistant support                      |
 | [`defaults`](layers/DEFAULTS.md)         | Customizable sane defaults                       |
 | [`diagnostics`](layers/DIAGNOSTICS.md)   | Pretty list of diagnostics, quickfixes, and more |
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
 | [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
-| [`grammarly`](layers/GRAMMARLY.md)       | Grammarly writing assistant support              |
+| [`icons`](layers/ICONS.md)               | Adds file type icons                             |
+| [`indentline`](layers/INDENTLINE.md)     | Whitespace characters visualization              |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
 | [`lsp`](layers/LSP.md)                   | Manager for Neovim's LSP client and LSP servers  |
 | [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
 | [`lspsignature`](layers/LSPSIGNATURE.md) | Function signatures as you type                  |
+| [`ltex`](layers/LTEX.md)                 | Grammar checking via LanguageTool                |
+| [`nvimtree`](layers/NVIMTREE.md)         | File explorer tree                               |
 | [`outline`](layers/OUTLINE.md)           | Buffer outline as a tree-like view of symbols    |
 | [`snippet`](layers/SNIPPET.md)           | Code snippets engine                             |
 | [`statusline`](layers/STATUSLINE.md)     | Customizable status line                         |
@@ -100,8 +103,6 @@ section](#available-layers).
 | [`theme`](layers/THEME.md)               | Install and enable classic vim themes            |
 | [`treesitter`](layers/TREESITTER.md)     | Syntax highlighting                              |
 | [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
-| [`nvimtree`](layers/NVIMTREE.md)         | File explorer tree                               |
-| [`icons`](layers/ICONS.md)               | Adds file type icons                             |
 
 ### Language layers
 
@@ -115,15 +116,18 @@ section](#available-layers).
 | [`dart`](lang/DART.md)             | Dart                  |
 | [`go`](lang/GO.md)                 | Go                    |
 | [`haskell`](lang/HSKELL.md)        | Haskell               |
+| [`hcl`](lang/HCL.md)               | HCL                   |
 | [`html`](lang/HTML.md)             | HTML                  |
 | [`java`](lang/JAVA.md)             | Java                  |
 | [`javascript`](lang/JAVASCRIPT.md) | JavaScript/TypeScript |
 | [`json`](lang/JSON.md)             | JSON                  |
 | [`latex`](lang/LATEX.md)           | $\LaTeX$              |
 | [`lua`](lang/LUA.md)               | Lua                   |
-| [`ocaml`](lang/OCAML.md)           | OCaml                 |           
+| [`ocaml`](lang/OCAML.md)           | OCaml                 |
 | [`php`](lang/PHP.md)               | PHP                   |
 | [`python`](lang/PYTHON.md)         | Python                |
 | [`rust`](lang/RUST.md)             | Rust                  |
+| [`svelte`](lang/SVELTE.md)         | Svelte                |
+| [`swift`](lang/SWIFT.md)           | Swift                 |
 | [`toml`](lang/TOML.md)             | TOML                  |
 | [`vue`](lang/VUE.md)               | Vue                   |
