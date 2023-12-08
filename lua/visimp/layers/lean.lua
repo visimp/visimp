@@ -18,7 +18,6 @@ function L.packages()
 end
 
 function L.load()
-  vim.cmd('packadd lean.nvim')
   get_module('lean').setup(L.config)
 end
 
