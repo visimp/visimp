@@ -91,6 +91,7 @@ page. You can look it up in the tables presented [in the next section](#availabl
 | [`icons`](layers/ICONS.md)               | Adds file type icons                             |
 | [`indentline`](layers/INDENTLINE.md)     | Whitespace characters visualization              |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
+| [`lean`](layers/LEAN.md)                 | Lean proof assistant support                     |
 | [`lsp`](layers/LSP.md)                   | Manager for Neovim's LSP client and LSP servers  |
 | [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
 | [`lspsignature`](layers/LSPSIGNATURE.md) | Function signatures as you type                  |
