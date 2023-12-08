@@ -6,20 +6,18 @@ L.default_config = {
 }
 
 function L.dependencies()
-  return {}
+  return {
+    'lsp',
+  }
 end
 
 function L.packages()
   return {
     'Julian/lean.nvim',
-    'neovim/nvim-lspconfig',
-    'nvim-lua/plenary.nvim',
   }
 end
 
 function L.load()
-  vim.cmd('packadd nvim-lspconfig')
-  vim.cmd('packadd plenary.nvim')
   vim.cmd('packadd lean.nvim')
   get_module('lean').setup(L.config)
 end
