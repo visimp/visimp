@@ -1,6 +1,16 @@
 local L = require('visimp.layer').new_layer('agda')
 local layers = require('visimp.loader')
 
+local function add_filetype()
+  vim.filetype.add({
+    extension = {
+      agda = 'agda',
+      ['agda-lib'] = 'agda',
+      lagda = 'lagda',
+    },
+  })
+end
+
 L.default_config = {
   -- Leave to nil to use the official Agda Language Server, false to disable
   lsp = nil,
@@ -17,6 +27,7 @@ function L.dependencies()
 end
 
 function L.preload()
+  add_filetype()
   -- Configure treesitter
   layers.get('treesitter').langs({ 'agda' })
 
