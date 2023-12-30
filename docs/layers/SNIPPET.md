@@ -24,24 +24,24 @@ specified using VS Code syntax, SnipMate syntax, or directly in Lua.
 -- path/of/your/vim/config/init.lua
 
 require("visimp")({
-	snippet = {
-		setup = { -- LuaSnip setup configuration
-			update_events = { "TextChanged", "TextChangedI" },
-		},
-		loaders = {
-            -- load SnipMate-like snippets from
-            -- path/of/your/vim/config/snippets/. See below for an example.
-            snipmate = {}
-            -- load VS-Code-like snippets from any directory in your Neovim's
-            -- `runtimepath` containing at least one VS-Code-like package.json
-            -- contributing snippets. See
-            -- https://github.com/rafamadriz/friendly-snippets as an example.
-            vscode = {},
-            -- load snippets defined in Lua from
-            -- path/of/your/vim/config/luasnippets/. See below for an example.
-            lua = {},
-        },
-	},
+  snippet = {
+    setup = { -- LuaSnip setup configuration
+      update_events = { "TextChanged", "TextChangedI" },
+    },
+    loaders = {
+      -- load SnipMate-like snippets from
+      -- path/of/your/vim/config/snippets/. See below for an example.
+      snipmate = {}
+      -- load VS-Code-like snippets from any directory in your Neovim's
+      -- `runtimepath` containing at least one VS-Code-like package.json
+      -- contributing snippets. See
+      -- https://github.com/rafamadriz/friendly-snippets as an example.
+      vscode = {},
+      -- load snippets defined in Lua from
+      -- path/of/your/vim/config/luasnippets/. See below for an example.
+      lua = {},
+    },
+  },
 })
 ```
 
