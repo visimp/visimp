@@ -68,12 +68,12 @@ require 'visimp' {
 }
 ```
 
-Before configuring a new layer, you're advised to take a look at its reference
-page. You can look it up in the tables presented [in the next section](#available-layers).
-
 ## Available Layers
 
 ### Standard Layers
+
+Before configuring a new standard layer, you're advised to take a look at its
+reference page. You can look it up in the following table.
 
 | Layer name                               | Short description                                |
 | ---------------------------------------- | ------------------------------------------------ |
@@ -106,6 +106,10 @@ page. You can look it up in the tables presented [in the next section](#availabl
 | [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
 
 ### Language layers
+
+Support for some of the programming languages that also double up as proof
+assistants (e.g. Coq, Lean) is provided by standard layers, rather than language
+layers.
 
 | Layer name   | Language              |
 | ------------ | --------------------- |
