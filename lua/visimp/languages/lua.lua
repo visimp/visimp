@@ -2,7 +2,7 @@ local L = require('visimp.layer').new_layer('lua')
 local layers = require('visimp.loader')
 
 L.default_config = {
-  -- Leave to nil to use sumneko_lua LSP, otherwhise can specify local
+  -- Leave to nil to use lua_ls LSP, otherwhise can specify local
   -- installation or disable by setting to false.
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
