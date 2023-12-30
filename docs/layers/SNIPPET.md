@@ -48,8 +48,8 @@ require("visimp")({
 ```snippets
 # path/of/your/nvim/config/snippets/haskell.snippets
 snippet main
-	main :: IO ()
-	main = ${0:undefined}
+  main :: IO ()
+  main = ${0:undefined}
 ```
 
 ```lua
@@ -58,7 +58,7 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 return {
-	s("lorem", t("Lorem ipsum dolor sit amet, consectetur adipiscing elit."))
+  s("lorem", t("Lorem ipsum dolor sit amet, consectetur adipiscing elit."))
 }
 ```
 
