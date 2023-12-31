@@ -53,6 +53,10 @@ require("visimp")({
 
 ```snippets
 # path/of/your/nvim/config/snippets/haskell.snippets
+
+# "main" will be expanded as Haskell's main function. The editor will move to
+# the end of the snippet (where the main function implementation should be),
+# selecting the word "undefined", which acts as default implementation.
 snippet main
   main :: IO ()
   main = ${0:undefined}
