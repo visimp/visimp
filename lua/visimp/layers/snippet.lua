@@ -1,6 +1,7 @@
 local L = require('visimp.layer').new_layer('snippet')
 local loader = require('visimp.loader')
 local get_module = require('visimp.bridge').get_module
+local bind = require('visimp.bind')
 
 L.default_config = {
   -- LuaSnip setup config
@@ -37,6 +38,27 @@ local function load_snippets(loaders)
   end
 end
 
+local function jump(ls, offset)
+  return function()
+    ls.jump(offset)
+  end
+end
+
+local function change_choice(ls)
+  return function()
+    if ls.choice_active() then
+      ls.change_choice(1)
+    end
+  end
+end
+
+local function luasnip_bindings(ls)
+  bind.map({ mode = 'i', bind = '<Tab>' }, ls.expand)
+  bind.map({ mode = { 'i', 's' }, bind = '<Tab>' }, jump(ls, 1))
+  bind.map({ mode = { 'i', 's' }, bind = '<S-Tab>' }, jump(ls, -1))
+  bind.map({ mode = { 'i', 's' }, bind = '<C-E>' }, change_choice(ls))
+end
+
 local function luasnip_setup()
   local luasnip = get_module('luasnip')
   local config = L.config
@@ -46,6 +68,7 @@ local function luasnip_setup()
   if config.loaders then
     load_snippets(config.loaders)
   end
+  luasnip_bindings(luasnip)
 end
 
 -- Taken from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip

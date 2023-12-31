@@ -4,6 +4,15 @@ The `snippet` layer allows you to define code snippets via the
 [LuaSnip](https://github.com/l3mon4d3/luasnip) snippet engine. These may be
 specified using VS Code syntax, SnipMate syntax, or directly in Lua.
 
+## Bindings
+
+- `<Tab>` in insert mode: after typing snippet trigger, expands the snippet;
+- `<Tab>` in insert/selection mode: jumps to the next snippet stop;
+- `<S-Tab>` (shift + tab) in insert/selection mode: jumps to the previous
+  snippet stop;
+- `<C-E>` (ctrl + e) in insert/selection mode: cycles through options for
+  multiple choice snippet stops.
+
 ## Configuration
 
 - `setup`: setup settings for LuaSnip (as documented
