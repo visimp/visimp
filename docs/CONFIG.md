@@ -68,12 +68,12 @@ require 'visimp' {
 }
 ```
 
-Before configuring a new layer, you're advised to take a look at its reference
-page. You can look it up in the tables presented [in the next section](#available-layers).
-
 ## Available Layers
 
 ### Standard Layers
+
+Before configuring a new standard layer, you're advised to take a look at its
+reference page. You can look it up in the following table.
 
 | Layer name                               | Short description                                |
 | ---------------------------------------- | ------------------------------------------------ |
@@ -107,28 +107,32 @@ page. You can look it up in the tables presented [in the next section](#availabl
 
 ### Language layers
 
-| Layer name                         | Language              |
-| ---------------------------------- | --------------------- |
-| [`ampl`](lang/AMPL.md)             | AMPL                  |
-| [`bash`](lang/BASH.md)             | Bash                  |
-| [`c`](lang/C.md)                   | C/C++                 |
-| [`csharp`](lang/CSHARP.md)         | C#                    |
-| [`css`](lang/CSS.md)               | CSS                   |
-| [`dart`](lang/DART.md)             | Dart                  |
-| [`go`](lang/GO.md)                 | Go                    |
-| [`haskell`](lang/HSKELL.md)        | Haskell               |
-| [`hcl`](lang/HCL.md)               | HCL                   |
-| [`html`](lang/HTML.md)             | HTML                  |
-| [`java`](lang/JAVA.md)             | Java                  |
-| [`javascript`](lang/JAVASCRIPT.md) | JavaScript/TypeScript |
-| [`json`](lang/JSON.md)             | JSON                  |
-| [`latex`](lang/LATEX.md)           | $\LaTeX$              |
-| [`lua`](lang/LUA.md)               | Lua                   |
-| [`ocaml`](lang/OCAML.md)           | OCaml                 |
-| [`php`](lang/PHP.md)               | PHP                   |
-| [`python`](lang/PYTHON.md)         | Python                |
-| [`rust`](lang/RUST.md)             | Rust                  |
-| [`svelte`](lang/SVELTE.md)         | Svelte                |
-| [`swift`](lang/SWIFT.md)           | Swift                 |
-| [`toml`](lang/TOML.md)             | TOML                  |
-| [`vue`](lang/VUE.md)               | Vue                   |
+Support for some of the programming languages that also double up as proof
+assistants (e.g. Coq, Lean) is provided by standard layers, rather than language
+layers.
+
+| Layer name   | Language              |
+| ------------ | --------------------- |
+| `ampl`       | AMPL                  |
+| `bash`       | Bash                  |
+| `c`          | C/C++                 |
+| `csharp`     | C#                    |
+| `css`        | CSS                   |
+| `dart`       | Dart                  |
+| `go`         | Go                    |
+| `haskell`    | Haskell               |
+| `hcl`        | HCL                   |
+| `html`       | HTML                  |
+| `java`       | Java                  |
+| `javascript` | JavaScript/TypeScript |
+| `json`       | JSON                  |
+| `latex`      | $\LaTeX$              |
+| `lua`        | Lua                   |
+| `ocaml`      | OCaml                 |
+| `php`        | PHP                   |
+| `python`     | Python                |
+| `rust`       | Rust                  |
+| `svelte`     | Svelte                |
+| `swift`      | Swift                 |
+| `toml`       | TOML                  |
+| `vue`        | Vue                   |

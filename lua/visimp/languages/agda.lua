@@ -1,9 +1,18 @@
-local L = require('visimp.layer').new_layer('lua')
+local L = require('visimp.layer').new_layer('agda')
 local layers = require('visimp.loader')
 
+local function add_filetype()
+  vim.filetype.add({
+    extension = {
+      agda = 'agda',
+      ['agda-lib'] = 'agda',
+      lagda = 'lagda',
+    },
+  })
+end
+
 L.default_config = {
-  -- Leave to nil to use lua_ls LSP, otherwhise can specify local
-  -- installation or disable by setting to false.
+  -- Leave to nil to use the official Agda Language Server, false to disable
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
   lspconfig = nil,
@@ -18,14 +27,13 @@ function L.dependencies()
 end
 
 function L.preload()
+  add_filetype()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'lua' })
+  layers.get('treesitter').langs({ 'agda' })
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('lua', L.config.lsp == nil, L.config.lsp or 'lua_ls', L.config.lspconfig)
+    -- Agda Language Server
   end
 end
 
