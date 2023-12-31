@@ -21,20 +21,24 @@ function L.packages()
   }
 end
 
-local function process_loader(snippets_loader, config)
+--- Adds additional snippets in VS Code/SnipMate/LuaSnip syntax.
+--- @param ldr string Snippets loader ('lua', 'snipmate', 'vscode')
+--- @param opts table|nil Options table
+--- @see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#loaders
+function L.add_snippets(ldr, opts)
   local available_loaders = { 'lua', 'snipmate', 'vscode' }
   for _, available_loader in pairs(available_loaders) do
-    if available_loader == snippets_loader then
-      require('luasnip.loaders.from_' .. snippets_loader).lazy_load(config)
+    if available_loader == ldr then
+      require('luasnip.loaders.from_' .. ldr).lazy_load(opts)
       return
     end
   end
-  error('"snippet" layer: unknown "' .. snippets_loader .. '" loader.')
+  error('"snippet" layer: add_snippets: unknown "' .. ldr .. '" loader.')
 end
 
 local function load_snippets(loaders)
   for snippets_loader, config in pairs(loaders) do
-    process_loader(snippets_loader, config)
+    L.add_snippets(snippets_loader, config)
   end
 end
 
@@ -137,10 +141,6 @@ function L.preload()
     end,
   })
   luasnip_setup()
-end
-
-function L.add_snippets(filetype, snippets, opts)
-  get_module('luasnip').add_snippets(filetype, snippets, opts)
 end
 
 return L
