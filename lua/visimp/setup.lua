@@ -49,7 +49,7 @@ function M.setup(cfg)
   for k, v in pairs(M.configs) do
     if v == false then
       -- disable any undesired layer
-      table.remove(M.layers, k)
+      M.layers[k] = nil
     elseif not vim.tbl_contains(M.layers, k) and loader.is_builtin(k) then
       -- enable any missing builtin layer
       table.insert(M.layers, k)
@@ -81,8 +81,8 @@ function M.setup(cfg)
   if dep ~= nil then
     error(
       'The selected layers cause a cyclic dependency graph (faulty: '
-      .. dep
-      .. ')'
+        .. dep
+        .. ')'
     )
   end
 
