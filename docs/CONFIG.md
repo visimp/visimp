@@ -135,4 +135,5 @@ layers.
 | `svelte`     | Svelte                |
 | `swift`      | Swift                 |
 | `toml`       | TOML                  |
+| `typst`      | Typst                 |
 | `vue`        | Vue                   |
