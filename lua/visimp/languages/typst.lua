@@ -32,6 +32,8 @@ end
 function L.preload()
   -- Configure treesitter
   -- get_layer('treesitter').langs({ 'typst' })
+  --[[ TODO: https://github.com/uben0/tree-sitter-typst/issues/7 12-01-24,
+  -- Stefano Volpe foxy@teapot.ovh ]]
 
   -- Enable the language server
   if L.config.lsp ~= false then
