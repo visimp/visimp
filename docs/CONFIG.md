@@ -113,6 +113,7 @@ layers.
 
 | Layer name   | Language              |
 | ------------ | --------------------- |
+| `agda`       | Agda                  |
 | `ampl`       | AMPL                  |
 | `bash`       | Bash                  |
 | `c`          | C/C++                 |
