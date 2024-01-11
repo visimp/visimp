@@ -1,6 +1,7 @@
 local L = require('visimp.layer').new_layer('snippet')
 local loader = require('visimp.loader')
 local get_module = require('visimp.bridge').get_module
+local bind = require('visimp.bind')
 
 L.default_config = {
   -- LuaSnip setup config
@@ -20,21 +21,46 @@ function L.packages()
   }
 end
 
-local function process_loader(snippets_loader, config)
+--- Adds additional snippets in VS Code/SnipMate/LuaSnip syntax.
+--- @param ldr string Snippets loader ('lua', 'snipmate', 'vscode')
+--- @param opts table|nil Options table
+--- @see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#loaders
+function L.add_snippets(ldr, opts)
   local available_loaders = { 'lua', 'snipmate', 'vscode' }
   for _, available_loader in pairs(available_loaders) do
-    if available_loader == snippets_loader then
-      require('luasnip.loaders.from_' .. snippets_loader).lazy_load(config)
+    if available_loader == ldr then
+      require('luasnip.loaders.from_' .. ldr).lazy_load(opts)
       return
     end
   end
-  error('"snippet" layer: unknown "' .. snippets_loader .. '" loader.')
+  error('"snippet" layer: add_snippets: unknown "' .. ldr .. '" loader.')
 end
 
 local function load_snippets(loaders)
   for snippets_loader, config in pairs(loaders) do
-    process_loader(snippets_loader, config)
+    L.add_snippets(snippets_loader, config)
   end
+end
+
+local function jump(ls, offset)
+  return function()
+    ls.jump(offset)
+  end
+end
+
+local function change_choice(ls)
+  return function()
+    if ls.choice_active() then
+      ls.change_choice(1)
+    end
+  end
+end
+
+local function luasnip_bindings(ls)
+  bind.map({ mode = 'i', bind = '<Tab>' }, ls.expand)
+  bind.map({ mode = { 'i', 's' }, bind = '<Tab>' }, jump(ls, 1))
+  bind.map({ mode = { 'i', 's' }, bind = '<S-Tab>' }, jump(ls, -1))
+  bind.map({ mode = { 'i', 's' }, bind = '<C-E>' }, change_choice(ls))
 end
 
 local function luasnip_setup()
@@ -46,6 +72,7 @@ local function luasnip_setup()
   if config.loaders then
     load_snippets(config.loaders)
   end
+  luasnip_bindings(luasnip)
 end
 
 -- Taken from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
@@ -114,10 +141,6 @@ function L.preload()
     end,
   })
   luasnip_setup()
-end
-
-function L.add_snippets(filetype, snippets, opts)
-  get_module('luasnip').add_snippets(filetype, snippets, opts)
 end
 
 return L
