@@ -33,7 +33,8 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    -- Agda Language Server
+    --[[ TODO: https://github.com/mason-org/mason-registry/issues/3936
+         31-12-23, Stefano Volpe foxy@teapot.ovh ]]
   end
 end
 
