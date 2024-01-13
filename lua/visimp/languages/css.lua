@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('css')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'css'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the cssls LSP, false to disable

@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('treesitter')
+local L = require('visimp.layer').new_layer 'treesitter'
 local get_module = require('visimp.bridge').get_module
 
 L.default_config = {
@@ -12,16 +12,16 @@ function L.packages()
 end
 
 function L.load()
-  local config = get_module('nvim-treesitter.configs')
-  config.setup({
+  local config = get_module 'nvim-treesitter.configs'
+  config.setup {
     highlight = {
       enable = L.config.highlight,
       additional_vim_regex_highlighting = false,
     },
     indent = { enable = L.config.indent },
-  })
+  }
 
-  local ts = get_module('nvim-treesitter.install')
+  local ts = get_module 'nvim-treesitter.install'
   ts.ensure_installed(L.languages)
 end
 

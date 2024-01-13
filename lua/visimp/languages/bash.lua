@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('bash')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'bash'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- The lsp server to use. Defaults to nil(bashls via lspinstall and npm) but

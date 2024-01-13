@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('ltex')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'ltex'
+local layers = require 'visimp.loader'
 
 -- Optional configuration to be provided for the language server
 -- All fields from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#ltex

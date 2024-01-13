@@ -1,9 +1,9 @@
-local L = require('visimp.layer').new_layer('statusline')
-local loader = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'statusline'
+local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
 -- lualine modules
-local mode = require('visimp.layers.statusline.mode')
+local mode = require 'visimp.layers.statusline.mode'
 
 L.default_config = {
   options = {

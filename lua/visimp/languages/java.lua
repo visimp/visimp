@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('java')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'java'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- The lsp server to use. Defaults to eclipse's jdtls downloaded via standard
@@ -19,7 +19,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'java' })
+  layers.get('treesitter').langs { 'java' }
 
   -- Enable the language server
   if L.config.lsp ~= false then

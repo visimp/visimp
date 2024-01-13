@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('c')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'c'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   c = true,
@@ -21,7 +21,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  local ts = layers.get('treesitter')
+  local ts = layers.get 'treesitter'
   local langs = {}
   if L.config.c then
     table.insert(langs, 'c')

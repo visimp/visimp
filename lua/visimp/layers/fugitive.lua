@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('fugitive')
+local L = require('visimp.layer').new_layer 'fugitive'
 
 L.default_config = {}
 
@@ -7,7 +7,7 @@ function L.packages()
 end
 
 function L.preload()
-  vim.cmd('packadd vim-fugitive')
+  vim.cmd 'packadd vim-fugitive'
 end
 
 return L

@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('vue')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'vue'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the volar LSP, false to disable, a string (i.e.
@@ -19,7 +19,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'vue', 'css', 'javascript' })
+  layers.get('treesitter').langs { 'vue', 'css', 'javascript' }
 
   -- Enable the language server
   if L.config.lsp ~= false then

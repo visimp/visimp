@@ -1,6 +1,6 @@
 -- DEPRECATED
-local L = require('visimp.layer').new_layer('grammarly')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'grammarly'
+local layers = require 'visimp.loader'
 
 -- Optional configuration to be provided for the language server
 -- All fields from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#grammarly
@@ -16,9 +16,7 @@ function L.preload()
 end
 
 function L.load()
-  print(
-    'The `grammarly` layer is deprecated and shall not be used. Please disable it.'
-  )
+  print 'The `grammarly` layer is deprecated and shall not be used. Please disable it.'
 end
 
 return L

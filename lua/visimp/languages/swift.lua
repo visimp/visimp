@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('swift')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'swift'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- The lsp server to use. Defaults to nil(sourcekit lsp already available on
@@ -20,7 +20,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'swift' })
+  layers.get('treesitter').langs { 'swift' }
 
   -- Enable the language server
   if L.config.lsp ~= false then
