@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('hcl')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'hcl'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- whether to use or disable the terraform lsp

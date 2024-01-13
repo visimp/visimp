@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('svelte')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'svelte'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the default svelte LSP, false to disable
@@ -18,7 +18,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'svelte' })
+  layers.get('treesitter').langs { 'svelte' }
 
   -- Enable the language server
   if L.config.lsp ~= false then

@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('zen')
+local L = require('visimp.layer').new_layer 'zen'
 local get_module = require('visimp.bridge').get_module
 local get_layer = require('visimp.loader').get
 local opt = require('visimp.bridge').opt

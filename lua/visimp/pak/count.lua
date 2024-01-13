@@ -1,4 +1,4 @@
-local window = require('visimp.pak.window')
+local window = require 'visimp.pak.window'
 local M = {
   packages = {},
   longest_word = 2,

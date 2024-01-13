@@ -19,18 +19,19 @@ end
 
 --- Attempts to require the given layer within the default configuration.
 -- The procedure either throws an error or defines the layer.
--- @param id stirng The layer identifier, by convention the same as the module name
+-- @param id string The layer identifier, by convention the same as the module
+--   name
 function M.define_builtin(id)
   local ok, module = pcall(require, 'visimp.layers.' .. id)
   if not ok then
     error(
       'Requested invalid builtin layer: '
-      .. id
-      .. ' (resolved to '
-      .. 'visimp.layers.'
-      .. id
-      .. ')\n'
-      .. module
+        .. id
+        .. ' (resolved to '
+        .. 'visimp.layers.'
+        .. id
+        .. ')\n'
+        .. module
     )
   end
 
@@ -41,7 +42,7 @@ end
 -- @param id string The layer identifier
 -- @return bool Whether the layer is builtin
 function M.is_builtin(id)
-  local ok, module = pcall(require, 'visimp.layers.' .. id)
+  local ok, _ = pcall(require, 'visimp.layers.' .. id)
   return ok
 end
 

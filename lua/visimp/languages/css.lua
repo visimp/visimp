@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('css')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'css'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the cssls LSP, false to disable
@@ -29,9 +29,10 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('css', L.config.lsp == nil, L.config.lsp or 'cssls', L.config.lspconfig)
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'cssls'
+    local settings = L.config.lspconfig
+    layers.get('lsp').use_server('css', install, server, settings)
   end
 end
 

@@ -1,9 +1,9 @@
-local L = require('visimp.layer').new_layer('statusline')
-local loader = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'statusline'
+local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
 -- lualine modules
-local mode = require('visimp.layers.statusline.mode')
+local mode = require 'visimp.layers.statusline.mode'
 
 L.default_config = {
   options = {
@@ -42,8 +42,9 @@ end
 
 function L.load()
   -- Respect the theme setting if imposed
+  local theme = nil
   if not L.config.options.theme then
-    local theme = loader.get('theme').get_theme()
+    theme = loader.get('theme').get_theme()
     local ok, _ = pcall(get_module('lualine.utils.loader').load_theme, theme)
     if not ok then
       theme = 'auto'

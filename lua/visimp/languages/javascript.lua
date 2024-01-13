@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('javascript')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'javascript'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use tsserver LSP, otherwhise can specify a local executable
