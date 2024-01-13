@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('telescope')
+local L = require('visimp.layer').new_layer 'telescope'
 local get_module = require('visimp.bridge').get_module
 local bind = require('visimp.bind').bind
 
@@ -31,10 +31,10 @@ function L.packages()
 end
 
 function L.load()
-  vim.cmd('packadd telescope.nvim')
+  vim.cmd 'packadd telescope.nvim'
   get_module('telescope').setup(L.config.config or {})
 
-  local builtin = get_module('telescope.builtin')
+  local builtin = get_module 'telescope.builtin'
   bind(L.config.binds, function(key)
     return builtin[key]
   end)

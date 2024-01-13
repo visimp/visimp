@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('lsp')
+local L = require('visimp.layer').new_layer 'lsp'
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.bridge').get_module
 
@@ -76,8 +76,8 @@ end
 
 function L.load()
   if L.config.install then
-    vim.cmd('packadd mason.nvim')
-    vim.cmd('packadd mason-lspconfig.nvim')
+    vim.cmd 'packadd mason.nvim'
+    vim.cmd 'packadd mason-lspconfig.nvim'
     get_module('mason').setup(L.config.mason or {})
 
     local required = {}
@@ -86,20 +86,20 @@ function L.load()
         table.insert(required, srv.server)
       end
     end
-    get_module('mason-lspconfig').setup({
+    get_module('mason-lspconfig').setup {
       ensure_installed = required,
-    })
+    }
   end
 
   if L.config.progress ~= nil then
-    vim.cmd('packadd fidget.nvim')
+    vim.cmd 'packadd fidget.nvim'
     get_module('fidget').setup()
   end
 
   -- null-ls sources
   local sources = {}
   if L.use_nullls then
-    vim.cmd('packadd null-ls.nvim')
+    vim.cmd 'packadd null-ls.nvim'
     for k, v in pairs(L.config.nullls) do
       -- source config is specified
       if type(k) == 'string' then
@@ -122,18 +122,18 @@ function L.load()
   end
 
   for _, srv in ipairs(L.servers) do
-    get_module('lspconfig')[srv.server].setup({
+    get_module('lspconfig')[srv.server].setup {
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = on_attach,
-    })
+    }
   end
   if L.use_nullls then
-    get_module('null-ls').setup({
+    get_module('null-ls').setup {
       sources = sources,
       capabilities = L.capabilities,
       on_attach = on_attach,
-    })
+    }
   end
 end
 

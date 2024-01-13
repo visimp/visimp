@@ -1,6 +1,6 @@
-local L = require('visimp.layer').new_layer('languages')
-local loader = require('visimp.loader')
-local visimp = require('visimp.setup')
+local L = require('visimp.layer').new_layer 'languages'
+local loader = require 'visimp.loader'
+local visimp = require 'visimp.setup'
 
 L.default_config = {}
 

@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('defaults')
-local bridge = require('visimp.bridge')
+local L = require('visimp.layer').new_layer 'defaults'
+local bridge = require 'visimp.bridge'
 local opt = bridge.opt
 local vfn = bridge.vfn
 local get_module = bridge.get_module
@@ -21,7 +21,7 @@ function L.packages()
 end
 
 function L.load()
-  get_module('impatient')
+  get_module 'impatient'
 
   opt('o', 'swapfile', false) -- Do not use swap files
   opt('o', 'backup', false) -- Do not use backups
@@ -55,7 +55,7 @@ function L.load()
 
   opt('o', 'mousemodel', L.config.mousemodel) -- Show a column ruler at 80 chars
 
-  vim.cmd('syntax enable') -- Enable syntax highlighting
+  vim.cmd 'syntax enable' -- Enable syntax highlighting
   opt('o', 'completeopt', L.config.completeopt) -- Define how completion works
   vim.g.mapleader = L.config.mapleader -- Leader key for mappings
 end

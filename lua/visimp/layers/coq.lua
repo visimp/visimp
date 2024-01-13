@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('coq')
+local L = require('visimp.layer').new_layer 'coq'
 
 L.default_config = {}
 
@@ -13,7 +13,7 @@ function L.packages()
 end
 
 function L.load()
-  vim.cmd('packadd Coqtail')
+  vim.cmd 'packadd Coqtail'
 end
 
 return L

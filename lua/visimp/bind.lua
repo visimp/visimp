@@ -43,7 +43,7 @@ function M.bind(binds, handler)
     and type(handler) ~= 'table'
     and handler ~= nil
   then
-    error('Invalid bind handler: can either be a function or a table or nil')
+    error 'Invalid bind handler: can either be a function or a table or nil'
   end
 
   for key, exec in pairs(binds) do

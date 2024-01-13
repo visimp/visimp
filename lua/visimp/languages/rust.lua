@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('rust')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'rust'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the phpactor LSP, false to disable, a string to use a
@@ -19,7 +19,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'rust' })
+  layers.get('treesitter').langs { 'rust' }
 
   -- Enable the language server
   if L.config.lsp ~= false then
