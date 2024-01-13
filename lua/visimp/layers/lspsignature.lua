@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('lspsignature')
+local L = require('visimp.layer').new_layer 'lspsignature'
 local get_module = require('visimp.bridge').get_module
 
 L.default_config = {

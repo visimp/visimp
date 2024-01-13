@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('lua')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'lua'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use lua_ls LSP, otherwhise can specify local
@@ -19,13 +19,14 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'lua' })
+  layers.get('treesitter').langs { 'lua' }
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('lua', L.config.lsp == nil, L.config.lsp or 'lua_ls', L.config.lspconfig)
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'clangd'
+    local settings = L.config.lspconfig
+    layers.get('lsp').use_server('lua', install, server, settings)
   end
 end
 

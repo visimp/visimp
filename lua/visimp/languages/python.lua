@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('python')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'python'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- The lsp server to use. Defaults to nil(pyright via lspinstall & npm) but
@@ -19,7 +19,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'python' })
+  layers.get('treesitter').langs { 'python' }
 
   -- Enable the language server
   if L.config.lsp ~= false then

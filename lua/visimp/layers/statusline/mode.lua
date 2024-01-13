@@ -1,15 +1,16 @@
 -- Copyright (c) 2020-2021 hoob3rt
 -- Copyright (c) 2022 Luca Tagliavini
 -- MIT license, see LICENSE for more details.
--- taken from https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/utils/mode.lua
--- and modified as needed
+-- taken from
+-- https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/utils/
+-- mode.lua and modified as needed
 
 local maps = {
+  [''] = 'V',
   ['n'] = 'N',
   ['no'] = 'O',
   ['nov'] = 'O',
   ['noV'] = 'O',
-  ['no'] = 'O',
   ['niI'] = 'N',
   ['niR'] = 'N',
   ['niV'] = 'N',
@@ -18,11 +19,8 @@ local maps = {
   ['vs'] = 'V',
   ['V'] = 'V',
   ['Vs'] = 'V',
-  [''] = 'V',
   ['s'] = 'V',
-  ['s'] = 'S',
   ['S'] = 'S',
-  [''] = 'S',
   ['i'] = 'I',
   ['ic'] = 'I',
   ['ix'] = 'I',
@@ -44,7 +42,7 @@ local maps = {
 
 --- Returns a single char to identify the vi mode
 -- @return single char mode
-function get_mode()
+local function get_mode()
   local mode_code = vim.api.nvim_get_mode().mode
   if maps[mode_code] == nil then
     return mode_code

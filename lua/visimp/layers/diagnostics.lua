@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('diagnostics')
+local L = require('visimp.layer').new_layer 'diagnostics'
 local get_module = require('visimp.bridge').get_module
 
 -- Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration

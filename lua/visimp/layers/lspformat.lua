@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('lspformat')
+local L = require('visimp.layer').new_layer 'lspformat'
 local get_module = require('visimp.bridge').get_module
 local get_layer = require('visimp.loader').get
 
@@ -23,8 +23,9 @@ end
 
 function L.load()
   if L.config.wq_fix then
-    -- Taken from https://github.com/lukas-reineke/lsp-format.nvim#wq-will-not-format
-    vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
+    -- Taken from
+    -- https://github.com/lukas-reineke/lsp-format.nvim#wq-will-not-format
+    vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
   end
 
   get_module('lsp-format').setup(L.config or {})

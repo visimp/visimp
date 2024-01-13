@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('outline')
+local L = require('visimp.layer').new_layer 'outline'
 local get_module = require('visimp.bridge').get_module
 
 -- Same as: https://github.com/simrat39/symbols-outline.nvim#configuration

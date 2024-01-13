@@ -1,6 +1,6 @@
-local init = require('visimp.pak.init')
-local count = require('visimp.pak.count')
-local window = require('visimp.pak.window')
+local count = require 'visimp.pak.count'
+local init = require 'visimp.pak.init'
+local window = require 'visimp.pak.window'
 local M = {}
 local uv = vim.loop
 
@@ -52,7 +52,7 @@ end
 --- Installs all registered packages
 -- @param cb A callback which is called after the installation has completed
 function M.install(cb)
-  window.set_title('Installing packages')
+  window.set_title 'Installing packages'
   init.fill()
   local installed = 0
   for _, pkg in pairs(init.packages) do
@@ -80,7 +80,7 @@ function M.install(cb)
 
         installed = installed + 1
         if installed == vim.tbl_count(init.packages) then
-          count.set_status('Installation finished')
+          count.set_status 'Installation finished'
           window.lock()
           if cb ~= nil then
             cb()
@@ -94,7 +94,7 @@ end
 
 --- Updates all registered packages
 function M.update(cb)
-  window.set_title('Updating packages')
+  window.set_title 'Updating packages'
   init.fill()
   local updated = 0
   for _, pkg in pairs(init.packages) do
@@ -111,7 +111,7 @@ function M.update(cb)
 
       updated = updated + 1
       if updated == vim.tbl_count(init.packages) then
-        count.set_status('Update finished')
+        count.set_status 'Update finished'
         window.lock()
         if cb ~= nil then
           cb()
@@ -130,19 +130,19 @@ end
 --- Removes all unregistered packages in the given directory
 -- @param packdir string The directory to look for unregistered packages
 function M.remove(packdir)
-  local name, dir, pkg
+  local pack_name, pack_dir, pkg
   local to_rm = {}
   local c = 0
   local handle = uv.fs_scandir(packdir)
   while handle do
-    name = uv.fs_scandir_next(handle)
-    if not name then
+    pack_name = uv.fs_scandir_next(handle)
+    if not pack_name then
       break
     end
-    pkg = init.packages[name]
-    dir = packdir .. name
-    if not (pkg and pkg.dir == dir) then
-      to_rm[name] = dir
+    pkg = init.packages[pack_name]
+    pack_dir = packdir .. pack_name
+    if not (pkg and pkg.dir == pack_dir) then
+      to_rm[pack_name] = pack_dir
       c = c + 1
     end
   end
@@ -157,11 +157,11 @@ end
 
 --- Cleans all unregistered packages in all runtime directories
 function M.clean()
-  window.set_title('Cleaning up old packages')
+  window.set_title 'Cleaning up old packages'
   init.fill()
   M.remove(init.pakdir .. 'start/')
   M.remove(init.pakdir .. 'opt/')
-  count.set_status('Cleanup complete')
+  count.set_status 'Cleanup complete'
   window.lock()
 end
 

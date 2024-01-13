@@ -24,8 +24,8 @@ end
 --- Opens the floating window and relative buffer
 function M.open()
   local row, col =
-      math.ceil(((vim.o.lines - M.height) / 2) - 1),
-      math.ceil((vim.o.columns - M.width) / 2)
+    math.ceil(((vim.o.lines - M.height) / 2) - 1),
+    math.ceil((vim.o.columns - M.width) / 2)
 
   local cfg = {
     relative = 'editor',
@@ -77,10 +77,10 @@ end
 
 --- Updates a list of lines between start and end
 -- @param start The start of the replacement
--- @param _end The end of the replacement
+-- @param end_ The end of the replacement
 -- @param str The list of strings which will serve as a replacement
-function M.set_lines(start, _end, str)
-  vim.api.nvim_buf_set_lines(M.buf, start + 2, _end + 2, true, str)
+function M.set_lines(start, end_, str)
+  vim.api.nvim_buf_set_lines(M.buf, start + 2, end_ + 2, true, str)
 end
 
 --- Locks the floating window buffer

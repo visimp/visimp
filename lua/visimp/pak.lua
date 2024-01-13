@@ -1,6 +1,6 @@
-local window = require('visimp.pak.window')
-local logic = require('visimp.pak.logic')
-local git = require('visimp.pak.git')
+local git = require 'visimp.pak.git'
+local logic = require 'visimp.pak.logic'
+local window = require 'visimp.pak.window'
 
 local M = {
   register = logic.register,
