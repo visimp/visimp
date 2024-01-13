@@ -5,7 +5,8 @@ L.default_config = {
   c = true,
   cpp = true,
   -- The lsp server to use. Defaults to nil(clangd) but users can also use
-  -- alternatives such as ccls. Can be set to false to disable this functionality
+  -- alternatives such as ccls. Can be set to false to disable this
+  -- functionality
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
   lspconfig = nil,
@@ -33,9 +34,10 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('c', L.config.lsp == nil, L.config.lsp or 'clangd', L.config.lspconfig)
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'clangd'
+    local settings = L.config.lspconfig
+    layers.get('lsp').use_server('c', install, server, settings)
   end
 end
 

@@ -2,8 +2,8 @@ local L = require('visimp.layer').new_layer 'rust'
 local layers = require 'visimp.loader'
 
 L.default_config = {
-  -- Leave to nil to use the phpactor LSP, false to disable, a string to use a
-  -- local binary
+  -- Leave to nil to use the rust_analyzer LSP, false to disable, a string to
+  -- use a local binary
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
   lspconfig = nil,

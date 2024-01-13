@@ -2,7 +2,7 @@ local L = require('visimp.layer').new_layer 'typst'
 local get_layer = require('visimp.loader').get
 
 L.default_config = {
-  -- Leave to nil to use the typst LSP, false to disable, a string to use a
+  -- Leave to nil to use typst-lsp, false to disable, a string to use a
   -- local binary
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
@@ -37,18 +37,17 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    get_layer('lsp').use_server(
-      'typst',
-      L.config.lsp == nil,
-      L.config.lsp or 'typst_lsp',
-      L.config.lspconfig
-    )
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'typst_lsp'
+    local settings = L.config.lspconfig
+    get_layer('lsp').use_server('typst', install, server, settings)
   end
 end
 
 --- typst.vim setup
---- @param config table See https://github.com/kaarmu/typst.vim?tab=readme-ov-file#options.
----                     Keys are specified without the 'typst_' prefix.
+--- @param config table See
+---   https://github.com/kaarmu/typst.vim?tab=readme-ov-file#options. Keys are
+--    specified without the 'typst_' prefix.
 local function plugin_setup(config)
   for setting, value in pairs(config) do
     vim.g['typst_' .. setting] = value

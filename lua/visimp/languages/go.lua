@@ -2,7 +2,7 @@ local L = require('visimp.layer').new_layer 'go'
 local layers = require 'visimp.loader'
 
 L.default_config = {
-  -- Leave to nil to use the phpactor LSP, false to disable, a string to use a
+  -- Leave to nil to use the gopls LSP, false to disable, a string to use a
   -- local binary
   lsp = nil,
   -- Optional configuration to be provided for the chosen language server
@@ -23,9 +23,10 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('go', L.config.lsp == nil, L.config.lsp or 'gopls', L.config.lspconfig)
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'gopls'
+    local settings = L.config.lspconfig
+    layers.get('lsp').use_server('go', install, server, settings)
   end
 end
 
