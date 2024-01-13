@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: ['main']
 jobs:
-  sile:
+  style:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,5 +16,10 @@ jobs:
           token: ${{ secrets.TOKEN }}
           version: latest
           args: --check .
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Lint
         uses: lunarmodules/luacheck@v1
