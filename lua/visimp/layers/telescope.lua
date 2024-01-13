@@ -18,8 +18,16 @@ L.default_config = {
     },
   },
   binds = {
-    [{ mode = 'n', bind = '<leader>p', desc = 'Find files by their name' }] = 'find_files',
-    [{ mode = 'n', bind = '<leader>f', desc = 'Search through files content' }] = 'live_grep',
+    [{
+      mode = 'n',
+      bind = '<leader>p',
+      desc = 'Find files by their name',
+    }] = 'find_files',
+    [{
+      mode = 'n',
+      bind = '<leader>f',
+      desc = 'Search through files content',
+    }] = 'live_grep',
   },
 }
 

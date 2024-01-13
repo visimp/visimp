@@ -4,5 +4,5 @@ return {
   globals = {
     'vim',
   },
-  std = 'min',
+  std = 'lua51c',
 }

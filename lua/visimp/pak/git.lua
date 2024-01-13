@@ -130,19 +130,19 @@ end
 --- Removes all unregistered packages in the given directory
 -- @param packdir string The directory to look for unregistered packages
 function M.remove(packdir)
-  local name, dir, pkg
+  local pack_name, pack_dir, pkg
   local to_rm = {}
   local c = 0
   local handle = uv.fs_scandir(packdir)
   while handle do
-    name = uv.fs_scandir_next(handle)
-    if not name then
+    pack_name = uv.fs_scandir_next(handle)
+    if not pack_name then
       break
     end
-    pkg = init.packages[name]
-    dir = packdir .. name
-    if not (pkg and pkg.dir == dir) then
-      to_rm[name] = dir
+    pkg = init.packages[pack_name]
+    pack_dir = packdir .. pack_name
+    if not (pkg and pkg.dir == pack_dir) then
+      to_rm[pack_name] = pack_dir
       c = c + 1
     end
   end

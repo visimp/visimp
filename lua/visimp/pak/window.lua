@@ -77,10 +77,10 @@ end
 
 --- Updates a list of lines between start and end
 -- @param start The start of the replacement
--- @param _end The end of the replacement
+-- @param end_ The end of the replacement
 -- @param str The list of strings which will serve as a replacement
-function M.set_lines(start, _end, str)
-  vim.api.nvim_buf_set_lines(M.buf, start + 2, _end + 2, true, str)
+function M.set_lines(start, end_, str)
+  vim.api.nvim_buf_set_lines(M.buf, start + 2, end_ + 2, true, str)
 end
 
 --- Locks the floating window buffer

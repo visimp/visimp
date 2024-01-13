@@ -23,7 +23,8 @@ end
 
 function L.load()
   if L.config.wq_fix then
-    -- Taken from https://github.com/lukas-reineke/lsp-format.nvim#wq-will-not-format
+    -- Taken from
+    -- https://github.com/lukas-reineke/lsp-format.nvim#wq-will-not-format
     vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
   end
 
