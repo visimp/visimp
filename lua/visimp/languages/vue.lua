@@ -23,9 +23,10 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('vue', L.config.lsp == nil, L.config.lsp or 'volar', L.config.lspconfig)
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'volar'
+    local settings = L.config.lspconfig
+    layers.get('lsp').use_server('vue', install, server, settings)
   end
 end
 

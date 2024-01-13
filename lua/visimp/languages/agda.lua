@@ -32,10 +32,11 @@ function L.preload()
   layers.get('treesitter').langs { 'agda' }
 
   -- Enable the language server
-  if L.config.lsp ~= false then
-    --[[ TODO: https://github.com/mason-org/mason-registry/issues/3936
-         31-12-23, Stefano Volpe foxy@teapot.ovh ]]
-  end
+  --[[ TODO: https://github.com/mason-org/mason-registry/issues/3936
+       31-12-23, Stefano Volpe foxy@teapot.ovh ]]
+  -- if L.config.lsp ~= false then
+  --
+  -- end
 end
 
 return L
