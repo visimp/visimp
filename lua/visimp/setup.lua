@@ -39,9 +39,9 @@ local function next()
 end
 
 --- Configures the visimp distributions and its layers
----@param cfg table The configuration table
-function M.setup(cfg)
-  M.configs = cfg or {}
+---@param visimp_cfg table The configuration table
+function M.setup(visimp_cfg)
+  M.configs = visimp_cfg or {}
   pak.register 'lucat1/visimp' -- Let visimp be updated by the package manager
 
   -- disable/enable layers which are set to false in the config/configured and

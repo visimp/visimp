@@ -42,8 +42,9 @@ end
 
 function L.load()
   -- Respect the theme setting if imposed
+  local theme = nil
   if not L.config.options.theme then
-    local theme = loader.get('theme').get_theme()
+    theme = loader.get('theme').get_theme()
     local ok, _ = pcall(get_module('lualine.utils.loader').load_theme, theme)
     if not ok then
       theme = 'auto'

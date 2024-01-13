@@ -27,7 +27,8 @@ function L.load()
   opt('o', 'backup', false) -- Do not use backups
   opt('o', 'writebackup', false) -- Do not write backups
   opt('o', 'undofile', true) -- Use undo files
-  opt('o', 'undodir', vfn('stdpath', { 'data' }) .. '/undo') -- Set the undodir to $XDG_DATA/nvim/undo
+  -- Set the undodir to $XDG_DATA/nvim/undo
+  opt('o', 'undodir', vfn('stdpath', { 'data' }) .. '/undo')
   opt('o', 'updatetime', 50) -- Make vim's updates quicker so it feels snappier
   opt('o', 'hidden', true) -- Don't show verbose messages on the bottom
   opt('o', 'showmode', false) -- Shows the mode in the status line
@@ -36,17 +37,22 @@ function L.load()
   opt('o', 'incsearch', true) -- Search while typing (incrementally)
   opt('o', 'hlsearch', false) -- Do not hightlight searches
   opt('o', 'showmatch', false) -- Do not show search matched words in files
-  opt('o', 'smartcase', true) -- Ignore case when searching if everything is lowercase
+  -- Ignore case when searching if everything is lowercase
+  opt('o', 'smartcase', true)
 
   opt('w', 'wrap', false) -- Do not wrap lines
   opt('w', 'number', true) -- Add line numbers to the left gutter
-  opt('w', 'relativenumber', L.config.relativenumber) -- Make line numbers relative
+  -- Make line numbers relative
+  opt('w', 'relativenumber', L.config.relativenumber)
   if L.config.foldmethod ~= nil then
     opt('w', 'foldmethod', L.config.foldmethod) -- Fold with {{{ and }}} markers
   end
-  opt('o', 'scrolloff', L.config.scrolloff) -- Leave n lines from the bottom while scrolling down
-  opt('o', 'sidescrolloff', L.config.sidescrolloff) -- Leave n lines frm the right while scrolling right
-  opt('w', 'colorcolumn', tostring(L.config.colorcolumn)) -- Show a column ruler at 80 chars
+  -- Leave n lines from the bottom while scrolling down
+  opt('o', 'scrolloff', L.config.scrolloff)
+  -- Leave n lines frm the right while scrolling right
+  opt('o', 'sidescrolloff', L.config.sidescrolloff)
+  -- Show a column ruler at 80 chars
+  opt('w', 'colorcolumn', tostring(L.config.colorcolumn))
 
   opt('b', 'tabstop', L.config.indent) -- Number of spaces each tab shows
   opt('b', 'expandtab', true) -- Use spaces when tab is hit

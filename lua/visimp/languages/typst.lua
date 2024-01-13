@@ -46,7 +46,7 @@ end
 
 --- typst.vim setup
 --- @param config table See
----   https://github.com/kaarmu/typst.vim?tab=readme-ov-file#options. Keys are
+--    https://github.com/kaarmu/typst.vim?tab=readme-ov-file#options. Keys are
 --    specified without the 'typst_' prefix.
 local function plugin_setup(config)
   for setting, value in pairs(config) do
