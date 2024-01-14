@@ -24,7 +24,7 @@ function L.preload()
   -- Enable the language server
   if L.config.lsp ~= false then
     local install = L.config.lsp == nil
-    local server = L.config.lsp or 'clangd'
+    local server = L.config.lsp or 'lua_ls'
     local settings = L.config.lspconfig
     layers.get('lsp').use_server('lua', install, server, settings)
   end
