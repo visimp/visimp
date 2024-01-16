@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('blankline')
+local L = require('visimp.layer').new_layer 'blankline'
 local get_module = require('visimp.bridge').get_module
 
 -- See https://github.com/lukas-reineke/indent-blankline.nvim#setup for more

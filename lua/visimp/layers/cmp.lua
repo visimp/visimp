@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('cmp')
-local loader = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'cmp'
+local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
 L.sources = {}
@@ -27,10 +27,10 @@ L.default_config = {
       return cmp.mapping.close()
     end,
     ['<CR>'] = function(cmp)
-      return cmp.mapping.confirm({
+      return cmp.mapping.confirm {
         behaviour = cmp.ConfirmBehavior.Replace,
         select = true,
-      })
+      }
     end,
 
     -- Could be overwritten by other plugins such as snippet managers
@@ -74,15 +74,15 @@ end
 function L.preload()
   -- load optional packages
   if L.config.buffer then
-    vim.cmd('packadd cmp-buffer')
+    vim.cmd 'packadd cmp-buffer'
   end
 
   if L.config.lspkind then
-    vim.cmd('packadd lspkind-nvim')
+    vim.cmd 'packadd lspkind-nvim'
   end
 
   if L.config.lsp then
-    vim.cmd('packadd cmp-nvim-lsp')
+    vim.cmd 'packadd cmp-nvim-lsp'
     loader
       .get('lsp')
       .on_capabilities(get_module('cmp_nvim_lsp').default_capabilities())
@@ -90,7 +90,7 @@ function L.preload()
 end
 
 function L.load()
-  local cmp = get_module('cmp')
+  local cmp = get_module 'cmp'
   local cfg = vim.tbl_deep_extend(
     'force',
     L.config.config,
@@ -103,7 +103,7 @@ function L.load()
     table.insert(cfg.sources, { name = 'nvim_lsp' })
   end
   if L.config.lspkind then
-    local lspkind = get_module('lspkind')
+    local lspkind = get_module 'lspkind'
     cfg.formatting = {
       format = lspkind.cmp_format(L.config.lspkindconfig),
     }

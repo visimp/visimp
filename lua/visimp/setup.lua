@@ -1,11 +1,11 @@
 --- Setup function used to initialize visimp and load user's configurations
 -- @module visimp.setup
-local loader = require('visimp.loader')
-local layer = require('visimp.layer')
+local layer = require 'visimp.layer'
+local loader = require 'visimp.loader'
 
-local pak = require('visimp.pak')
-local window = require('visimp.pak.window')
-local git = require('visimp.pak.git')
+local git = require 'visimp.pak.git'
+local pak = require 'visimp.pak'
+local window = require 'visimp.pak.window'
 
 local M = {
   -- Layers which get enabled by default unless disabled
@@ -39,17 +39,17 @@ local function next()
 end
 
 --- Configures the visimp distributions and its layers
----@param cfg table The configuration table
-function M.setup(cfg)
-  M.configs = cfg or {}
-  pak.register('lucat1/visimp') -- Let visimp be updated by the package manager
+---@param visimp_cfg table The configuration table
+function M.setup(visimp_cfg)
+  M.configs = visimp_cfg or {}
+  pak.register 'lucat1/visimp' -- Let visimp be updated by the package manager
 
   -- disable/enable layers which are set to false in the config/configured and
   -- not enabled by default
   for k, v in pairs(M.configs) do
     if v == false then
       -- disable any undesired layer
-      table.remove(M.layers, k)
+      M.layers[k] = nil
     elseif not vim.tbl_contains(M.layers, k) and loader.is_builtin(k) then
       -- enable any missing builtin layer
       table.insert(M.layers, k)
@@ -81,8 +81,8 @@ function M.setup(cfg)
   if dep ~= nil then
     error(
       'The selected layers cause a cyclic dependency graph (faulty: '
-      .. dep
-      .. ')'
+        .. dep
+        .. ')'
     )
   end
 

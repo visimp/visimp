@@ -1,11 +1,11 @@
-local init = require('visimp.pak.init')
-local count = require('visimp.pak.count')
-local window = require('visimp.pak.window')
+local count = require 'visimp.pak.count'
+local init = require 'visimp.pak.init'
+local window = require 'visimp.pak.window'
 local M = {}
 
 --- Lists all manged packages
 function M.list()
-  window.set_title('Package listing')
+  window.set_title 'Package listing'
   local keys = vim.tbl_keys(init.packages)
   table.sort(keys)
   local pkgs = {}
@@ -13,7 +13,7 @@ function M.list()
     pkgs[k] = init.sym_tbl[k] or ' '
   end
 
-  count.set_status('')
+  count.set_status ''
   count.updates(pkgs)
   window.lock()
 end
@@ -29,10 +29,10 @@ function M.register(args)
   if args.as then
     name = args.as
   elseif args.url then
-    name = args.url:gsub('%.git$', ''):match('/([%w-_.]+)$')
+    name = args.url:gsub('%.git$', ''):match '/([%w-_.]+)$'
     src = args.url
   else
-    name = args[1]:match('^[%w-]+/([%w-_.]+)$')
+    name = args[1]:match '^[%w-]+/([%w-_.]+)$'
     src = args[1]
   end
   if not name then

@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('haskell')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'haskell'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- The lsp server to use. Defaults to nil which installs hls or can be
@@ -19,7 +19,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'haskell' })
+  layers.get('treesitter').langs { 'haskell' }
 
   -- Enable the language server
   if L.config.lsp ~= false then
