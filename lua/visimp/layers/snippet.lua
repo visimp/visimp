@@ -1,15 +1,7 @@
 local L = require('visimp.layer').new_layer 'snippet'
 local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
-<<<<<<< Updated upstream
-local bind = require 'visimp.bind'
-=======
-<<<<<<< Updated upstream
-local bind = require('visimp.bind')
-=======
 local bind = require('visimp.bind').bind
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 L.default_config = {
   -- LuaSnip setup config
