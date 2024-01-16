@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('gitsigns')
+local L = require('visimp.layer').new_layer 'gitsigns'
 local get_module = require('visimp.bridge').get_module
 
 L.default_config = {}

@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('lsp')
+local L = require('visimp.layer').new_layer 'lsp'
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.bridge').get_module
 
@@ -20,26 +20,77 @@ L.default_config = {
   -- names w/o configs.
   nullls = {},
   binds = {
-    [{ mode = 'n', bind = 'gD', desc = 'Go to declaration' }] = vim.lsp.buf.declaration,
-    [{ mode = 'n', bind = 'gd', desc = 'Go to definition' }] = vim.lsp.buf.definition,
-    [{ mode = 'n', bind = 'K', desc = 'Show hover' }] = function()
+    [{
+      mode = 'n',
+      bind = 'gD',
+      desc = 'Go to declaration',
+    }] = vim.lsp.buf.declaration,
+    [{
+      mode = 'n',
+      bind = 'gd',
+      desc = 'Go to definition',
+    }] = vim.lsp.buf.definition,
+    [{
+      mode = 'n',
+      bind = 'K',
+      desc = 'Show hover',
+    }] = function()
       vim.lsp.buf.hover(border_opts)
     end,
-    [{ mode = 'n', bind = 'gi', desc = 'Go to implementation' }] = vim.lsp.buf.implementation,
-    [{ mode = 'n', bind = '<C-k>', desc = 'Show signature help' }] = function()
+    [{
+      mode = 'n',
+      bind = 'gi',
+      desc = 'Go to implementation',
+    }] = vim.lsp.buf.implementation,
+    [{
+      mode = 'n',
+      bind = '<C-k>',
+      desc = 'Show signature help',
+    }] = function()
       vim.lsp.buf.signature_help(border_opts)
     end,
-    [{ mode = 'n', bind = '<leader>D', desc = 'Show type definition' }] = vim.lsp.buf.type_definition,
-    [{ mode = 'n', bind = '<leader>rn', desc = 'Rename the current symbol' }] = vim.lsp.buf.rename,
-    [{ mode = 'n', bind = '<leader>ca', desc = 'Run a code action' }] = vim.lsp.buf.code_action,
-    [{ mode = 'n', bind = 'gr', desc = 'Go to references' }] = vim.lsp.buf.references,
-    [{ mode = 'n', bind = '<leader>e', desc = 'Show line diagnostics' }] = function(
-    )
+    [{
+      mode = 'n',
+      bind = '<leader>D',
+      desc = 'Show type definition',
+    }] = vim.lsp.buf.type_definition,
+    [{
+      mode = 'n',
+      bind = '<leader>rn',
+      desc = 'Rename the current symbol',
+    }] = vim.lsp.buf.rename,
+    [{
+      mode = 'n',
+      bind = '<leader>ca',
+      desc = 'Run a code action',
+    }] = vim.lsp.buf.code_action,
+    [{
+      mode = 'n',
+      bind = 'gr',
+      desc = 'Go to references',
+    }] = vim.lsp.buf.references,
+    [{
+      mode = 'n',
+      bind = '<leader>e',
+      desc = 'Show line diagnostics',
+    }] = function()
       vim.diagnostic.open_float(border_opts)
     end,
-    [{ mode = 'n', bind = '[d', desc = 'Go to previous diagnostic' }] = vim.diagnostic.goto_prev,
-    [{ mode = 'n', bind = ']d', desc = 'Go to next diagnostic' }] = vim.diagnostic.goto_next,
-    [{ mode = 'n', bind = 'gf', desc = 'Format the current buffer' }] = vim.lsp.buf.formatting,
+    [{
+      mode = 'n',
+      bind = '[d',
+      desc = 'Go to previous diagnostic',
+    }] = vim.diagnostic.goto_prev,
+    [{
+      mode = 'n',
+      bind = ']d',
+      desc = 'Go to next diagnostic',
+    }] = vim.diagnostic.goto_next,
+    [{
+      mode = 'n',
+      bind = 'gf',
+      desc = 'Format the current buffer',
+    }] = vim.lsp.buf.formatting,
   },
 }
 
@@ -49,9 +100,9 @@ function L.packages()
     { 'williamboman/mason.nvim', opt = true },
     { 'williamboman/mason-lspconfig.nvim', opt = true },
     -- TODO: should be optional as its required by null-ls, itself being an
-    -- optional dependecy. This currently cannot be achieved as it'll break other
-    -- packages which have a hard dependency on plenary. This fix belongs to
-    -- the package manager dependency resolution.
+    -- optional dependecy. This currently cannot be achieved as it'll break
+    -- other packages which have a hard dependency on plenary. This fix belongs
+    -- to the package manager dependency resolution.
     'nvim-lua/plenary.nvim',
     { 'jose-elias-alvarez/null-ls.nvim', opt = true },
     -- TODO: remove `branch: 'legacy'` once fidget.nvim has been rewritten
@@ -76,8 +127,8 @@ end
 
 function L.load()
   if L.config.install then
-    vim.cmd('packadd mason.nvim')
-    vim.cmd('packadd mason-lspconfig.nvim')
+    vim.cmd 'packadd mason.nvim'
+    vim.cmd 'packadd mason-lspconfig.nvim'
     get_module('mason').setup(L.config.mason or {})
 
     local required = {}
@@ -86,20 +137,20 @@ function L.load()
         table.insert(required, srv.server)
       end
     end
-    get_module('mason-lspconfig').setup({
+    get_module('mason-lspconfig').setup {
       ensure_installed = required,
-    })
+    }
   end
 
   if L.config.progress ~= nil then
-    vim.cmd('packadd fidget.nvim')
+    vim.cmd 'packadd fidget.nvim'
     get_module('fidget').setup()
   end
 
   -- null-ls sources
   local sources = {}
   if L.use_nullls then
-    vim.cmd('packadd null-ls.nvim')
+    vim.cmd 'packadd null-ls.nvim'
     for k, v in pairs(L.config.nullls) do
       -- source config is specified
       if type(k) == 'string' then
@@ -122,18 +173,18 @@ function L.load()
   end
 
   for _, srv in ipairs(L.servers) do
-    get_module('lspconfig')[srv.server].setup({
+    get_module('lspconfig')[srv.server].setup {
       settings = srv.settings,
       capabilities = L.capabilities,
       on_attach = on_attach,
-    })
+    }
   end
   if L.use_nullls then
-    get_module('null-ls').setup({
+    get_module('null-ls').setup {
       sources = sources,
       capabilities = L.capabilities,
       on_attach = on_attach,
-    })
+    }
   end
 end
 
@@ -151,7 +202,8 @@ function L.use_server(lang, install, srv, settings)
   })
 end
 
---- Adds an on_attach function which gets called when LSPs get enabled on buffers
+--- Adds an on_attach function which gets called when LSPs get enabled on
+--- buffers
 -- @param fn The callback function
 function L.on_attach(fn)
   table.insert(L.callbacks, fn)

@@ -113,6 +113,7 @@ layers.
 
 | Layer name   | Language              |
 | ------------ | --------------------- |
+| `agda`       | Agda                  |
 | `ampl`       | AMPL                  |
 | `bash`       | Bash                  |
 | `c`          | C/C++                 |
@@ -135,4 +136,5 @@ layers.
 | `svelte`     | Svelte                |
 | `swift`      | Swift                 |
 | `toml`       | TOML                  |
+| `typst`      | Typst                 |
 | `vue`        | Vue                   |

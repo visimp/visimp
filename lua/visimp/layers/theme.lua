@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer('theme')
+local L = require('visimp.layer').new_layer 'theme'
 local opt = require('visimp.bridge').opt
 
 L.default_config = {

@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('csharp')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'csharp'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- The lsp server to use. Defaults to omnisharp but users can also provide
@@ -20,7 +20,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'c_sharp' })
+  layers.get('treesitter').langs { 'c_sharp' }
 
   -- Enable the language server
   if L.config.lsp ~= false then

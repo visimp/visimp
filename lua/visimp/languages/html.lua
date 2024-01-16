@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('html')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'html'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the html LSP from vscode, false to disable
@@ -18,13 +18,14 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'html' })
+  layers.get('treesitter').langs { 'html' }
 
   -- Enable the language server
   if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server('html', L.config.lsp == nil, L.config.lsp or 'html', L.config.lspconfig)
+    local install = L.config.lsp == nil
+    local server = L.config.lsp or 'html'
+    local settings = L.config.lspconfig
+    layers.get('lsp').use_server('html', install, server, settings)
   end
 end
 

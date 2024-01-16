@@ -2,6 +2,7 @@
 -- @module visimp.bridge
 local M = {}
 
+-- luacheck: ignore 241
 local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 function M.opt(scope, key, value)
   scopes[scope][key] = value

@@ -1,5 +1,5 @@
-local L = require('visimp.layer').new_layer('json')
-local layers = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'json'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   -- Leave to nil to use the jsonls LSP, false to disable
@@ -18,7 +18,7 @@ end
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs({ 'json' })
+  layers.get('treesitter').langs { 'json' }
 
   -- Enable the language server
   if L.config.lsp ~= false then

@@ -1,7 +1,7 @@
-local L = require('visimp.layer').new_layer('snippet')
-local loader = require('visimp.loader')
+local L = require('visimp.layer').new_layer 'snippet'
+local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
-local bind = require('visimp.bind')
+local bind = require 'visimp.bind'
 
 L.default_config = {
   -- LuaSnip setup config
@@ -64,7 +64,7 @@ local function luasnip_bindings(ls)
 end
 
 local function luasnip_setup()
-  local luasnip = get_module('luasnip')
+  local luasnip = get_module 'luasnip'
   local config = L.config
   if config.setup then
     luasnip.setup(config.setup)
@@ -77,18 +77,18 @@ end
 
 -- Taken from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 local has_words_before = function()
-  local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
     and vim.api
         .nvim_buf_get_lines(0, line - 1, line, true)[1]
         :sub(col, col)
-        :match('%s')
+        :match '%s'
       == nil
 end
 
 function L.preload()
   -- Configure the completion layer
-  local cmp_layer = loader.get('cmp')
+  local cmp_layer = loader.get 'cmp'
 
   if
     cmp_layer.config.mapping['<Tab>']
@@ -96,7 +96,7 @@ function L.preload()
   then
     cmp_layer.config.mapping['<Tab>'] = function(cmp)
       return cmp.mapping(function(fallback)
-        local luasnip = get_module('luasnip')
+        local luasnip = get_module 'luasnip'
         if cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
@@ -119,7 +119,7 @@ function L.preload()
   then
     cmp_layer.config.mapping['<S-Tab>'] = function(cmp)
       return cmp.mapping(function(fallback)
-        local luasnip = get_module('luasnip')
+        local luasnip = get_module 'luasnip'
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
@@ -134,12 +134,12 @@ function L.preload()
     end
   end
 
-  cmp_layer.add_source({ name = 'luasnip' })
-  cmp_layer.set_snippet({
+  cmp_layer.add_source { name = 'luasnip' }
+  cmp_layer.set_snippet {
     expand = function(args)
       get_module('luasnip').lsp_expand(args.body)
     end,
-  })
+  }
   luasnip_setup()
 end
 

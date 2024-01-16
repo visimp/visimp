@@ -1,6 +1,6 @@
-local L = require('visimp.layer').new_layer('languages')
-local loader = require('visimp.loader')
-local visimp = require('visimp.setup')
+local L = require('visimp.layer').new_layer 'languages'
+local loader = require 'visimp.loader'
+local visimp = require 'visimp.setup'
 
 L.default_config = {}
 
@@ -26,8 +26,8 @@ function L.configure(cfg)
   -- Configure layers
   for _, l in ipairs(L.config) do
     local ll = loader.get(l)
-    local cfg = visimp.configs[ll.identifier] or {}
-    loader.get(l).configure(cfg)
+    local layer_cfg = visimp.configs[ll.identifier] or {}
+    loader.get(l).configure(layer_cfg)
   end
 end
 
