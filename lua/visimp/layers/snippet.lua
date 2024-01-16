@@ -1,7 +1,15 @@
 local L = require('visimp.layer').new_layer 'snippet'
 local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
+<<<<<<< Updated upstream
 local bind = require 'visimp.bind'
+=======
+<<<<<<< Updated upstream
+local bind = require('visimp.bind')
+=======
+local bind = require('visimp.bind').bind
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 L.default_config = {
   -- LuaSnip setup config
@@ -57,10 +65,28 @@ local function change_choice(ls)
 end
 
 local function luasnip_bindings(ls)
-  bind.map({ mode = 'i', bind = '<Tab>' }, ls.expand)
-  bind.map({ mode = { 'i', 's' }, bind = '<Tab>' }, jump(ls, 1))
-  bind.map({ mode = { 'i', 's' }, bind = '<S-Tab>' }, jump(ls, -1))
-  bind.map({ mode = { 'i', 's' }, bind = '<C-E>' }, change_choice(ls))
+  bind({
+    [{
+      mode = 'i',
+      bind = '<Tab>',
+      desc = 'Expand snippet',
+    }] = ls.expand,
+    [{
+      mode = { 'i', 's' },
+      bind = '<Tab>',
+      desc = 'Next snippet tabstop',
+    }] = jump(ls, 1),
+    [{
+      mode = { 'i', 's' },
+      bind = '<S-Tab>',
+      desc = 'Previous snippet tabstop',
+    }] = jump(ls, -1),
+    [{
+      mode = { 'i', 's' },
+      bind = '<C-E>',
+      desc = 'Next snippet tabstop option',
+    }] = change_choice(ls),
+  }, nil)
 end
 
 local function luasnip_setup()
