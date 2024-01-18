@@ -1,6 +1,6 @@
 # `binds` layer
 
-The `snippet` layer allows you to define custom bindings declaratively.
+The `binds` layer allows you to define custom bindings declaratively.
 
 ## Configuration
 
