@@ -2,6 +2,9 @@ local L = require('visimp.layer').new_layer 'lean'
 local get_module = require('visimp.bridge').get_module
 
 L.default_config = {
+  abbreviations = {
+    builtin = true,
+  },
   mappings = true,
 }
 
