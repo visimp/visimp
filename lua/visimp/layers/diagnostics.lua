@@ -11,7 +11,7 @@ end
 
 -- Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration
 L.default_config = {
-  trouble_config = {
+  trouble = {
     icons = false,
   },
   binds = {
