@@ -1,7 +1,8 @@
 # `coq` layer
 
 The `coq` layer enables support for the Coq proof assistant/programming
-language via [Coqtail](https://github.com/whonore/Coqtail).
+language via [Coqtail](https://github.com/whonore/Coqtail). This plugin's
+documentation specifies its requirements.
 
 ## Bindings
 
