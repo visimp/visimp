@@ -45,8 +45,7 @@ Several language layers diverge from this basic configuration:
   compilation via LS and the `tectonic` (defaults to `false`) option to ask
   default LS Texlab to compile via Tectonic;
 - `toml` does not have LSP support at all, and thus cannot be configured;
-- `typst` adds the `pluginconfig` table setting to [configurate
-  `typst.vim`](https://github.com/latex-lsp/texlab/wiki/Configuration) alongside
+- `typst` adds the `pluginconfig` table setting to [configure `typst.vim`](https://github.com/latex-lsp/texlab/wiki/Configuration) alongside
   the LS.
 
 ## Examples
