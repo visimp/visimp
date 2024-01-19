@@ -9,8 +9,8 @@ local function make_toggle(mode)
   end
 end
 
--- Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration
 L.default_config = {
+  -- Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration
   trouble = {
     icons = false,
   },
@@ -22,22 +22,22 @@ L.default_config = {
     }] = toggle,
     [{
       mode = 'n',
-      bind = '<leader>xw',
+      bind = '<leader>tw',
       desc = 'Workspace diagnostics',
     }] = make_toggle 'workspace_diagnostics',
     [{
       mode = 'n',
-      bind = '<leader>xd',
+      bind = '<leader>td',
       desc = 'Document diagnostics',
     }] = make_toggle 'document_diagnostics',
     [{
       mode = 'n',
-      bind = '<leader>xq',
+      bind = '<leader>tq',
       desc = 'Quickfix',
     }] = make_toggle 'quickfix',
     [{
       mode = 'n',
-      bind = '<leader>xl',
+      bind = '<leader>tl',
       desc = 'Diagnostics location list',
     }] = make_toggle 'loclist',
   },

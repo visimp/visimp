@@ -7,11 +7,11 @@ information...) using [Trouble](https://github.com/folke/trouble.nvim).
 
 In normal mode:
 
-- `<leader>xx` toggles diagnostics window;
-- `<leader>xw` toggles workspace diagnostics;
-- `<leader>xd` toggler document diagnostics;
-- `<leader>xq` applies a quickfix;
-- `<leader>xl` [location list](https://neovim.io/doc/user/quickfix.html#location-list).
+- `<leader>tx` toggles diagnostics window;
+- `<leader>tw` toggles workspace diagnostics;
+- `<leader>td` toggler document diagnostics;
+- `<leader>tq` applies a quickfix;
+- `<leader>tl` [location list](https://neovim.io/doc/user/quickfix.html#location-list).
 
 ## Configuration
 

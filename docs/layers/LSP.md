@@ -1,6 +1,6 @@
 # `lsp` layer
 
-The `lsp` layer configure the Nvim LSP client via
+The `lsp` layer configures the Nvim LSP client via
 [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig). It is a dependency
 for layers requiring LSPs, such as most language layers.
 
