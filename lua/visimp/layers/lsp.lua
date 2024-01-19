@@ -97,7 +97,7 @@ L.default_config = {
 function L.packages()
   return {
     'neovim/nvim-lspconfig',
-    { 'williamboman/mason.nvim', opt = true },
+    { 'williamboman/mason.nvim',           opt = true },
     { 'williamboman/mason-lspconfig.nvim', opt = true },
     -- TODO: should be optional as its required by null-ls, itself being an
     -- optional dependecy. This currently cannot be achieved as it'll break
@@ -106,7 +106,7 @@ function L.packages()
     'nvim-lua/plenary.nvim',
     { 'jose-elias-alvarez/null-ls.nvim', opt = true },
     -- TODO: remove `branch: 'legacy'` once fidget.nvim has been rewritten
-    { 'j-hui/fidget.nvim', opt = true, branch = 'legacy' },
+    { 'j-hui/fidget.nvim',               opt = true, branch = 'legacy' },
   }
 end
 
@@ -118,7 +118,7 @@ end
 
 local function add_source(sources, new_source_name, config)
   local module =
-    get_module(string.format('null-ls.builtins.%s', new_source_name))
+      get_module(string.format('null-ls.builtins.%s', new_source_name))
   if config then
     module = module.with(config)
   end
@@ -189,8 +189,8 @@ function L.load()
 end
 
 --- Enables an LSP server at startup
--- @param lang The name of the language (used by lspinstall)
--- @param install True if the server should be installed via lspinstall
+-- @param lang The name of the language (used by Mason)
+-- @param install True if the server should be installed via Mason
 -- @param srv The name of the server executable (if any)
 -- @param settings Any optional settings for the language server
 function L.use_server(lang, install, srv, settings)
