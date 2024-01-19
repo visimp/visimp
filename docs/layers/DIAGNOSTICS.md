@@ -15,7 +15,7 @@ In normal mode:
 
 ## Configuration
 
-- `trouble_config` a valid configuration for Trouble (whose settings and
+- `trouble` a valid configuration for Trouble (whose settings and
   defaults are documented [here](https://github.com/folke/trouble.nvim#setup).
   Visimp does not feature
   [`nvim-web-devicons`](https://github.com/nvim-tree/nvim-web-devicons) out of
