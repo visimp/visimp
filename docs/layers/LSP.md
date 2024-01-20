@@ -23,7 +23,7 @@ In normal mode:
 - `<leader>D` shows type definition;
 - `<leader>rn` renames the current symbol;
 - `<leader>ca` runs a code action;
-- `<gr> goes to references;
+- `<gr>` goes to references;
 - `<leader>e` show line diagnostics;
 - `[d` goes to previous diagnostic;
 - `]d` does to next diagnostic;
