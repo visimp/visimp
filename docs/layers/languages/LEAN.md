@@ -20,7 +20,10 @@ is a valid configuration.
 -- path/of/your/vim/config/init.lua
 
 require("visimp") {
-  lean = {
+  languages = {
+    "lean" -- enable layer
+  },
+  lean = { -- configure layer
     abbreviations = {
         builtin = false -- disable builtin abbreviations
     },
