@@ -83,7 +83,6 @@ reference page. You can look it up in the following table.
 | [`cmp`](layers/CMP.md)                   | Completion engine                                |
 | [`colorizer`](layers/COLORIZER.md)       | Color highlighter                                |
 | [`comment`](layers/COMMENT.md)           | Automatic (un)commenting support                 |
-| [`coq`](layers/COQ.md)                   | Coq proof assistant support                      |
 | [`defaults`](layers/DEFAULTS.md)         | Customizable sane defaults                       |
 | [`diagnostics`](layers/DIAGNOSTICS.md)   | Pretty list of diagnostics, quickfixes, and more |
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
@@ -91,7 +90,6 @@ reference page. You can look it up in the following table.
 | [`icons`](layers/ICONS.md)               | Adds file type icons                             |
 | [`indentline`](layers/INDENTLINE.md)     | Whitespace characters visualization              |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
-| [`lean`](layers/LEAN.md)                 | Lean proof assistant support                     |
 | [`lsp`](layers/LSP.md)                   | Manager for Neovim's LSP client and LSP servers  |
 | [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
 | [`lspsignature`](layers/LSPSIGNATURE.md) | Function signatures as you type                  |
@@ -108,34 +106,32 @@ reference page. You can look it up in the following table.
 
 ### Language layers
 
-Support for some of the programming languages that also double up as proof
-assistants (e.g. Coq, Lean) is provided by standard layers, rather than language
-layers.
-
-| Layer name   | Language              |
-| ------------ | --------------------- |
-| `agda`       | Agda                  |
-| `ampl`       | AMPL                  |
-| `bash`       | Bash                  |
-| `c`          | C/C++                 |
-| `csharp`     | C#                    |
-| `css`        | CSS                   |
-| `dart`       | Dart                  |
-| `go`         | Go                    |
-| `haskell`    | Haskell               |
-| `hcl`        | HCL                   |
-| `html`       | HTML                  |
-| `java`       | Java                  |
-| `javascript` | JavaScript/TypeScript |
-| `json`       | JSON                  |
-| `latex`      | $\LaTeX$              |
-| `lua`        | Lua                   |
-| `ocaml`      | OCaml                 |
-| `php`        | PHP                   |
-| `python`     | Python                |
-| `rust`       | Rust                  |
-| `svelte`     | Svelte                |
-| `swift`      | Swift                 |
-| `toml`       | TOML                  |
-| `typst`      | Typst                 |
-| `vue`        | Vue                   |
+| Layer name                         | Language              |
+| ---------------------------------- | --------------------- |
+| `agda`                             | Agda                  |
+| `ampl`                             | AMPL                  |
+| `bash`                             | Bash                  |
+| `c`                                | C/C++                 |
+| [`coq`](layers/languages/COQ.md)   | Coq                   |
+| `csharp`                           | C#                    |
+| `css`                              | CSS                   |
+| `dart`                             | Dart                  |
+| `go`                               | Go                    |
+| `haskell`                          | Haskell               |
+| `hcl`                              | HCL                   |
+| `html`                             | HTML                  |
+| `java`                             | Java                  |
+| `javascript`                       | JavaScript/TypeScript |
+| `json`                             | JSON                  |
+| `latex`                            | $\LaTeX$              |
+| [`lean`](layers/languages/LEAN.md) | Lean                  |
+| `lua`                              | Lua                   |
+| `ocaml`                            | OCaml                 |
+| `php`                              | PHP                   |
+| `python`                           | Python                |
+| `rust`                             | Rust                  |
+| `svelte`                           | Svelte                |
+| `swift`                            | Swift                 |
+| `toml`                             | TOML                  |
+| `typst`                            | Typst                 |
+| `vue`                              | Vue                   |

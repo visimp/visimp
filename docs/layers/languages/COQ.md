@@ -6,14 +6,12 @@ documentation specifies its requirements.
 
 ## Bindings
 
-Mappings are available [in the "Usage" section of
-Coqtail](https://github.com/whonore/Coqtail#usage)
+Mappings are available [in the "Usage" section of Coqtail](https://github.com/whonore/Coqtail#usage)
 
 ## Configuration
 
-This layer cannot be configured via visimp at the moment. Please refer to [the
-"Configuration" section of
-Coqtail](https://github.com/whonore/Coqtail#configuration) instead.
+This layer cannot be configured via visimp at the moment. Please refer to [the "Configuration" section of Coqtail](https://github.com/whonore/Coqtail#configuration)
+instead.
 
 ## Examples
 
@@ -21,7 +19,9 @@ Coqtail](https://github.com/whonore/Coqtail#configuration) instead.
 -- path/of/your/vim/config/init.lua
 
 require("visimp")({
-  coq = {} -- cannot be configured via visimp
+  languages = {
+  "coq" -- cannot be configured via visimp
+  }
 })
 ```
 
