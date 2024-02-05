@@ -104,6 +104,7 @@ reference page. You can look it up in the following table.
 | [`theme`](layers/THEME.md)               | Install and enable classic vim themes            |
 | [`treesitter`](layers/TREESITTER.md)     | Syntax highlighting                              |
 | [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
+| [`zen`](layers/ZEN.md)                   | Distraction-free "zen" mode                      |
 
 ### Language layers
 
