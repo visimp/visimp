@@ -23,19 +23,21 @@ In normal mode:
 -- path/of/your/vim/config/init.lua
 
 require("visimp")({
-  config = {
-    pickers = {
-      find_files = {
-        theme = "dropdown",
+  telescope = {
+    config = {
+      pickers = {
+        find_files = {
+          theme = "dropdown",
+        },
       },
     },
-  },
-  binds = {
-    [{
-      mode = 'n',
-      bind = '<leader>P',
-      desc = 'Find new planets to explore',
-    }] = 'planets',
+    binds = {
+      [{
+        mode = 'n',
+        bind = '<leader>P',
+        desc = 'Find new planets to explore',
+      }] = 'planets',
+    },
   },
 })
 ```
