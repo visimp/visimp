@@ -1,11 +1,10 @@
 local L = require('visimp.layer').new_layer 'diagnostics'
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.bridge').get_module
-local toggle = require('trouble').toggle
 
 local function make_toggle(mode)
   return function()
-    toggle(mode)
+    get_module('trouble').toggle(mode)
   end
 end
 
@@ -19,7 +18,7 @@ L.default_config = {
       mode = 'n',
       bind = '<leader>tx',
       desc = 'Toggle diagnostics window',
-    }] = toggle,
+    }] = make_toggle(),
     [{
       mode = 'n',
       bind = '<leader>tw',
@@ -47,12 +46,9 @@ function L.packages()
   return { 'folke/trouble.nvim' }
 end
 
-function L.preload()
-  bind(L.config.binds, nil)
-end
-
 function L.load()
   get_module('trouble').setup(L.config)
+  bind(L.config.binds, nil)
 end
 
 return L
