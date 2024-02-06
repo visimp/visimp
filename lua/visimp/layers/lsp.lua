@@ -189,8 +189,8 @@ function L.load()
 end
 
 --- Enables an LSP server at startup
--- @param lang The name of the language (used by lspinstall)
--- @param install True if the server should be installed via lspinstall
+-- @param lang The name of the language (used by Mason)
+-- @param install True if the server should be installed via Mason
 -- @param srv The name of the server executable (if any)
 -- @param settings Any optional settings for the language server
 function L.use_server(lang, install, srv, settings)
