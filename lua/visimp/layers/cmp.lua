@@ -5,7 +5,7 @@ local get_module = require('visimp.bridge').get_module
 L.sources = {}
 L.snippet = {}
 L.default_config = {
-  -- Autocopmlete from the buffer
+  -- Autocomplete from the buffer
   buffer = false,
   -- Autocomplete from lsp suggestions
   lsp = true,
