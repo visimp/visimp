@@ -16,6 +16,7 @@ require 'visimp' {
     -- javascript,
     -- json,
     -- latex,
+    -- lean,
     -- lua,
     -- ocaml,
     -- php,
