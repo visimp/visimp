@@ -9,16 +9,14 @@ L.default_config = {
   lspconfig = {
     exportPdf = 'onType',
   },
-  -- Optional configuration to be provided for typst.vim, as described in
-  -- https://github.com/kaarmu/typst.vim?tab=readme-ov-file#options. Keys are
-  -- specified without the 'typst_' prefix
-  pluginconfig = {
-    -- auto_close_toc = 1 -- whether automatically close TOC (default: 0)
-  },
 }
 
-function L.packages()
-  return { 'kaarmu/typst.vim' }
+local function add_filetype()
+  vim.filetype.add {
+    extension = {
+      typ = 'typst',
+    },
+  }
 end
 
 function L.dependencies()
@@ -30,6 +28,8 @@ function L.dependencies()
 end
 
 function L.preload()
+  add_filetype()
+
   -- Configure treesitter
   get_layer('treesitter').langs { 'typst' }
 
@@ -39,25 +39,6 @@ function L.preload()
     local server = L.config.lsp or 'typst_lsp'
     local settings = L.config.lspconfig
     get_layer('lsp').use_server('typst', install, server, settings)
-  end
-end
-
---- typst.vim setup
---- @param config table See
---    https://github.com/kaarmu/typst.vim?tab=readme-ov-file#options. Keys are
---    specified without the 'typst_' prefix.
-local function plugin_setup(config)
-  for setting, value in pairs(config) do
-    vim.g['typst_' .. setting] = value
-  end
-end
-
-function L.load()
-  -- Additional plugin
-  vim.cmd 'packadd typst.vim'
-  local pluginconfig = L.config.pluginconfig
-  if type(pluginconfig) == 'table' then
-    plugin_setup(pluginconfig)
   end
 end
 
