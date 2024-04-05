@@ -20,12 +20,21 @@ end
 --- @param filetypes table Filetypes mappings as described in
 -- https://neovim.io/doc/user/lua.html#vim.filetype.add()
 local function add_filetypes(filetypes)
-  vim.filetype.add(filetypes)
+  if filetypes then
+    vim.filetype.add(filetypes)
+  end
 end
 
 --- Adds the specified languages to Treesitter
 --- @param grammars table Array of Treesitter grammar names
 local function add_grammars(grammars)
+  if not grammars then
+    return
+  end
+  local t = type(grammars)
+  if t ~= 'table' then
+    error('Grammars should be string array. Got ' .. t)
+  end
   layers.get('treesitter').langs(grammars)
 end
 
@@ -34,6 +43,10 @@ end
 local function add_server(l)
   local server = l.server()
   if server and l.config.lsp ~= false then
+    local t = type(server)
+    if t ~= 'string' then
+      error('Server name should be string. Got ' .. t)
+    end
     layers.get('lsp').use_server(
       l.identifier,
       l.config.lsp == nil,
@@ -57,12 +70,20 @@ end
 function M.new_language(id)
   local l = new_layer(id)
 
+  l.default_config = {
+    -- The LSP server to use. Defaults to nil (recommended LS) but users can
+    -- also use alternatives. Can be set to false to disable this functionality
+    lsp = nil,
+    -- Optional configuration to be provided for the chosen language server
+    lspconfig = nil,
+  }
+
   function l.filetypes()
-    return {}
+    return nil
   end
 
   function l.grammars()
-    return {}
+    return nil
   end
 
   function l.server()
