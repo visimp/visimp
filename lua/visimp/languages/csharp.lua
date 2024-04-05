@@ -1,36 +1,20 @@
-local L = require('visimp.layer').new_layer 'csharp'
-local layers = require 'visimp.loader'
+local L = require('visimp.language').new_language 'lua'
 
 L.default_config = {
-  -- The lsp server to use. Defaults to omnisharp but users can also provide
-  -- their local executables or disable the functionality by settings this to
-  -- false.
-  lsp = nil,
-  -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil,
+  -- Enable fish support (fish being a superset of bash)
+  fish = false,
 }
 
-function L.dependencies()
-  local deps = { 'treesitter' }
-  if L.config.lsp ~= false then
-    table.insert(deps, 'lsp')
+function L.grammars()
+  local langs = { 'bash' }
+  if L.config.fish then
+    table.insert(langs, 'fish')
   end
-  return deps
+  return langs
 end
 
-function L.preload()
-  -- Configure treesitter
-  layers.get('treesitter').langs { 'c_sharp' }
-
-  -- Enable the language server
-  if L.config.lsp ~= false then
-    layers.get('lsp').use_server(
-      'csharp',
-      L.config.lsp == nil,
-      L.config.lsp or 'omnisharp',
-      L.config.lspconfig
-    )
-  end
+function L.server()
+  return 'bashls'
 end
 
 return L

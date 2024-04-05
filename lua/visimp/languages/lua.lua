@@ -1,33 +1,20 @@
-local L = require('visimp.layer').new_layer 'lua'
-local layers = require 'visimp.loader'
+local L = require('visimp.language').new_language 'lua'
 
 L.default_config = {
-  -- Leave to nil to use lua_ls LSP, otherwhise can specify local
-  -- installation or disable by setting to false.
-  lsp = nil,
-  -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil,
+  -- Enable fish support (fish being a superset of bash)
+  fish = false,
 }
 
-function L.dependencies()
-  local deps = { 'treesitter' }
-  if L.config.lsp ~= false then
-    table.insert(deps, 'lsp')
+function L.grammars()
+  local langs = { 'bash' }
+  if L.config.fish then
+    table.insert(langs, 'fish')
   end
-  return deps
+  return langs
 end
 
-function L.preload()
-  -- Configure treesitter
-  layers.get('treesitter').langs { 'lua' }
-
-  -- Enable the language server
-  if L.config.lsp ~= false then
-    local install = L.config.lsp == nil
-    local server = L.config.lsp or 'lua_ls'
-    local settings = L.config.lspconfig
-    layers.get('lsp').use_server('lua', install, server, settings)
-  end
+function L.server()
+  return 'bashls'
 end
 
 return L
