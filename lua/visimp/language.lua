@@ -56,12 +56,15 @@ end
 --- Adds the appropriate language server based on the language layer
 ---@param l table Language layer
 local function add_server(l)
-  if l.config.lsp == false then
+  if l.config.lsp == false then -- explicitly disabled server
     return
   end
-  local server = l.server()
-  if not server then
+  local server = l.server() -- default server
+  if not server then -- custom server
     server = l.config.lsp
+  end
+  if not server then -- no default server, no custom server
+    return
   end
   local t = type(server)
   if t ~= 'string' then
