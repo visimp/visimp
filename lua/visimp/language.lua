@@ -5,11 +5,26 @@ local layers = require 'visimp.loader'
 -- @module visimp.language
 local M = {}
 
+---Checks if a given table is empty or not
+---@param t table The table to inspect
+---@return boolean Result True if t is has no values in it, false otherwise
+local function is_empty(t)
+  return next(t) == nil
+end
+
 --- Default implementation for "dependencies" method of language layers
 --- @param l table Language layer
 --- @return table dependencies List of dependencies
 local function language_layer_dependencies(l)
-  local deps = { 'treesitter' }
+  local deps
+  -- treesitter
+  local grammars = l.grammars()
+  if type(grammars) ~= 'table' or is_empty(grammars) then
+    deps = {}
+  else
+    deps = { 'treesitter' }
+  end
+  -- lsp
   if l.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
