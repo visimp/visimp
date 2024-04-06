@@ -1,8 +1,11 @@
-local L = require('visimp.layer').new_layer 'ampl'
+local L = require('visimp.language').new_language 'ampl'
 
-function L.preload()
-  -- Let vim recognize .mod files as AMPL
-  vim.cmd 'au! BufRead,BufNewFile *.mod setfiletype ampl'
+function L.filetypes()
+  return {
+    extension = {
+      mod = 'ampl',
+    },
+  }
 end
 
 return L
