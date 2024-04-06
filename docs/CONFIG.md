@@ -34,12 +34,12 @@ To disable a layer, you can either remove it from your configuration or use
 require 'visimp' {
   gitsigns = false, -- "gitsigns" is disabled: you may as well remove its entry
   
-  lsp = false,      -- this line, on the contrary, is requried as the layer
+  lsp = false,      -- this line, on the contrary, is required as the layer
                     -- would be enabled by default
 }
 ```
 
-So far, we've sticked to empty objects as values for our enabled layers. These
+So far, we've stuck to empty objects as values for our enabled layers. These
 objects actually represent your configuration for that specific layer. Usually,
 each key is one of the settings available for the layer in question:
 
@@ -96,6 +96,7 @@ reference page. You can look it up in the following table.
 | [`ltex`](layers/LTEX.md)                 | Grammar checking via LanguageTool                |
 | [`nvimtree`](layers/NVIMTREE.md)         | File explorer tree                               |
 | [`outline`](layers/OUTLINE.md)           | Buffer outline as a tree-like view of symbols    |
+| [`rainbow`](layers/RAINBOW.md)           | Rainbow parenthesis via Treesitter               |
 | [`snippet`](layers/SNIPPET.md)           | Code snippets engine                             |
 | [`statusline`](layers/STATUSLINE.md)     | Customizable status line                         |
 | [`telescope`](layers/TELESCOPE.md)       | Fuzzy finder and related features                |
