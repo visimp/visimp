@@ -1,39 +1,19 @@
-local L = require('visimp.layer').new_layer 'hcl'
-local layers = require 'visimp.loader'
+local L = require('visimp.language').new_language 'hcl'
 
 L.default_config = {
   -- whether to use or disable the terraform lsp
   terraform = true,
-  -- if the previous field is set to true, this object will be given to the LSP
-  -- as configuration
-  lspconfig = nil,
 }
 
-function L.dependencies()
-  local deps = { 'treesitter' }
-  if L.config.terraform ~= false then
-    table.insert(deps, 'lsp')
+function L.grammars()
+  if L.config.terraform then
+    return { 'hcl', 'terraform' }
   end
-  return deps
+  return { 'hcl' }
 end
 
-function L.preload()
-  -- Configure treesitter
-  local langs = { 'hcl' }
-  if L.config.terraform ~= false then
-    table.insert(langs, 'terraform')
-  end
-  layers.get('treesitter').langs(langs)
-
-  -- Enable the language server
-  if L.config.terraform ~= false then
-    layers.get('lsp').use_server(
-      'terraform',
-      L.config.lsp == nil,
-      L.config.lsp or 'terraformls',
-      L.config.lspconfig
-    )
-  end
+function L.server()
+  return 'terraformls'
 end
 
 return L

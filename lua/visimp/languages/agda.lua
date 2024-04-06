@@ -15,7 +15,8 @@ function L.grammars()
 end
 
 function L.server()
-  --[[ TODO:  06-04-24, Stefano Volpe foxy@teapot.ovh ]]
+  --[[ TODO: https://github.com/mason-org/mason-registry/pull/5263 06-04-24,
+             Stefano Volpe foxy@teapot.ovh ]]
   return 'agda-language-server'
 end
 

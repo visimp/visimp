@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'lua'
+local L = require('visimp.language').new_language 'csharp'
 
 L.default_config = {
   -- Enable fish support (fish being a superset of bash)

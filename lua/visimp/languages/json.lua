@@ -1,36 +1,11 @@
-local L = require('visimp.layer').new_layer 'json'
-local layers = require 'visimp.loader'
+local L = require('visimp.language').new_language 'json'
 
-L.default_config = {
-  -- Leave to nil to use the jsonls LSP, false to disable
-  lsp = nil,
-  -- Optional configuration to be provided for the chosen language server
-  lspconfig = nil,
-}
-
-function L.dependencies()
-  local deps = { 'treesitter' }
-  if L.config.lsp ~= false then
-    table.insert(deps, 'lsp')
-  end
-  return deps
+function L.grammars()
+  return { 'json' }
 end
 
-function L.preload()
-  -- Configure treesitter
-  layers.get('treesitter').langs { 'json' }
-
-  -- Enable the language server
-  if L.config.lsp ~= false then
-    layers
-      .get('lsp')
-      .use_server(
-        'json',
-        L.config.lsp == nil,
-        L.config.lsp or 'jsonls',
-        L.config.lspconfig
-      )
-  end
+function L.server()
+  return 'jsonls'
 end
 
 return L
