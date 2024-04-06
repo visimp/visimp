@@ -70,12 +70,9 @@ local function add_server(l)
   if t ~= 'string' then
     error('Server name should be string. Got ' .. t)
   end
-  layers.get('lsp').use_server(
-    l.identifier,
-    l.config.lsp == nil,
-    server,
-    l.config.lspconfig
-  )
+  layers
+    .get('lsp')
+    .use_server(l.identifier, l.config.lsp == nil, server, l.config.lspconfig)
 end
 
 ---Default implementation for "preload" method of language layers
