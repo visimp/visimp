@@ -1,7 +1,7 @@
 local L = require('visimp.layer').new_layer 'rainbow'
 local get_module = require('visimp.bridge').get_module
 
-function L.dependencies(l)
+function L.dependencies()
   return { 'treesitter' }
 end
 
