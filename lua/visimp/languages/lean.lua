@@ -9,15 +9,11 @@ L.default_config = {
 }
 
 function L.dependencies()
-  return {
-    'lsp',
-  }
+  return { 'lsp' }
 end
 
 function L.packages()
-  return {
-    'Julian/lean.nvim',
-  }
+  return { 'Julian/lean.nvim' }
 end
 
 function L.load()

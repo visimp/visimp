@@ -1,12 +1,5 @@
 local L = require('visimp.language').new_language 'typst'
 
-L.default_config = {
-  -- Optional configuration to be provided for the chosen language server
-  lspconfig = {
-    exportPdf = 'onType',
-  },
-}
-
 function L.filetypes()
   return {
     extension = {

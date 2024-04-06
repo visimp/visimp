@@ -28,7 +28,8 @@ settings:
 
 Several language layers diverge from this basic configuration:
 
-- `ampl` does not have LSP support at all, and thus cannot be configured;
+- `agda` and `ampl` do not have LSP support at all, and thus cannot be
+  configured;
 - `bash` adds the `fish` option (defaults to `false`) which, if set to true,
   adds support for the Fish shell;
 - `c` adds the `c` and `cpp` options (both default to `true`) which enable
@@ -45,8 +46,6 @@ Several language layers diverge from this basic configuration:
   compilation via LS and the `tectonic` (defaults to `false`) option to ask
   default LS Texlab to compile via Tectonic;
 - `toml` does not have LSP support at all, and thus cannot be configured;
-- `typst` adds the `pluginconfig` table setting to [configure `typst.vim`](https://github.com/latex-lsp/texlab/wiki/Configuration) alongside
-  the LS.
 
 ## Examples
 
