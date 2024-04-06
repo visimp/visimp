@@ -56,19 +56,23 @@ end
 --- Adds the appropriate language server based on the language layer
 ---@param l table Language layer
 local function add_server(l)
-  local server = l.server()
-  if server and l.config.lsp ~= false then
-    local t = type(server)
-    if t ~= 'string' then
-      error('Server name should be string. Got ' .. t)
-    end
-    layers.get('lsp').use_server(
-      l.identifier,
-      l.config.lsp == nil,
-      l.config.lsp or server,
-      l.config.lspconfig
-    )
+  if l.config.lsp == false then
+    return
   end
+  local server = l.server()
+  if not server then
+    server = l.config.lsp
+  end
+  local t = type(server)
+  if t ~= 'string' then
+    error('Server name should be string. Got ' .. t)
+  end
+  layers.get('lsp').use_server(
+    l.identifier,
+    l.config.lsp == nil,
+    server,
+    l.config.lspconfig
+  )
 end
 
 ---Default implementation for "preload" method of language layers
