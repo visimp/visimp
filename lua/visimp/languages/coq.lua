@@ -1,15 +1,7 @@
 local L = require('visimp.layer').new_layer 'coq'
 
-L.default_config = {}
-
-function L.dependencies()
-  return {}
-end
-
 function L.packages()
-  return {
-    'whonore/Coqtail',
-  }
+  return { 'whonore/Coqtail' }
 end
 
 function L.load()
