@@ -4,7 +4,7 @@ You've seen a high-level overview of what a layer is and how it's the central
 piece of your `visimp` configuration in the [introduction](INTRO.md). More
 concretely, a layer `L` is a structure with the following fields:
 
-- `L.indentifier` is a unique string that identifies the layer. This identifier
+- `L.identifier` is a unique string that identifies the layer. This identifier
   is usually a meaningful name, often matching with the lua filename;
 - `L.default_config` is the layer's default configuration to be extended via a
   merge with the configuration given to `L.configure(...)`. Please see the next
@@ -29,7 +29,7 @@ appropriate field of the layer Below is a list of available methods.
   GitHub repository URL (i.e. `https://github.com/tpope/fugitive` would be
   `tpope/fugitive`).
 - `L.preload()` is called on all layers before the `load` method is called on
-  any of them. This is used to modify behaviour of other layers' `load`
+  any of them. This is used to modify behavior of other layers' `load`
   methods. An example is the interaction with the `lsp` layer: in order to
   enable a desired LSP, other layers need to specify it in their `preload`
   section before the `lsp` layer `load` method gets called.
