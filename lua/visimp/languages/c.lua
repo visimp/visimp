@@ -19,3 +19,5 @@ end
 function L.server()
   return 'clangd'
 end
+
+return L
