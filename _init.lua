@@ -12,6 +12,7 @@ require 'visimp' {
     -- haskell,
     -- hcl,
     -- html,
+    -- idris,
     -- java,
     -- javascript,
     -- json,
