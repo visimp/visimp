@@ -106,32 +106,33 @@ reference page. You can look it up in the following table.
 
 ### Language layers
 
-| Layer name                  | Language              |
-| --------------------------- | --------------------- |
-| `agda`                      | Agda                  |
-| `ampl`                      | AMPL                  |
-| `bash`                      | Bash                  |
-| `c`                         | C/C++                 |
-| [`coq`](languages/COQ.md)   | Coq                   |
-| `csharp`                    | C#                    |
-| `css`                       | CSS                   |
-| `dart`                      | Dart                  |
-| `go`                        | Go                    |
-| `haskell`                   | Haskell               |
-| `hcl`                       | HCL                   |
-| `html`                      | HTML                  |
-| `java`                      | Java                  |
-| `javascript`                | JavaScript/TypeScript |
-| `json`                      | JSON                  |
-| `latex`                     | $\LaTeX$              |
-| [`lean`](languages/LEAN.md) | Lean                  |
-| `lua`                       | Lua                   |
-| `ocaml`                     | OCaml                 |
-| `php`                       | PHP                   |
-| `python`                    | Python                |
-| `rust`                      | Rust                  |
-| `svelte`                    | Svelte                |
-| `swift`                     | Swift                 |
-| `toml`                      | TOML                  |
-| `typst`                     | Typst                 |
-| `vue`                       | Vue                   |
+| Layer name                    | Language              |
+| ----------------------------- | --------------------- |
+| `agda`                        | Agda                  |
+| `ampl`                        | AMPL                  |
+| `bash`                        | Bash                  |
+| `c`                           | C/C++                 |
+| [`coq`](languages/COQ.md)     | Coq                   |
+| `csharp`                      | C#                    |
+| `css`                         | CSS                   |
+| `dart`                        | Dart                  |
+| `go`                          | Go                    |
+| `haskell`                     | Haskell               |
+| `hcl`                         | HCL                   |
+| `html`                        | HTML                  |
+| [`idris`](languages/IDRIS.md) | Idris                 |
+| `java`                        | Java                  |
+| `javascript`                  | JavaScript/TypeScript |
+| `json`                        | JSON                  |
+| `latex`                       | $\LaTeX$              |
+| [`lean`](languages/LEAN.md)   | Lean                  |
+| `lua`                         | Lua                   |
+| `ocaml`                       | OCaml                 |
+| `php`                         | PHP                   |
+| `python`                      | Python                |
+| `rust`                        | Rust                  |
+| `svelte`                      | Svelte                |
+| `swift`                       | Swift                 |
+| `toml`                        | TOML                  |
+| `typst`                       | Typst                 |
+| `vue`                         | Vue                   |
