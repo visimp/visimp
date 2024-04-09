@@ -54,23 +54,24 @@ end
 --- Exports a layer config as a vimscript plugin config (i.e., vim global
 --- variables)
 ---@param layer table The layer whose config is to be exported
----@param layer_config_field string|nil The field in the layer config where the
--- plugin config is stored. If the plugin config is stored at the root of the
--- layer config, nil should be passed instead.
 ---@param vim_config_field string The name of the global vimscript variable
 -- storing the plugin config, or the common prefix shared by all the plugin
 -- config fields if these are stored as individual vimscript global variables.
----@param prefix_mode boolean True if the vim_config_field parameter should be
--- interpreted as a prefix common to all the plugin config fields, or false if
--- it should just be the global vimscript variable storing the plugin config.
+---@param prefix_mode boolean True(ish) if the vim_config_field parameter should
+-- be interpreted as a prefix common to all the plugin config fields, or
+-- false(ish) if it should just be the global vimscript variable storing the
+-- plugin config.
+---@param layer_config_field string|nil The field in the layer config where the
+-- plugin config is stored. If the plugin config is stored at the root of the
+-- layer config, nil should be passed instead.
 ---@param blacklist table|nil A list of fields that should not be copied from
 -- the layer config (as they do not belong to the plugin config). If nil, it is
 -- considered to be empty.
 function M.to_vimscript_config(
   layer,
-  layer_config_field,
   vim_config_field,
   prefix_mode,
+  layer_config_field,
   blacklist
 )
   -- Config source
