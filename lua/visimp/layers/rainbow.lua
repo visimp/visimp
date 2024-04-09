@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'rainbow'
+local layer = require 'visimp.layer'
+local L = layer.new_layer 'rainbow'
 local get_module = require('visimp.bridge').get_module
 
 function L.dependencies()
@@ -12,7 +13,7 @@ function L.packages()
 end
 
 function L.load()
-  get_module 'rainbow-delimiters'
+  get_module('rainbow-delimiters.setup').setup { L.config }
 end
 
 return L
