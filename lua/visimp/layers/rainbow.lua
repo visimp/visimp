@@ -13,7 +13,7 @@ function L.packages()
 end
 
 function L.load()
-  get_module('rainbow-delimiters.setup').setup { L.config }
+  get_module('rainbow-delimiters.setup').setup(L.config)
 end
 
 return L
