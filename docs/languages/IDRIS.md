@@ -12,7 +12,10 @@ Mappings are available [in the "Interactive Editing Commands" section of idris2-
 
 Any vim **global** variable that [the "Configuration" section of idris2-vim](https://github.com/edwinb/idris2-vim#configuration)
 states can be set to configure idris2-vim is also a valid field for this layer's
-config, as long as you strip the `idris_` prefix.
+config, as long as you strip the `idris_` prefix. As Idris does not have a
+Language Server on Mason at the moment, `lspconfig` should only be used if `lsp`
+is set to the name of a preinstalled executable that can be used as a Language
+Server for the language.
 
 ## Examples
 

@@ -130,6 +130,7 @@ reference page. You can look it up in the following table.
 | `lua`                         | Lua                   |
 | `ocaml`                       | OCaml                 |
 | `php`                         | PHP                   |
+| `prolog`                      | (SWI-/GNU-/...)Prolog |
 | `python`                      | Python                |
 | `rust`                        | Rust                  |
 | `svelte`                      | Svelte                |
