@@ -21,6 +21,7 @@ require 'visimp' {
     -- 'lua',
     -- 'ocaml',
     -- 'php',
+    -- 'prolog',
     -- 'python',
     -- 'rust',
     -- 'svelte',
