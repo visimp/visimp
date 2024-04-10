@@ -10,8 +10,9 @@ Mappings are available [in the "Interactive Editing Commands" section of idris2-
 
 ## Configuration
 
-This layer cannot be configured via visimp at the moment. Please refer to [the "Configuration" section of idris2-vim](https://github.com/edwinb/idris2-vim?tab=readme-ov-file#configuration)
-instead.
+Any vim **global** variable that [the "Configuration" section of idris2-vim](https://github.com/edwinb/idris2-vim#configuration)
+states can be set to configure idris2-vim is also a valid field for this layer's
+config, as long as you strip the `idris_` prefix.
 
 ## Examples
 
@@ -19,12 +20,13 @@ instead.
 -- path/of/your/vim/config/init.lua
 
 require("visimp")({
+  coq = {
+    indent_if = 3 -- do not use the idris_ prefix
+  },
   languages = {
-  "idris" -- cannot be configured via visimp
+  "idris"
   }
 })
-
-vim.g.idris_indent_if = 3
 ```
 
 ## Documentation

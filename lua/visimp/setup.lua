@@ -10,18 +10,19 @@ local window = require 'visimp.pak.window'
 local M = {
   -- Layers which get enabled by default unless disabled
   layers = {
+    'cmp',
+    'comment',
     'defaults',
+    'languages',
+    'lsp',
+    'lspformat',
+    'lspsignature',
+    'rainbow',
+    'snippet',
+    'statusline',
+    'telescope',
     'theme',
     'treesitter',
-    'statusline',
-    'lsp',
-    'lspsignature',
-    'lspformat',
-    'cmp',
-    'snippet',
-    'languages',
-    'telescope',
-    'comment',
   },
   configs = {},
 }
