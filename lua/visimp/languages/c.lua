@@ -1,11 +1,23 @@
 local L = require('visimp.layer').new_layer 'c'
+local layers = require 'visimp.loader'
 
 L.default_config = {
   c = true,
   cpp = true,
+  lspconfig = {},
 }
 
+---Declare LS usage
+---@param language string The LS will be attached to buffers of this filetype
+local function use_server(language)
+  local install = L.config.lsp == nil
+  local server = L.config.lsp or 'clangd'
+  local settings = L.config.lspconfig
+  layers.get('lsp').use_server(language, install, server, settings)
+end
+
 function L.preload()
+  -- Configure treesitter
   local langs = {}
   if L.config.c then
     table.insert(langs, 'c')
@@ -13,11 +25,17 @@ function L.preload()
   if L.config.cpp then
     table.insert(langs, 'cpp')
   end
-  return langs
-end
+  layers.get('treesitter').langs(langs)
 
-function L.server()
-  return 'clangd'
+  -- Enable the language server
+  if L.config.lsp ~= false then
+    if L.config.c then
+      use_server 'c'
+    end
+    if L.config.cpp then
+      use_server 'cpp'
+    end
+  end
 end
 
 return L
