@@ -5,7 +5,7 @@ function L.grammars()
 end
 
 function L.server()
-  return 'svelte-language-server'
+  return 'svelte'
 end
 
 return L
