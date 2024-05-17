@@ -47,15 +47,24 @@ function M.is_builtin(id)
 end
 
 --- Returns true if the list of layers have a cyclic relationship
--- @param loading table A table of already loading packages
+-- @param loading table A table of already loading layers
 -- @param list list The list of layer identifiers
--- @return bool False if the list of layers does not produce a cyclic graph
+-- @return string The id of the layer being cyclically required, or nil if no
+-- loop was found.
 function M.are_cyclic(loading, list)
   if list == nil or #list == 0 then
     return nil
   end
 
   for _, id in ipairs(list) do
+    if not M.layers[id] then
+      error(
+        'Layer '
+          .. id
+          .. ' was listed as dependency, but is not enabled. '
+          .. 'Please make sure it is not set to "false" in your config.'
+      )
+    end
     if loading[id] then
       return id
     end
