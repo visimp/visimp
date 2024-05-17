@@ -42,12 +42,6 @@ local function load_snippets(loaders)
   end
 end
 
-local function jump(ls, offset)
-  return function()
-    ls.jump(offset)
-  end
-end
-
 local function change_choice(ls)
   return function()
     if ls.choice_active() then
@@ -58,21 +52,6 @@ end
 
 local function luasnip_bindings(ls)
   bind({
-    [{
-      mode = 'i',
-      bind = '<Tab>',
-      desc = 'Expand snippet',
-    }] = ls.expand,
-    [{
-      mode = { 'i', 's' },
-      bind = '<Tab>',
-      desc = 'Next snippet tabstop',
-    }] = jump(ls, 1),
-    [{
-      mode = { 'i', 's' },
-      bind = '<S-Tab>',
-      desc = 'Previous snippet tabstop',
-    }] = jump(ls, -1),
     [{
       mode = { 'i', 's' },
       bind = '<C-E>',
