@@ -50,7 +50,11 @@ function M.setup(visimp_cfg)
   for k, v in pairs(M.configs) do
     if v == false then
       -- disable any undesired layer
-      M.layers[k] = nil
+      for i = #M.layers, 1, -1 do
+        if M.layers[i] == k then
+          table.remove(M.layers, i)
+        end
+      end
     elseif not vim.tbl_contains(M.layers, k) and loader.is_builtin(k) then
       -- enable any missing builtin layer
       table.insert(M.layers, k)
@@ -77,7 +81,7 @@ function M.setup(visimp_cfg)
     loader.get(l).configure(cfg)
   end
 
-  -- Check for cyclic dependecy graphs
+  -- Check for cyclic dependency graphs
   local dep = loader.are_cyclic({}, M.layers)
   if dep ~= nil then
     error(
