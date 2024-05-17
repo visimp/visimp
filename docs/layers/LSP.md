@@ -8,8 +8,9 @@ LSs are installed by [mason.nvim](https://github.com/williamboman/mason.nvim)
 by default.
 
 Neovim itself can also act as a LS to inject new LSP-like features via
-[null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) (discontinued
-project).
+[none-ls.nvim](https://github.com/nvimtools/none-ls.nvim), a community fork of
+the discontinued "null-ls.nvim". All documentation and code still refer to
+null-ls, as none-ls does not rename its API for compatibility concerns.
 
 ## Bindings
 
