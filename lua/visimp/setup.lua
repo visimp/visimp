@@ -81,7 +81,7 @@ function M.setup(visimp_cfg)
     loader.get(l).configure(cfg)
   end
 
-  -- Check for cyclic dependecy graphs
+  -- Check for cyclic dependency graphs
   local dep = loader.are_cyclic({}, M.layers)
   if dep ~= nil then
     error(
