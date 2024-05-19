@@ -150,7 +150,7 @@ function L.load()
   -- null-ls sources
   local sources = {}
   if L.use_nullls then
-    vim.cmd 'packadd null-ls.nvim'
+    vim.cmd 'packadd none-ls.nvim'
     for k, v in pairs(L.config.nullls) do
       -- source config is specified
       if type(k) == 'string' then
