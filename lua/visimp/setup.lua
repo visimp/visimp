@@ -11,7 +11,6 @@ local M = {
   -- Layers which get enabled by default unless disabled
   layers = {
     'cmp',
-    'comment',
     'defaults',
     'languages',
     'lsp',
@@ -86,8 +85,8 @@ function M.setup(visimp_cfg)
   if dep ~= nil then
     error(
       'The selected layers cause a cyclic dependency graph (faulty: '
-        .. dep
-        .. ')'
+      .. dep
+      .. ')'
     )
   end
 
