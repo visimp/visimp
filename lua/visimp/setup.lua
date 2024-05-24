@@ -85,8 +85,8 @@ function M.setup(visimp_cfg)
   if dep ~= nil then
     error(
       'The selected layers cause a cyclic dependency graph (faulty: '
-      .. dep
-      .. ')'
+        .. dep
+        .. ')'
     )
   end
 
