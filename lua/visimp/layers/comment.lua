@@ -3,6 +3,8 @@ local get_module = require('visimp.bridge').get_module
 
 L.default_config = {}
 
+L.deprecated = true
+
 function L.packages()
   return { 'numToStr/Comment.nvim' }
 end
