@@ -112,6 +112,18 @@ function M.preload(id)
   M.preloaded[id] = true
 end
 
+--- Prints a warning message in case the layer is deprecated.
+---@param layer table The layer to be analyzed
+local function deprecation_check(layer)
+  if layer.deprecated then
+    print(
+      'The "'
+        .. layer.identifier
+        .. '" layer is deprecated and shall not be used. Please disable it.'
+    )
+  end
+end
+
 --- Loads a registered layer by its identifier with its dependencies.
 -- This function also takes care of calling all the needed functions on each
 -- layer to properly initialize your editor.
@@ -126,6 +138,7 @@ function M.load(id)
     M.load(did) -- did = Dependency IDentifier
   end
 
+  deprecation_check(layer)
   layer.load()
   M.loaded[id] = true
 end

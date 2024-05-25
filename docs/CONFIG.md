@@ -82,7 +82,7 @@ reference page. You can look it up in the following table.
 | [`blankline`](layers/BLANKLINE.md)       | Indentation guides                               |
 | [`cmp`](layers/CMP.md)                   | Completion engine                                |
 | [`colorizer`](layers/COLORIZER.md)       | Color highlighter                                |
-| [`comment`](layers/COMMENT.md)           | Automatic (un)commenting support                 |
+| ~~[`comment`](layers/COMMENT.md)~~       | ~~Automatic (un)commenting support~~             |
 | [`defaults`](layers/DEFAULTS.md)         | Customizable sane defaults                       |
 | [`diagnostics`](layers/DIAGNOSTICS.md)   | Pretty list of diagnostics, quickfixes, and more |
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
