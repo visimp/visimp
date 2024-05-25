@@ -12,7 +12,7 @@ concretely, a layer `L` is a structure with the following fields:
 - `L.config` is the structure obtained from the merging of the actual config
   provided by the user with the layer's default.
 - `L.deprecated` is a boolean stating whether the layer is deprecated or not. If
-  it is, a noticed asking the user to disable said layer is shown when the layer
+  it is, a notice asking the user to disable said layer is shown when the layer
   is loaded.
 
 There's a specific set of methods that can act on any given layer. They get

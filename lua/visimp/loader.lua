@@ -26,12 +26,12 @@ function M.define_builtin(id)
   if not ok then
     error(
       'Requested invalid builtin layer: '
-        .. id
-        .. ' (resolved to '
-        .. 'visimp.layers.'
-        .. id
-        .. ')\n'
-        .. module
+      .. id
+      .. ' (resolved to '
+      .. 'visimp.layers.'
+      .. id
+      .. ')\n'
+      .. module
     )
   end
 
@@ -60,9 +60,9 @@ function M.are_cyclic(loading, list)
     if not M.layers[id] then
       error(
         'Layer '
-          .. id
-          .. ' was listed as dependency, but is not enabled. '
-          .. 'Please make sure it is not set to "false" in your config.'
+        .. id
+        .. ' was listed as dependency, but is not enabled. '
+        .. 'Please make sure it is not set to "false" in your config.'
       )
     end
     if loading[id] then
@@ -117,11 +117,9 @@ end
 local function deprecation_check(layer)
   if layer.deprecated then
     print(
-      string.format(
-        [=[
-The "%s" layer is deprecated and shall not be used. Please disable it.]=],
-        layer.identifier
-      )
+      'The "'
+      .. layer.identifier
+      .. '" layer is deprecated and shall not be used. Please disable it.'
     )
   end
 end
