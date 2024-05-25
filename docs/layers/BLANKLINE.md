@@ -25,16 +25,18 @@ The `blankline` layer adds indentation vertical guides using
 -- path/of/your/vim/config/init.lua
 
 require("visimp")({
-  indent_blankline = {
-    debounce = 100, -- refresh is debounced by 100 ms
-    indent = { char = "|" }, -- used to draw lines
-    whitespace = { highlight = { "Whitespace", "NonText" } }, -- whitespace look
-    scope = { exclude = { language = { "lua" } } }, -- hides scope in Lua
-  },
-  rainbow_integration = {
-    {
-      name = 'RainbowWhite',
-      fg = '#FFFFFF',
+  blankline = {
+    indent_blankline = {
+      debounce = 100, -- refresh is debounced by 100 ms
+      indent = { char = "|" }, -- used to draw lines
+      whitespace = { highlight = { "Whitespace", "NonText" } }, -- whitespace look
+      scope = { exclude = { language = { "lua" } } }, -- hides scope in Lua
+    },
+    rainbow_integration = {
+      {
+        name = 'RainbowWhite',
+        fg = '#FFFFFF',
+      },
     },
   },
 })
