@@ -9,19 +9,14 @@ local layers = require 'visimp.loader'
 -- are accepted here.
 L.default_config = {}
 
+L.deprecated = true
+
 function L.dependencies()
   return { 'lsp' }
 end
 
 function L.preload()
   layers.get('lsp').use_server('grammarly', true, 'grammarly', L.config or {})
-end
-
-function L.load()
-  print [=[
-    The `grammarly` layer is deprecated and shall not be used. Please disable
-    it.
-  ]=]
 end
 
 return L

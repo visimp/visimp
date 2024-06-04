@@ -11,7 +11,6 @@ local M = {
   -- Layers which get enabled by default unless disabled
   layers = {
     'cmp',
-    'comment',
     'defaults',
     'languages',
     'lsp',
