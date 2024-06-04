@@ -19,6 +19,7 @@ function M.new_layer(id)
     end,
     preload = function() end,
     load = function() end,
+    deprecated = false,
   }
   function layer.configure(cfg)
     layer.config = vim.tbl_deep_extend('force', layer.default_config, cfg)
