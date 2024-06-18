@@ -5,6 +5,17 @@ language via:
 - [`cornelis` interactive development](https://github.com/isovector/cornelis);
 - integration with the [`treesitter`](../layers/TREESITTER.md) layer.
 
+## Prerequisites
+
+To use `cornelis`, you have to invoke `stack build` to generate its binary
+within the corresponding plugin folder. This should be
+`${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/cornelis`.
+Alternatively, if you want to use a binary available on your `$PATH`, you can
+set `cornelis.use_global_binary` to `1`.
+
+As no language server for Agda is currently available on Mason, you need to
+install one yourself on your system.
+
 ## Bindings
 
 All the sample bindings and autocommands listed in `cornelis`'s [sample
