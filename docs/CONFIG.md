@@ -128,6 +128,7 @@ reference page. You can look it up in the following table.
 | `latex`                       | $\LaTeX$              |
 | [`lean`](languages/LEAN.md)   | Lean                  |
 | `lua`                         | Lua                   |
+| `markdown`                    | Markdown              |
 | `ocaml`                       | OCaml                 |
 | `php`                         | PHP                   |
 | `prolog`                      | (SWI-/GNU-/...)Prolog |
