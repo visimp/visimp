@@ -7,9 +7,10 @@ plugin](https://lab.vern.cc/gitlab.com/HiPhish/rainbow-delimiters.nvim/)
 
 ## Configuration
 
-This layer cannot be configured via visimp at the moment. Please refer to [the
-rainbow-delimites.nvim's "Setup" section](https://lab.vern.cc/gitlab.com/HiPhish/rainbow-delimiters.nvim/-/about)
-instead.
+Any valid value for the `rainbow_delimiters` vimscript global variable ([see the
+rainbow-delimites.nvim's "Setup" section](https://lab.vern.cc/gitlab.com/HiPhish/rainbow-delimiters.nvim/-/about))
+is also a valid configuration for this layer. The `highlight` field might be
+overwritten by the rainbow integration of the [`blankline` layer](./BLANKLINE.md).
 
 ## Examples
 
@@ -17,10 +18,30 @@ instead.
 -- path/of/your/vim/config/init.lua
 
 require("visimp")({
-  rainbow = {} -- cannot be configured via visimp
+  rainbow = {
+    strategy = {
+      [''] = rainbow_delimiters.strategy['global'],
+      vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+      [''] = 'rainbow-delimiters',
+      lua = 'rainbow-blocks',
+    },
+    priority = {
+      [''] = 110,
+      lua = 210,
+    },
+    highlight = {
+      'RainbowDelimiterRed',
+      'RainbowDelimiterYellow',
+      'RainbowDelimiterBlue',
+      'RainbowDelimiterOrange',
+      'RainbowDelimiterGreen',
+      'RainbowDelimiterViolet',
+      'RainbowDelimiterCyan',
+    },
+  }
 })
-
-vim.g.rainbow_delimiters.query.lua = 'rainbow-blocks'
 ```
 
 ## Documentation
