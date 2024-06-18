@@ -19,6 +19,7 @@ require 'visimp' {
     -- 'latex',
     -- 'lean',
     -- 'lua',
+    -- 'markdown'
     -- 'ocaml',
     -- 'php',
     -- 'prolog',
