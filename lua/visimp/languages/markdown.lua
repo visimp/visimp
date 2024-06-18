@@ -1,7 +1,7 @@
 local L = require('visimp.language').new_language 'markdown'
 
 function L.grammars()
-  return { 'markdown' }
+  return { 'markdown', 'markdown_inline' }
 end
 
 function L.server()
