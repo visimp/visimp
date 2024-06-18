@@ -83,6 +83,9 @@ function M.to_vimscript_config(
   -- Config destination
   local vim_config = vim.g
   if not prefix_mode then
+    if vim_config[vim_config_field] == nil then
+      vim_config[vim_config_field] = {}
+    end
     vim_config = vim_config[vim_config_field]
   end
   -- Blacklist
