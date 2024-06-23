@@ -3,6 +3,8 @@
 The `outline` layer provides your editor with a tree-like view for symbols in
 your buffer via
 [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim).
+**It has been deprecated since visimp v0.6.0 as the diagnostics layer now
+used trouble.nvim 3.x.x and hence provides the same functionalities.**
 
 ## Bindings
 
