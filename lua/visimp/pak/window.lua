@@ -40,8 +40,12 @@ function M.open()
   M.buflen = 1
   M.win = vim.api.nvim_open_win(M.buf, true, cfg)
 
-  vim.api.nvim_win_set_option(M.win, 'winhl', 'FloatBorder:FloatBorder')
-  vim.api.nvim_win_set_option(M.win, 'winhl', 'Normal:Normal')
+  vim.api.nvim_set_option_value(
+    'winhl',
+    'FloatBorder:FloatBorder',
+    { win = M.win }
+  )
+  vim.api.nvim_set_option_value('winhl', 'Normal:Normal', { win = M.win })
 end
 
 --- Closes the floating window
@@ -85,12 +89,12 @@ end
 
 --- Locks the floating window buffer
 function M.lock()
-  vim.api.nvim_buf_set_option(M.buf, 'modifiable', false)
+  vim.api.nvim__set_option_value('modifiable', false, { buf = M.buf })
 end
 
 --- Unlocks the floating window buffer
 function M.unlock()
-  vim.api.nvim_buf_set_option(M.buf, 'modifiable', false)
+  vim.api.nvim_set_option_value('modifiable', false, { buf = M.buf })
 end
 
 return M
