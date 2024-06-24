@@ -134,6 +134,7 @@ reference page. You can look it up in the following table.
 | `prolog`                      | (SWI-/GNU-/...)Prolog |
 | `python`                      | Python                |
 | `rust`                        | Rust                  |
+| `scheme`                      | Scheme                |
 | `svelte`                      | Svelte                |
 | `swift`                       | Swift                 |
 | `toml`                        | TOML                  |
