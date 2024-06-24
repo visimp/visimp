@@ -24,8 +24,8 @@ end
 --- Opens the floating window and relative buffer
 function M.open()
   local row, col =
-      math.ceil(((vim.o.lines - M.height) / 2) - 1),
-      math.ceil((vim.o.columns - M.width) / 2)
+    math.ceil(((vim.o.lines - M.height) / 2) - 1),
+    math.ceil((vim.o.columns - M.width) / 2)
 
   local cfg = {
     relative = 'editor',
