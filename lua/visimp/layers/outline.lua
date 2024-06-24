@@ -4,6 +4,8 @@ local get_module = require('visimp.bridge').get_module
 -- Same as: https://github.com/simrat39/symbols-outline.nvim#configuration
 L.default_config = {}
 
+L.deprecated = true
+
 function L.packages()
   return { 'simrat39/symbols-outline.nvim' }
 end

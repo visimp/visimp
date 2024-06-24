@@ -1,25 +1,24 @@
 # `diagnostics` layer
 
-The `diagnostics` layer lists code diagnostics (errors, warnings, hints,
-information...) using [Trouble](https://github.com/folke/trouble.nvim).
+The `diagnostics` layer features "pretty lists for code diagnostics, references,
+telescope results, quickfix and location lists" using
+[Trouble](https://github.com/folke/trouble.nvim).
 
 ## Bindings
 
 In normal mode:
 
-- `<leader>tx` toggles diagnostics window;
-- `<leader>tw` toggles workspace diagnostics;
-- `<leader>td` toggler document diagnostics;
-- `<leader>tq` applies a quickfix;
-- `<leader>tl` [location list](https://neovim.io/doc/user/quickfix.html#location-list).
+- `<leader>xx` toggles diagnostics;
+- `<leader>xX` toggles diagnostics for the current buffer only;
+- `<leader>cs` toggles symbols list;
+- `<leader>cl` toggles LSP definitions, references, and the like;
+- `<leader>xL` toggles the [location list](https://neovim.io/doc/user/quickfix.html#location-list);
+- `<leader>xQ` toggles the quickfix list.
 
 ## Configuration
 
-- `trouble` a valid configuration for Trouble (whose settings and
-  defaults are documented [here](https://github.com/folke/trouble.nvim#setup).
-  Visimp does not feature
-  [`nvim-web-devicons`](https://github.com/nvim-tree/nvim-web-devicons) out of
-  the box, so `icons` is set to `false` by default by visimp;
+- `trouble` (defaults to `{}`) can be any valid configuration for Trouble (whose
+  settings and defaults are documented [here](https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration);
 - `binds` (default bindings are documented above) as would be passed to the
   [`binds` layer](BINDS.md) layer.
 
@@ -30,8 +29,16 @@ In normal mode:
 
 require("visimp")({
   diagnostics = {
-    auto_open = true, -- open the list when you have diagnostics
-    auto_close = true, -- close the list when you have no diagnostics
+    trouble = {
+      warn_no_results = false,
+      open_no_results = true,
+      modes = {
+        diagnostics = {
+          auto_open = true,
+          auto_close = true,
+        },
+      },
+    },
   },
 })
 ```
