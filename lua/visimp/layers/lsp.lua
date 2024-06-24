@@ -2,8 +2,6 @@ local L = require('visimp.layer').new_layer 'lsp'
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.bridge').get_module
 
-local border_opts = { border = 'single' }
-
 L.servers = {}
 L.callbacks = {}
 L.capabilities = nil
@@ -35,7 +33,7 @@ L.default_config = {
       bind = 'K',
       desc = 'Show hover',
     }] = function()
-      vim.lsp.buf.hover(border_opts)
+      vim.lsp.buf.hover()
     end,
     [{
       mode = 'n',
@@ -47,7 +45,7 @@ L.default_config = {
       bind = '<C-k>',
       desc = 'Show signature help',
     }] = function()
-      vim.lsp.buf.signature_help(border_opts)
+      vim.lsp.buf.signature_help()
     end,
     [{
       mode = 'n',
@@ -74,7 +72,7 @@ L.default_config = {
       bind = '<leader>e',
       desc = 'Show line diagnostics',
     }] = function()
-      vim.diagnostic.open_float(border_opts)
+      vim.diagnostic.open_float()
     end,
     [{
       mode = 'n',
