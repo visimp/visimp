@@ -25,6 +25,12 @@ require("visimp")({
 
 ## Layer-specific API
 
+### `register(binds)`
+
+Makes all values in `binds` available to which-key. Each value is a bind as
+those described by the [`binds` layer's "Configuration"
+section](BINDS.md#configuration).
+
 ### `register_all()`
 
 This method ensures all keybindings are registered. It is also run when a new
