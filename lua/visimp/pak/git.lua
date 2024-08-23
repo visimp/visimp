@@ -4,9 +4,9 @@ local window = require 'visimp.pak.window'
 local M = {}
 local uv = vim.loop
 
---- Returns the git hash of the repository at the given path
--- @param dir string The git directory
--- @return string The git hash
+---Returns the git hash of the repository at the given path
+---@param dir string The git directory
+---@return string The git hash
 local function get_git_hash(dir)
   local first_line = function(path)
     local file = io.open(path)
@@ -20,13 +20,13 @@ local function get_git_hash(dir)
   return head_ref and first_line(dir .. '/.git/' .. head_ref:gsub('ref: ', ''))
 end
 
---- Calls the given process in a shell
--- @param process string The process command
--- @param args list A list of arguments to set as argv
--- @param cwd string The working directory of the spawned process
--- @param cb function A function to be run as a callback upon process exit
--- (with an argument set to true if exit code was equal to zero, false
--- otherwhise)
+---Calls the given process in a shell
+---@param process string The process command
+---@param args string[] A list of arguments to set as argv
+---@param cwd string|nil The working directory of the spawned process
+---@param cb function A function to be run as a callback upon process exit
+---(with an argument set to true if exit code was equal to zero, falsey
+---otherwhise)
 local function call_proc(process, args, cwd, cb)
   local log, stderr, handle
   log = uv.fs_open(init.logfile, 'a+', 0x1A4)
@@ -49,8 +49,9 @@ local function call_proc(process, args, cwd, cb)
   )
 end
 
---- Installs all registered packages
--- @param cb A callback which is called after the installation has completed
+---Installs all registered packages
+---@param cb function A callback which is called after the installation has
+---completed
 function M.install(cb)
   window.set_title 'Installing packages'
   init.fill()
@@ -92,7 +93,7 @@ function M.install(cb)
   end
 end
 
---- Updates all registered packages
+---Updates all registered packages
 function M.update(cb)
   window.set_title 'Updating packages'
   init.fill()
@@ -127,8 +128,8 @@ function M.update(cb)
   end
 end
 
---- Removes all unregistered packages in the given directory
--- @param packdir string The directory to look for unregistered packages
+---Removes all unregistered packages in the given directory
+---@param packdir string The directory to look for unregistered packages
 function M.remove(packdir)
   local pack_name, pack_dir, pkg
   local to_rm = {}
@@ -155,7 +156,7 @@ function M.remove(packdir)
   end
 end
 
---- Cleans all unregistered packages in all runtime directories
+---Cleans all unregistered packages in all runtime directories
 function M.clean()
   window.set_title 'Cleaning up old packages'
   init.fill()

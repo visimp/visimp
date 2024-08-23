@@ -1,10 +1,10 @@
---- Utilities for constructing and identifying layers
--- @module visimp.layer
+---Utilities for constructing and identifying layers
+---@module visimp.layer Layer
 local M = {}
 
---- Returns an empty new layer for the given identifier
--- @param id The layer identifier
--- @return The newly created layer
+---Returns an empty new layer for the given identifier
+---@param id string The layer identifier
+---@return table layer The newly created layer
 function M.new_layer(id)
   local layer = {
     identifier = id,
@@ -28,9 +28,9 @@ function M.new_layer(id)
   return layer
 end
 
---- Returns true if the given argument is a proper layer
--- @param layer The hypothetical layer to analyze
--- @return Whether the provided argument is a layer
+---Returns true if the given argument is a proper layer
+---@param layer table The hypothetical layer to analyze
+---@return boolean result Whether the provided argument is a layer
 function M.is_layer(layer)
   return layer ~= nil
     and type(layer.identifier) == 'string'
@@ -52,8 +52,8 @@ local function Set(list)
   return set
 end
 
---- Exports a layer config as a vimscript plugin config (i.e., vim global
---- variables)
+---Exports a layer config as a vimscript plugin config (i.e., vim global
+---variables)
 ---@param layer table The layer whose config is to be exported
 ---@param vim_config_field string The name of the global vimscript variable
 -- storing the plugin config, or the common prefix shared by all the plugin

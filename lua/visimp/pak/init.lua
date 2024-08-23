@@ -1,4 +1,4 @@
--- @module visimp.pak.init
+---@module visimp.pak.init Init
 local count = require 'visimp.pak.count'
 
 local M = {
@@ -11,7 +11,7 @@ local M = {
   packages = {},
 }
 
---- Fills the dialog with initial data on registered packages
+---Fills the dialog with initial data on registered packages
 function M.fill()
   count.set_status ''
   local keys = vim.tbl_keys(M.packages)
