@@ -7,11 +7,11 @@ The `binds` layer allows you to define custom bindings declaratively.
 This layer's configuration is an array. Each key is a table, and must have the
 following fields:
 
- - `mode`: mode short name ([see `{mode}`](https://neovim.io/doc/user/lua.html#vim.keymap.set(%29));
- - `bind`: binding trigger ([see `{lhs}`](https://neovim.io/doc/user/lua.html#vim.keymap.set(%29));
- - `opts`: addtional (non-mandatory) options ([see `{opts}`](https://neovim.io/doc/user/lua.html#vim.keymap.set(%29));
- - `desc`: a description of the binding (used by the [`whichkey`
-   layer](WHICKKEY.md)).
+ - `mode`: mode short name ([see `{mode}`](https://neovim.io/doc/user/lua.html#vim.keymap.set(%29)));
+ - `bind`: binding trigger ([see `{lhs}`](https://neovim.io/doc/user/lua.html#vim.keymap.set(%29)));
+ - `opts`: additional (non-mandatory) options ([see `{opts}`](https://neovim.io/doc/user/lua.html#vim.keymap.set(%29))).
+   Should contain `desc`, a description of the binding (used by the [`whichkey`
+   layer](WHICHKEY.md)).
 
 Each value is a function to be invoked when the binding is triggered.
 
@@ -23,11 +23,13 @@ Each value is a function to be invoked when the binding is triggered.
 require("visimp")({
   binds = {
     [{
-      mode = 'n',                 -- When in normal mode...
-      bind = '<leader>h',         -- and pressing <leader>h...
-      desc = 'Show date and time' -- (description for whichkey layer)
+      mode = 'n',                   -- When in normal mode...
+      bind = '<leader>h',           -- and pressing <leader>h...
+      opts = {
+        desc = 'Show date and time' -- (description for whichkey layer)
+      }
     }] = function ()
-      print(os.date())            -- ...print the current date and time
+      print(os.date())              -- ...print the current date and time
     end
   }
 })

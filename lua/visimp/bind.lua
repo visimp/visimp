@@ -33,11 +33,27 @@ function M.get_registered()
   return M.registered
 end
 
+---Sets the buffer of the given key.
+---@param key table A key object for a bind.
+---@param buffer integer|nil A buffer number, or nil if the bind is meant to be
+---global.
+local function set_buffer(key, buffer)
+  if not buffer then
+    return
+  end
+  if not key.opts then
+    key.opts = {}
+  end
+  key.opts.buffer = buffer
+end
+
 --- Sets up the list of binds with the given list/function of handlers
 -- @param binds The list of binds in a correct format
 -- @param handler Either a table of bind actions of a function for manually
 --                assigning a bind function to a key
-function M.bind(binds, handler)
+-- @param buffer integer|nil A buffer identifier if all binds want to be
+-- registered as local to a certain buffer. Nil otherwhise.
+function M.bind(binds, handler, buffer)
   if
     type(handler) ~= 'function'
     and type(handler) ~= 'table'
@@ -59,6 +75,7 @@ function M.bind(binds, handler)
     local hndlr = handler == nil and exec
       or type(handler) == 'table' and handler[exec]
       or handler(exec)
+    set_buffer(key, buffer)
     M.map(key, hndlr)
   end
 end

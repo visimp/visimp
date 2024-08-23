@@ -4,6 +4,10 @@ local get_module = require('visimp.bridge').get_module
 
 L.servers = {}
 L.callbacks = {}
+L.one_time_callbacks = {}
+---The [set](https://www.lua.org/pil/11.5.html) of IDs of buffers that have had
+---an LSP attached to them at least once. Closed buffers can also be in it.
+L.buffers = {}
 L.capabilities = nil
 L.use_nullls = false
 L.default_config = {
@@ -21,73 +25,99 @@ L.default_config = {
     [{
       mode = 'n',
       bind = 'gD',
-      desc = 'Go to declaration',
+      opts = {
+        desc = 'Go to declaration',
+      },
     }] = vim.lsp.buf.declaration,
     [{
       mode = 'n',
       bind = 'gd',
-      desc = 'Go to definition',
+      opts = {
+        desc = 'Go to definition',
+      },
     }] = vim.lsp.buf.definition,
     [{
       mode = 'n',
       bind = 'K',
-      desc = 'Show hover',
+      opts = {
+        desc = 'Show hover',
+      },
     }] = function()
       vim.lsp.buf.hover()
     end,
     [{
       mode = 'n',
       bind = 'gi',
-      desc = 'Go to implementation',
+      opts = {
+        desc = 'Go to implementation',
+      },
     }] = vim.lsp.buf.implementation,
     [{
       mode = 'n',
       bind = '<C-k>',
-      desc = 'Show signature help',
+      opts = {
+        desc = 'Show signature help',
+      },
     }] = function()
       vim.lsp.buf.signature_help()
     end,
     [{
       mode = 'n',
       bind = '<leader>D',
-      desc = 'Show type definition',
+      opts = {
+        desc = 'Show type definition',
+      },
     }] = vim.lsp.buf.type_definition,
     [{
       mode = 'n',
       bind = '<leader>rn',
-      desc = 'Rename the current symbol',
+      opts = {
+        desc = 'Rename the current symbol',
+      },
     }] = vim.lsp.buf.rename,
     [{
       mode = 'n',
       bind = '<leader>ca',
-      desc = 'Run a code action',
+      opts = {
+        desc = 'Run a code action',
+      },
     }] = vim.lsp.buf.code_action,
     [{
       mode = 'n',
       bind = 'gr',
-      desc = 'Go to references',
+      opts = {
+        desc = 'Go to references',
+      },
     }] = vim.lsp.buf.references,
     [{
       mode = 'n',
       bind = '<leader>e',
-      desc = 'Show line diagnostics',
+      opts = {
+        desc = 'Show line diagnostics',
+      },
     }] = function()
       vim.diagnostic.open_float()
     end,
     [{
       mode = 'n',
       bind = '[d',
-      desc = 'Go to previous diagnostic',
+      opts = {
+        desc = 'Go to previous diagnostic',
+      },
     }] = vim.diagnostic.goto_prev,
     [{
       mode = 'n',
       bind = ']d',
-      desc = 'Go to next diagnostic',
+      opts = {
+        desc = 'Go to next diagnostic',
+      },
     }] = vim.diagnostic.goto_next,
     [{
       mode = 'n',
       bind = 'gf',
-      desc = 'Format the current buffer',
+      opts = {
+        desc = 'Format the current buffer',
+      },
     }] = vim.lsp.buf.formatting,
   },
 }
@@ -160,13 +190,20 @@ function L.load()
     end
   end
 
-  local on_attach = function(...)
-    -- Enable module binds first so they can be overwritten by other
-    -- callbacks if needed
-    bind(L.config.binds, nil)
+  local on_attach = function(client, bufnr, ...)
+    if not L.buffers[bufnr] then
+      -- Enable module binds first so they can be overwritten by other
+      -- callbacks if needed
+      bind(L.config.binds, nil, bufnr)
+      for _, fn in ipairs(L.one_time_callbacks) do
+        fn(client, bufnr, ...)
+      end
+
+      L.buffers[bufnr] = true
+    end
 
     for _, fn in ipairs(L.callbacks) do
-      fn(...)
+      fn(client, bufnr, ...)
     end
   end
 
@@ -207,10 +244,23 @@ function L.on_attach(fn)
   table.insert(L.callbacks, fn)
 end
 
+--- Adds a one-time on_attach function which gets called the first time a LS is
+--- enabled on each buffer
+-- @param fn The callback function
+function L.on_attach_one_time(fn)
+  table.insert(L.one_time_callbacks, fn)
+end
+
 --- Returns the list of on_attach callbacks
 -- @returns A list of callbacks
 function L.get_callbacks()
   return L.callbacks
+end
+
+--- Returns the list of one-time on_attach callbacks
+-- @returns A list of callbacks
+function L.get_callbacks_one_time()
+  return L.one_time_callbacks
 end
 
 --- Sets the capabilities table

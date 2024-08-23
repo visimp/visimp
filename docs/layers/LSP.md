@@ -81,9 +81,18 @@ layers.get('lsp').use_server('go', true, 'gopls', {})
 Adds an "on-attach"-like handler to be invoked when LSs get enabled for a
 buffer.
 
+### `on_attach_one_time(fn:function)`
+
+Adds an "on-attach"-like handler to be invoked each time a buffer sees an LS
+enabled for the first time.
+
 ### `get_callbacks()`
 
 Returns the list of "on-attach"-like handlers.
+
+### `get_callbacks_one_time()`
+
+Returns the list of "on-attach-one-time"-like handlers.
 
 ### `get_capabilities()`
 

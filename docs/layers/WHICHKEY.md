@@ -25,7 +25,9 @@ require("visimp")({
 
 ## Layer-specific API
 
-### `register_all()`
+### `add(mappings)`
 
-This method ensures all keybindings are registered. It is also run when a new
-LSP layer is attached to a buffer.
+Just a wrapper for `whichkey`'s `add` method. Under normal circumstances,
+[there is no need to call this method or do anything
+else](https://github.com/folke/which-key.nvim#%EF%B8%8F-mappings) to have one's
+mappings show up.
