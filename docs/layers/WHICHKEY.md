@@ -25,14 +25,9 @@ require("visimp")({
 
 ## Layer-specific API
 
-### `register(binds)`
+### `add(mappings)`
 
-Makes all values in the list passed as `binds` available to which-key. Each
-value is a bind as those described by the [`binds` layer's "Configuration"
-section](BINDS.md#configuration).
-
-### `register_all()`
-
-This method ensures all keybindings are registered, at the cost of duplicate
-registrations. Those will cause an innocuous warning in `:checkhealth
-which-key`.
+Just a wrapper for `whichkey`'s `add` method. Under normal circumstances,
+[there is no need to call this method or do anything
+else](https://github.com/folke/which-key.nvim#%EF%B8%8F-mappings) to have one's
+mappings show up.
