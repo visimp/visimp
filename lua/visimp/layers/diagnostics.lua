@@ -17,7 +17,7 @@ local function make_toggle(mode, filters)
 end
 
 L.default_config = {
-  -- Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration
+  ---Same as: https://github.com/folke/trouble.nvim#%EF%B8%8F-configuration
   trouble = {},
   binds = {
     [{
