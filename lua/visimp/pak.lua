@@ -12,7 +12,7 @@ local M = {
 }
 
 ---Runs a package manager command setting up the visual menu
----@param cmd The method name
+---@param cmd string The method name
 function M.run(cmd)
   window.init()
   window.open()
@@ -24,6 +24,8 @@ function M.run(cmd)
 end
 
 do
+  --- vim.cmd's annotated type is misleading
+  ---@diagnostic disable-next-line:param-type-mismatch
   vim.tbl_map(vim.cmd, {
     'command! PakInstall  lua require(\'visimp.pak\').run(\'install\')',
     'command! PakUpdate   lua require(\'visimp.pak\').run(\'update\')',
