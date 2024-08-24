@@ -28,7 +28,8 @@ settings:
 
 Several language layers diverge from this basic configuration:
 
-- `agda` and `ampl` do not have LSs on Mason, and thus can only be configured if
+- `agda` has [its own doc page](../languages/AGDA.md);
+- `ampl` does not have a LS on Mason, and thus can only be configured if
   a preinstalled executable is specified;
 - `bash` adds the `fish` option (defaults to `false`) which, if set to true,
   adds support for the Fish shell;
