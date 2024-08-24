@@ -1,5 +1,4 @@
 ---The visimp package manager's popup manager
----@module visimp.pak.window Window
 local M = {
   -- Configuration for the popup floating window
   config = {
@@ -68,7 +67,7 @@ end
 
 ---Updates the given single line with the provided new one
 ---@param line integer The index of the line which needs updating
----@param str string The new line string
+---@param str string[] The new line string
 function M.set_line(line, str)
   vim.api.nvim_buf_set_lines(M.buf, line, line, true, str)
 end
@@ -82,7 +81,7 @@ end
 ---Updates a list of lines between start and end
 ---@param start integer The start of the replacement
 ---@param end_ integer The end of the replacement
----@param str string The list of strings which will serve as a replacement
+---@param str string[] The list of strings which will serve as a replacement
 function M.set_lines(start, end_, str)
   vim.api.nvim_buf_set_lines(M.buf, start + 2, end_ + 2, true, str)
 end

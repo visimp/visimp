@@ -120,7 +120,7 @@ function L.add_source(source)
 end
 
 ---Sets the completion snippet handler
----@param table snippet The snippet object
+---@param snippet table The snippet object
 function L.set_snippet(snippet)
   L.snippet = snippet
 end

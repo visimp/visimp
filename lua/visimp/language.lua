@@ -2,7 +2,6 @@ local new_layer = require('visimp.layer').new_layer
 local layers = require 'visimp.loader'
 
 ---Utilities for constructing and identifying layers
----@module visimp.language Language
 local M = {}
 
 ---Checks if a given table is empty or not
