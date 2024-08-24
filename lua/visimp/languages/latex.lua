@@ -2,9 +2,9 @@ local L = require('visimp.language').new_language 'latex'
 local layers = require 'visimp.loader'
 
 L.default_config = {
-  -- Automatically compile latex via texlab LSP
+  ---Automatically compile latex via texlab LSP
   autocompile = true,
-  -- Sets the latex compiler to tectonic
+  ---Sets the latex compiler to tectonic
   tectonic = false,
 }
 
