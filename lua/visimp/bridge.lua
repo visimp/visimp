@@ -1,5 +1,4 @@
 ---General utilities to bridge the gap between vimscript and lua
----@module visimp.bridge Bridge
 local M = {}
 
 -- luacheck: ignore 241

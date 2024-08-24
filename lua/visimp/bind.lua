@@ -1,5 +1,4 @@
 ---Utilites for binding vi keys to actions
----@module visimp.bind Bind
 local M = {
   registered = {},
 }
@@ -48,9 +47,9 @@ local function set_buffer(key, buffer)
 end
 
 ---Sets up the list of binds with the given list/function of handlers
----@param binds table[] The list of binds in a correct format
----@param handler table[]|function Either a table of bind actions of a function
----for manually assigning a bind function to a key
+---@param binds table The list of binds in a correct format
+---@param handler function[]|function|nil Either a table of bind actions or a
+---function for manually assigning a bind function to a key (or neither)
 ---@param buffer integer|nil A buffer identifier if all binds want to be
 ---registered as local to a certain buffer. Nil otherwhise.
 function M.bind(binds, handler, buffer)
@@ -74,7 +73,8 @@ function M.bind(binds, handler, buffer)
 
     local hndlr = handler == nil and exec
       or type(handler) == 'table' and handler[exec]
-      or handler(exec)
+      or handler ~= nil and handler(exec)
+      or function() end
     set_buffer(key, buffer)
     M.map(key, hndlr)
   end

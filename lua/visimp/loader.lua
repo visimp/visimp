@@ -1,5 +1,4 @@
 ---Layer loader and (layer) dependency manager
----@module visimp.loader
 local M = {
   layers = {},
   packaged = {},
@@ -49,8 +48,8 @@ end
 ---Returns true if the list of layers have a cyclic relationship
 ---@param loading table A table of already loading layers
 ---@param list (string[])|nil The list of layer identifiers
----@return string The id of the layer being cyclically required, or nil if no
----loop was found.
+---@return string|nil return The id of the layer being cyclically required, or
+---nil if no loop was found.
 function M.are_cyclic(loading, list)
   if list == nil or #list == 0 then
     return nil
