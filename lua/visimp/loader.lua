@@ -1,5 +1,5 @@
---- Layer loader and (layer) dependency manager
--- @module visimp.loader
+---Layer loader and (layer) dependency manager
+---@module visimp.loader
 local M = {
   layers = {},
   packaged = {},
@@ -8,8 +8,8 @@ local M = {
   _packages = {},
 }
 
---- Registers a new layer in the current configuration
--- @param layer string The layer to register
+---Registers a new layer in the current configuration
+--@param layer string The layer to register
 function M.define_layer(layer)
   if type(layer) ~= 'table' then
     error('Invalid layer format, expected a table, got: ' .. type(layer))
@@ -17,10 +17,10 @@ function M.define_layer(layer)
   M.layers[layer.identifier] = layer
 end
 
---- Attempts to require the given layer within the default configuration.
--- The procedure either throws an error or defines the layer.
--- @param id string The layer identifier, by convention the same as the module
---   name
+---Attempts to require the given layer within the default configuration.
+---The procedure either throws an error or defines the layer.
+---@param id string The layer identifier, by convention the same as the module
+---name
 function M.define_builtin(id)
   local ok, module = pcall(require, 'visimp.layers.' .. id)
   if not ok then
@@ -38,19 +38,19 @@ function M.define_builtin(id)
   M.define_layer(module)
 end
 
---- Returns true if the requested layer is builtin (and can be loaded)
--- @param id string The layer identifier
--- @return bool Whether the layer is builtin
+---Returns true if the requested layer is builtin (and can be loaded)
+---@param id string The layer identifier
+---@return boolean Whether the layer is builtin
 function M.is_builtin(id)
   local ok, _ = pcall(require, 'visimp.layers.' .. id)
   return ok
 end
 
---- Returns true if the list of layers have a cyclic relationship
--- @param loading table A table of already loading layers
--- @param list list The list of layer identifiers
--- @return string The id of the layer being cyclically required, or nil if no
--- loop was found.
+---Returns true if the list of layers have a cyclic relationship
+---@param loading table A table of already loading layers
+---@param list (string[])|nil The list of layer identifiers
+---@return string The id of the layer being cyclically required, or nil if no
+---loop was found.
 function M.are_cyclic(loading, list)
   if list == nil or #list == 0 then
     return nil
@@ -80,8 +80,8 @@ function M.are_cyclic(loading, list)
   return nil
 end
 
---- Calls the package function for the given layer and its dependencies
--- @param id string The layer identifier
+---Calls the package function for the given layer and its dependencies
+---@param id string The layer identifier
 function M.packages(id)
   if M.packaged[id] then
     return
@@ -96,8 +96,8 @@ function M.packages(id)
   M.packaged[id] = true
 end
 
---- Calls the preaload function for the given layer and its dependencies
--- @param id string The layer identifier
+---Calls the preaload function for the given layer and its dependencies
+---@param id string The layer identifier
 function M.preload(id)
   if M.preloaded[id] then
     return
@@ -112,7 +112,7 @@ function M.preload(id)
   M.preloaded[id] = true
 end
 
---- Prints a warning message in case the layer is deprecated.
+---Prints a warning message in case the layer is deprecated.
 ---@param layer table The layer to be analyzed
 local function deprecation_check(layer)
   if layer.deprecated then
@@ -124,10 +124,10 @@ local function deprecation_check(layer)
   end
 end
 
---- Loads a registered layer by its identifier with its dependencies.
--- This function also takes care of calling all the needed functions on each
--- layer to properly initialize your editor.
--- @param id string The layer identifier
+---Loads a registered layer by its identifier with its dependencies.
+---This function also takes care of calling all the needed functions on each
+---layer to properly initialize your editor.
+---@param id string The layer identifier
 function M.load(id)
   if M.loaded[id] then
     return
@@ -143,11 +143,11 @@ function M.load(id)
   M.loaded[id] = true
 end
 
---- Returns the requested layer by its id.
--- This function adds all needed safety checks to the dangerous M.layers[id]
--- access.
--- @param id string The layer id
--- @return any The requested layer
+---Returns the requested layer by its id.
+---This function adds all needed safety checks to the dangerous M.layers[id]
+---access.
+---@param id string The layer id
+---@return any The requested layer
 function M.get(id)
   if M.layers[id] == nil then
     error('Requested an undefined layer: ' .. id)
@@ -156,8 +156,8 @@ function M.get(id)
   return M.layers[id]
 end
 
---- Returns the list of required packages
--- @return list The list of required packages
+---Returns the list of required packages
+---@return string[] packages The list of required packages
 function M.get_packages()
   return M._packages
 end

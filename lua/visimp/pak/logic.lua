@@ -3,7 +3,7 @@ local init = require 'visimp.pak.init'
 local window = require 'visimp.pak.window'
 local M = {}
 
---- Lists all manged packages
+---Lists all manged packages
 function M.list()
   window.set_title 'Package listing'
   local keys = vim.tbl_keys(init.packages)
@@ -18,9 +18,9 @@ function M.list()
   window.lock()
 end
 
---- Registers a new package
--- @param args Either a string or a list or a table which represents a valid
---             object data type
+---Registers a new package
+---@param args string|string[]|table Either a string or a list or a table which
+---represents a valid object data type
 function M.register(args)
   if type(args) == 'string' then
     args = { args }
@@ -53,8 +53,8 @@ function M.register(args)
   }
 end
 
---- Returns true if any packages are not installed (missing)
--- @returns True if packages are missing
+---Returns true if any packages are not installed (missing)
+---@return boolean result True if packages are missing
 function M.any_missing()
   for _, pkg in pairs(init.packages) do
     if not pkg.exists then

@@ -25,8 +25,8 @@ function L.load()
   ts.ensure_installed(L.languages)
 end
 
--- Ensures the given tree sitter parsers are installed
--- @param languages The array of languages to check
+---Ensures the given tree sitter parsers are installed
+---@param languages string[] The array of languages to check
 function L.langs(languages)
   vim.list_extend(L.languages, languages)
 end

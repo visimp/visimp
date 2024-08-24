@@ -11,15 +11,15 @@ L.buffers = {}
 L.capabilities = nil
 L.use_nullls = false
 L.default_config = {
-  -- Can be set to false to disable installing all language servers
+  ---Can be set to false to disable installing all language servers
   install = true,
-  -- Can be set to nil to disable LSP progress reports
+  ---Can be set to nil to disable LSP progress reports
   progress = {},
   mason = {},
-  -- Strings used as keys are considered null-ls source names, and their values
-  -- the respective configs. When non-strings are used as keys (e.g. implicit
-  -- number indices in arrays), their values are assumed to be null-ls source
-  -- names w/o configs.
+  ---Strings used as keys are considered null-ls source names, and their values
+  ---the respective configs. When non-strings are used as keys (e.g. implicit
+  ---number indices in arrays), their values are assumed to be null-ls source
+  ---names w/o configs.
   nullls = {},
   binds = {
     [{
@@ -144,6 +144,10 @@ function L.preload()
   end
 end
 
+---Adds a new null-ls source.
+---@param sources string[] Sources list
+---@param new_source_name string Name for the new source
+---@param config table|nil Optional config for the new source
 local function add_source(sources, new_source_name, config)
   local module =
     get_module(string.format('null-ls.builtins.%s', new_source_name))
@@ -223,11 +227,11 @@ function L.load()
   end
 end
 
---- Enables an LSP server at startup
--- @param lang The name of the language (used by Mason)
--- @param install True if the server should be installed via Mason
--- @param srv The name of the server executable (if any)
--- @param settings Any optional settings for the language server
+---Enables an LSP server at startup
+---@param lang string The name of the language (used by Mason)
+---@param install boolean True if the server should be installed via Mason
+---@param srv string The name of the server executable (if any)
+---@param settings table|nil Any optional settings for the language server
 function L.use_server(lang, install, srv, settings)
   table.insert(L.servers, {
     language = lang,
@@ -237,40 +241,40 @@ function L.use_server(lang, install, srv, settings)
   })
 end
 
---- Adds an on_attach function which gets called when LSPs get enabled on
---- buffers
--- @param fn The callback function
+---Adds an on_attach function which gets called when LSPs get enabled on
+---buffers
+---@param fn function The callback function
 function L.on_attach(fn)
   table.insert(L.callbacks, fn)
 end
 
---- Adds a one-time on_attach function which gets called the first time a LS is
---- enabled on each buffer
--- @param fn The callback function
+---Adds a one-time on_attach function which gets called the first time a LS is
+---enabled on each buffer
+---@param fn function The callback function
 function L.on_attach_one_time(fn)
   table.insert(L.one_time_callbacks, fn)
 end
 
---- Returns the list of on_attach callbacks
--- @returns A list of callbacks
+---Returns the list of on_attach callbacks
+---@return function[] callbacks A list of callbacks
 function L.get_callbacks()
   return L.callbacks
 end
 
---- Returns the list of one-time on_attach callbacks
--- @returns A list of callbacks
+---Returns the list of one-time on_attach callbacks
+---@returns function[] A list of callbacks
 function L.get_callbacks_one_time()
   return L.one_time_callbacks
 end
 
---- Sets the capabilities table
--- @param fn The hook
+---Sets the capabilities table
+---@param fn function The hook
 function L.on_capabilities(fn)
   L.capabilities = fn
 end
 
---- Returns the current capabilities handler
--- @returns The capabilities handler
+---Returns the current capabilities handler
+---@return function capabilities The capabilities handler
 function L.get_capabilities()
   return L.capabilities
 end
