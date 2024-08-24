@@ -29,7 +29,7 @@ needed, if necessary.
 ### Working on a standard layer
 
 When editing/adding a standard (i.e., non-language) layer, make sure the
-respective documentation in `docs/layers` is up to date and referenced in the
+respective documentation in `docs/layers` is up-to-date and referenced in the
 corresponding table in [Config](CONFIG.md).
 
 ### Working on a language layer
@@ -40,21 +40,30 @@ peculiar features specific to said language's platform (e.g., `coq`, `lean`),
 the entry in the table should also link to a dedicated documentation page
 in `docs/languages`.
 
-If your language layer's configuration does not have precisely two fields `lsp`
-and `lspconfig`(like most language layers do), document so in
-[LANGUAGES](layers/LANGUAGES.md#configuration).
+In general, your language layer should provide a Tree-sitter grammar. You can
+look for one in the list of [`nvim-treesitter` supported
+languages](https://github.com/nvim-treesitter/nvim-treesitter#supported-languages).
+It should also provide a language server installable via Mason. You can look for
+one on [Mason's package list](https://mason-registry.dev/registry/list). Make
+sure this language server is [supported by
+`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md).
 
-Make sure you language is listed in the sample configuration found in
+If your language layer's configuration does not have precisely two fields `lsp`
+and `lspconfig`(the default behavior when creating a new language layer),
+document so in [LANGUAGES](layers/LANGUAGES.md#configuration).
+
+Make sure your language is listed in the sample configuration found in
 `_init.lua`.
 
 ## Final checks
 
-Before submitting your contribution, please run the following from the project's
-root directory:
+Ensure the [Lua Language Server](https://luals.github.io/) is not emitting any
+warnings. Then, before submitting your contribution, please run the following
+from the project's root directory:
 
 ```bash
-stylua . -- formatter
-luacheck . -- linter
+stylua . # formatter
+luacheck . # linter
 ```
 
 If your work is not properly formatted or contains linter warnings/error, the

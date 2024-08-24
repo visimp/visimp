@@ -54,9 +54,9 @@ end
 ---registered as local to a certain buffer. Nil otherwhise.
 function M.bind(binds, handler, buffer)
   if
-      type(handler) ~= 'function'
-      and type(handler) ~= 'table'
-      and handler ~= nil
+    type(handler) ~= 'function'
+    and type(handler) ~= 'table'
+    and handler ~= nil
   then
     error 'Invalid bind handler: can either be a function or a table or nil'
   end
@@ -65,16 +65,16 @@ function M.bind(binds, handler, buffer)
     if not M.is_valid(key) then
       error(
         'Invalid key bind: \n'
-        .. vim.inspect(key)
-        .. ' -> '
-        .. vim.inspect(exec)
+          .. vim.inspect(key)
+          .. ' -> '
+          .. vim.inspect(exec)
       )
     end
 
     local hndlr = handler == nil and exec
-        or type(handler) == 'table' and handler[exec]
-        or handler ~= nil and handler(exec)
-        or function() end
+      or type(handler) == 'table' and handler[exec]
+      or handler ~= nil and handler(exec)
+      or function() end
     set_buffer(key, buffer)
     M.map(key, hndlr)
   end
