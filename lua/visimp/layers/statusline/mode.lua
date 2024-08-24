@@ -41,7 +41,7 @@ local maps = {
 }
 
 ---Returns a single char to identify the vi mode
----@return char mode Single char mode
+---@return string mode Single char mode
 local function get_mode()
   local mode_code = vim.api.nvim_get_mode().mode
   if maps[mode_code] == nil then

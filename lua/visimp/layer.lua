@@ -1,5 +1,4 @@
 ---Utilities for constructing and identifying layers
----@module visimp.layer Layer
 local M = {}
 
 ---Returns an empty new layer for the given identifier

@@ -30,7 +30,7 @@ end
 
 ---Updates the given package in the current buffer view
 ---@param package string The package key
----@param value char The new char value for the given package
+---@param value string The new char value for the given package
 function M.update(package, value)
   M.packages[package] = value
   if #package > M.longest_word then

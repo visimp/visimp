@@ -1,5 +1,3 @@
----Setup function used to initialize visimp and load user's configurations
----@module visimp.setup Setup
 local layer = require 'visimp.layer'
 local loader = require 'visimp.loader'
 
@@ -7,6 +5,7 @@ local git = require 'visimp.pak.git'
 local pak = require 'visimp.pak'
 local window = require 'visimp.pak.window'
 
+---Setup module used to initialize visimp and load user's configurations
 local M = {
   -- Layers which get enabled by default unless disabled
   layers = {

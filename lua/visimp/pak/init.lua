@@ -1,6 +1,6 @@
----@module visimp.pak.init Init
 local count = require 'visimp.pak.count'
 
+--- Visimp's initializatiom module
 local M = {
   pakdir = vim.fn.stdpath 'data' .. '/site/pack/paks/',
   logfile = (
