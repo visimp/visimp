@@ -1,8 +1,8 @@
 local new_layer = require('visimp.layer').new_layer
 local layers = require 'visimp.loader'
 
---- Utilities for constructing and identifying layers
--- @module visimp.language
+---Utilities for constructing and identifying layers
+---@module visimp.language Language
 local M = {}
 
 ---Checks if a given table is empty or not
@@ -12,9 +12,9 @@ local function is_empty(t)
   return next(t) == nil
 end
 
---- Default implementation for "dependencies" method of language layers
---- @param l table Language layer
---- @return table dependencies List of dependencies
+---Default implementation for "dependencies" method of language layers
+---@param l table Language layer
+---@return table dependencies List of dependencies
 local function language_layer_dependencies(l)
   local deps
   -- treesitter
@@ -31,17 +31,17 @@ local function language_layer_dependencies(l)
   return deps
 end
 
---- Adds new filetypes mappings
---- @param filetypes table Filetypes mappings as described in
--- https://neovim.io/doc/user/lua.html#vim.filetype.add()
+---Adds new filetypes mappings
+---@param filetypes table Filetypes mappings as described in
+---https://neovim.io/doc/user/lua.html#vim.filetype.add()
 local function add_filetypes(filetypes)
   if filetypes then
     vim.filetype.add(filetypes)
   end
 end
 
---- Adds the specified languages to Treesitter
---- @param grammars table Array of Treesitter grammar names
+---Adds the specified languages to Treesitter
+---@param grammars table Array of Treesitter grammar names
 local function add_grammars(grammars)
   if not grammars then
     return
@@ -53,7 +53,7 @@ local function add_grammars(grammars)
   layers.get('treesitter').langs(grammars)
 end
 
---- Adds the appropriate language server based on the language layer
+---Adds the appropriate language server based on the language layer
 ---@param l table Language layer
 local function add_server(l)
   if l.config.lsp == false then -- explicitly disabled server
@@ -76,16 +76,16 @@ local function add_server(l)
 end
 
 ---Default implementation for "preload" method of language layers
---- @param l table Language layer
+---@param l table Language layer
 local function language_layer_preload(l)
   add_filetypes(l.filetypes())
   add_grammars(l.grammars())
   add_server(l)
 end
 
---- Returns an new language layer for the given identifier
--- @param id The layer identifier
--- @return The newly created layer
+---Returns an new language layer for the given identifier
+---@param id string The layer identifier
+---@return table layer The newly created layer
 function M.new_language(id)
   local l = new_layer(id)
 

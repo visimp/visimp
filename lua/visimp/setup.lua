@@ -1,5 +1,5 @@
---- Setup function used to initialize visimp and load user's configurations
--- @module visimp.setup
+---Setup function used to initialize visimp and load user's configurations
+---@module visimp.setup Setup
 local layer = require 'visimp.layer'
 local loader = require 'visimp.loader'
 
@@ -38,7 +38,7 @@ local function next()
   end
 end
 
---- Configures the visimp distributions and its layers
+---Configures the visimp distributions and its layers
 ---@param visimp_cfg table The configuration table
 function M.setup(visimp_cfg)
   M.configs = visimp_cfg or {}

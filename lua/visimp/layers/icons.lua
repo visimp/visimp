@@ -1,8 +1,8 @@
 local L = require('visimp.layer').new_layer 'icons'
 local get_module = require('visimp.bridge').get_module
 
--- for nvim-web-devicons default config see
--- https://github.com/nvim-tree/nvim-web-devicons#setup
+---For nvim-web-devicons default config see
+---https://github.com/nvim-tree/nvim-web-devicons#setup
 L.default_config = {}
 
 function L.packages()

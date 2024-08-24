@@ -5,14 +5,13 @@ local get_module = require('visimp.bridge').get_module
 L.sources = {}
 L.snippet = {}
 L.default_config = {
-  -- Autocomplete from the buffer
+  ---Autocomplete from the buffer
   buffer = false,
-  -- Autocomplete from lsp suggestions
+  ---Autocomplete from lsp suggestions
   lsp = true,
   -- Lsp symbols a la IntelliSense
   lspkind = true,
-
-  -- Completion mappings
+  --Completion mappings
   mapping = {
     ['<C-d>'] = function(cmp)
       return cmp.mapping.scroll_docs(-4)
@@ -32,7 +31,6 @@ L.default_config = {
         select = true,
       }
     end,
-
     -- Could be overwritten by other plugins such as snippet managers
     ['<Tab>'] = function(cmp)
       return cmp.mapping.select_next_item()
@@ -42,7 +40,7 @@ L.default_config = {
     end,
   },
 
-  -- Broader and general nvim cmp configuration
+  ---Broader and general nvim cmp configuration
   config = {
     experimental = {
       ghost_text = true,
@@ -115,14 +113,14 @@ function L.load()
   cmp.setup(cfg)
 end
 
---- Adds a completion source object
--- @param The source completion object
+---Adds a completion source object
+---@param source table The source completion object
 function L.add_source(source)
   table.insert(L.sources, source)
 end
 
---- Sets the completion snippet handler
--- @param snippet The snippet object
+---Sets the completion snippet handler
+---@param table snippet The snippet object
 function L.set_snippet(snippet)
   L.snippet = snippet
 end

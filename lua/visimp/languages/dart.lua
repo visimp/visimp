@@ -3,13 +3,13 @@ local layers = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
 L.default_config = {
-  -- Uses systems' `dartls` by default, but can be disabled by setting to false
+  ---Uses systems' `dartls` by default, but can be disabled by setting to false
   lsp = nil,
-  -- Optional configuration to be provided for the chosen language server
+  ---Optional configuration to be provided for the chosen language server
   lspconfig = nil,
-  -- Can be set to false to disable the integration with the Flutter framework
+  ---Can be set to false to disable the integration with the Flutter framework
   flutter = true,
-  -- Flutter tools configuration
+  ---Flutter tools configuration
   flutterconfig = {},
 }
 
