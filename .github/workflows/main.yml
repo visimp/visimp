@@ -21,9 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Lint
+      - name: Lint with Luacheck
         uses: lunarmodules/luacheck@v1
-      - name: Type Check Code Base
+      - name: Lint with Lua Language Server
         uses: mrcjkb/lua-typecheck-action@v1
         with:
           configpath: ".luarc.json"

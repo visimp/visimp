@@ -10,7 +10,7 @@ Mappings are listed [in the "Mappings" section of lean.nvim](https://github.com/
 
 ## Configuration
 
-By default, visimp enables builtin abbreviations and mappings.
+By default, visimp enables built-in abbreviations and mappings.
 In general, every valid argument for `require('lean').setup` ([as shown here](https://github.com/Julian/lean.nvim/wiki/Configuring-&-Extending))
 is a valid configuration.
 
