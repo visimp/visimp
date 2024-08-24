@@ -262,7 +262,7 @@ function L.get_callbacks()
 end
 
 ---Returns the list of one-time on_attach callbacks
----@returns function[] A list of callbacks
+---@returns function[] callbacks A list of callbacks
 function L.get_callbacks_one_time()
   return L.one_time_callbacks
 end
