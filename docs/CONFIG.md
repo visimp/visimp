@@ -117,6 +117,7 @@ reference page. You can look it up in the following table.
 | `csharp`                      | C#                    |
 | `css`                         | CSS                   |
 | `dart`                        | Dart                  |
+| [`gleam`](languages/GLEAM.md) | Gleam                 |
 | `go`                          | Go                    |
 | `haskell`                     | Haskell               |
 | `hcl`                         | HCL                   |
