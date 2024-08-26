@@ -8,6 +8,7 @@ require 'visimp' {
     -- 'csharp',
     -- 'css',
     -- 'dart',
+    -- 'gleam',
     -- 'go',
     -- 'haskell',
     -- 'hcl',
