@@ -4,8 +4,4 @@ function L.grammars()
   return { 'gleam' }
 end
 
-function L.server()
-  return 'gleam'
-end
-
 return L
