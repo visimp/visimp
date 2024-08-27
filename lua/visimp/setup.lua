@@ -22,6 +22,7 @@ local M = {
     'telescope',
     'theme',
     'treesitter',
+    'alphanvim',
   },
   configs = {},
 }
