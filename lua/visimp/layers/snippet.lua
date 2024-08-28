@@ -4,9 +4,9 @@ local get_module = require('visimp.bridge').get_module
 local bind = require('visimp.bind').bind
 
 L.default_config = {
-  -- LuaSnip setup config
+  ---LuaSnip setup config
   setup = nil,
-  -- A table for loaders (keys are loader names, values are loaders configs)
+  ---A table for loaders (keys are loader names, values are loaders configs)
   loaders = nil,
 }
 
@@ -21,10 +21,10 @@ function L.packages()
   }
 end
 
---- Adds additional snippets in VS Code/SnipMate/LuaSnip syntax.
---- @param ldr string Snippets loader ('lua', 'snipmate', 'vscode')
---- @param opts table|nil Options table
---- @see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#loaders
+---Adds additional snippets in VS Code/SnipMate/LuaSnip syntax.
+---@param ldr string Snippets loader ('lua', 'snipmate', 'vscode')
+---@param opts table|nil Options table
+---@see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#loaders
 function L.add_snippets(ldr, opts)
   local available_loaders = { 'lua', 'snipmate', 'vscode' }
   for _, available_loader in pairs(available_loaders) do
@@ -72,8 +72,8 @@ local function luasnip_setup()
   luasnip_bindings(luasnip)
 end
 
--- Taken from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
-local has_words_before = function()
+---Taken from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
     and vim.api

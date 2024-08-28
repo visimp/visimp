@@ -4,90 +4,120 @@ local get_module = require('visimp.bridge').get_module
 
 L.servers = {}
 L.callbacks = {}
+L.one_time_callbacks = {}
+---The [set](https://www.lua.org/pil/11.5.html) of IDs of buffers that have had
+---an LSP attached to them at least once. Closed buffers can also be in it.
+L.buffers = {}
 L.capabilities = nil
 L.use_nullls = false
 L.default_config = {
-  -- Can be set to false to disable installing all language servers
+  ---Can be set to false to disable installing all language servers
   install = true,
-  -- Can be set to nil to disable LSP progress reports
+  ---Can be set to nil to disable LSP progress reports
   progress = {},
   mason = {},
-  -- Strings used as keys are considered null-ls source names, and their values
-  -- the respective configs. When non-strings are used as keys (e.g. implicit
-  -- number indices in arrays), their values are assumed to be null-ls source
-  -- names w/o configs.
+  ---Strings used as keys are considered null-ls source names, and their values
+  ---the respective configs. When non-strings are used as keys (e.g. implicit
+  ---number indices in arrays), their values are assumed to be null-ls source
+  ---names w/o configs.
   nullls = {},
   binds = {
     [{
       mode = 'n',
       bind = 'gD',
-      desc = 'Go to declaration',
+      opts = {
+        desc = 'Go to declaration',
+      },
     }] = vim.lsp.buf.declaration,
     [{
       mode = 'n',
       bind = 'gd',
-      desc = 'Go to definition',
+      opts = {
+        desc = 'Go to definition',
+      },
     }] = vim.lsp.buf.definition,
     [{
       mode = 'n',
       bind = 'K',
-      desc = 'Show hover',
+      opts = {
+        desc = 'Show hover',
+      },
     }] = function()
       vim.lsp.buf.hover()
     end,
     [{
       mode = 'n',
       bind = 'gi',
-      desc = 'Go to implementation',
+      opts = {
+        desc = 'Go to implementation',
+      },
     }] = vim.lsp.buf.implementation,
     [{
       mode = 'n',
       bind = '<C-k>',
-      desc = 'Show signature help',
+      opts = {
+        desc = 'Show signature help',
+      },
     }] = function()
       vim.lsp.buf.signature_help()
     end,
     [{
       mode = 'n',
       bind = '<leader>D',
-      desc = 'Show type definition',
+      opts = {
+        desc = 'Show type definition',
+      },
     }] = vim.lsp.buf.type_definition,
     [{
       mode = 'n',
       bind = '<leader>rn',
-      desc = 'Rename the current symbol',
+      opts = {
+        desc = 'Rename the current symbol',
+      },
     }] = vim.lsp.buf.rename,
     [{
       mode = 'n',
       bind = '<leader>ca',
-      desc = 'Run a code action',
+      opts = {
+        desc = 'Run a code action',
+      },
     }] = vim.lsp.buf.code_action,
     [{
       mode = 'n',
       bind = 'gr',
-      desc = 'Go to references',
+      opts = {
+        desc = 'Go to references',
+      },
     }] = vim.lsp.buf.references,
     [{
       mode = 'n',
       bind = '<leader>e',
-      desc = 'Show line diagnostics',
+      opts = {
+        desc = 'Show line diagnostics',
+      },
     }] = function()
       vim.diagnostic.open_float()
     end,
     [{
       mode = 'n',
       bind = '[d',
-      desc = 'Go to previous diagnostic',
+      opts = {
+        desc = 'Go to previous diagnostic',
+      },
     }] = vim.diagnostic.goto_prev,
     [{
       mode = 'n',
       bind = ']d',
-      desc = 'Go to next diagnostic',
+      opts = {
+        desc = 'Go to next diagnostic',
+      },
     }] = vim.diagnostic.goto_next,
     [{
       mode = 'n',
       bind = 'gf',
-      desc = 'Format the current buffer',
+      opts = {
+        desc = 'Format the current buffer',
+      },
     }] = vim.lsp.buf.formatting,
   },
 }
@@ -114,6 +144,10 @@ function L.preload()
   end
 end
 
+---Adds a new null-ls source.
+---@param sources string[] Sources list
+---@param new_source_name string Name for the new source
+---@param config table|nil Optional config for the new source
 local function add_source(sources, new_source_name, config)
   local module =
     get_module(string.format('null-ls.builtins.%s', new_source_name))
@@ -160,13 +194,20 @@ function L.load()
     end
   end
 
-  local on_attach = function(...)
-    -- Enable module binds first so they can be overwritten by other
-    -- callbacks if needed
-    bind(L.config.binds, nil)
+  local on_attach = function(client, bufnr, ...)
+    if not L.buffers[bufnr] then
+      -- Enable module binds first so they can be overwritten by other
+      -- callbacks if needed
+      bind(L.config.binds, nil, bufnr)
+      for _, fn in ipairs(L.one_time_callbacks) do
+        fn(client, bufnr, ...)
+      end
+
+      L.buffers[bufnr] = true
+    end
 
     for _, fn in ipairs(L.callbacks) do
-      fn(...)
+      fn(client, bufnr, ...)
     end
   end
 
@@ -186,11 +227,11 @@ function L.load()
   end
 end
 
---- Enables an LSP server at startup
--- @param lang The name of the language (used by Mason)
--- @param install True if the server should be installed via Mason
--- @param srv The name of the server executable (if any)
--- @param settings Any optional settings for the language server
+---Enables an LSP server at startup
+---@param lang string The name of the language (used by Mason)
+---@param install boolean True if the server should be installed via Mason
+---@param srv string The name of the server executable (if any)
+---@param settings table|nil Any optional settings for the language server
 function L.use_server(lang, install, srv, settings)
   table.insert(L.servers, {
     language = lang,
@@ -200,27 +241,40 @@ function L.use_server(lang, install, srv, settings)
   })
 end
 
---- Adds an on_attach function which gets called when LSPs get enabled on
---- buffers
--- @param fn The callback function
+---Adds an on_attach function which gets called when LSPs get enabled on
+---buffers
+---@param fn function The callback function
 function L.on_attach(fn)
   table.insert(L.callbacks, fn)
 end
 
---- Returns the list of on_attach callbacks
--- @returns A list of callbacks
+---Adds a one-time on_attach function which gets called the first time a LS is
+---enabled on each buffer
+---@param fn function The callback function
+function L.on_attach_one_time(fn)
+  table.insert(L.one_time_callbacks, fn)
+end
+
+---Returns the list of on_attach callbacks
+---@return function[] callbacks A list of callbacks
 function L.get_callbacks()
   return L.callbacks
 end
 
---- Sets the capabilities table
--- @param fn The hook
+---Returns the list of one-time on_attach callbacks
+---@returns function[] callbacks A list of callbacks
+function L.get_callbacks_one_time()
+  return L.one_time_callbacks
+end
+
+---Sets the capabilities table
+---@param fn function The hook
 function L.on_capabilities(fn)
   L.capabilities = fn
 end
 
---- Returns the current capabilities handler
--- @returns The capabilities handler
+---Returns the current capabilities handler
+---@return function capabilities The capabilities handler
 function L.get_capabilities()
   return L.capabilities
 end
