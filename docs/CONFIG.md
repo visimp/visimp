@@ -88,7 +88,6 @@ reference page. You can look it up in the following table.
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
 | [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
 | [`icons`](layers/ICONS.md)               | Adds file type icons                             |
-| [`indentline`](layers/BLANKLINE.md)      | Whitespace characters visualization              |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
 | [`lsp`](layers/LSP.md)                   | Manager for Neovim's LSP client and LSP servers  |
 | [`lspformat`](layers/LSPFORMAT.md)       | Formatting on save via LSP                       |
