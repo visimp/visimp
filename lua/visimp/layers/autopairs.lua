@@ -1,8 +1,9 @@
 local L = require('visimp.layer').new_layer 'autopairs'
 local get_module = require('visimp.bridge').get_module
 
--- All fields from https://github.com/windwp/nvim-autopairs#default-values
--- are accepted here. Extra fields are as follows
+---All fields from https://github.com/windwp/nvim-autopairs#default-values
+---are accepted here. Extra fields are `cmp_integration` and `html`, and default
+---to true.
 L.default_config = {
   cmp_integration = true,
   html = true,

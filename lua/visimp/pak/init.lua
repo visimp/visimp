@@ -1,6 +1,6 @@
--- @module visimp.pak.init
 local count = require 'visimp.pak.count'
 
+--- Visimp's initializatiom module
 local M = {
   pakdir = vim.fn.stdpath 'data' .. '/site/pack/paks/',
   logfile = (
@@ -11,7 +11,7 @@ local M = {
   packages = {},
 }
 
---- Fills the dialog with initial data on registered packages
+---Fills the dialog with initial data on registered packages
 function M.fill()
   count.set_status ''
   local keys = vim.tbl_keys(M.packages)

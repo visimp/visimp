@@ -1,7 +1,7 @@
 local L = require('visimp.layer').new_layer 'nvimtree'
 local get_module = require('visimp.bridge').get_module
 
--- for nvim-tree default config see https://github.com/nvim-tree/nvim-tree.lua
+---For nvim-tree default config see https://github.com/nvim-tree/nvim-tree.lua
 L.default_config = {
   icons = false,
 }

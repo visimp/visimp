@@ -1,5 +1,4 @@
---- The visimp package manager's popup manager
--- @module visimp.pak.window
+---The visimp package manager's popup manager
 local M = {
   -- Configuration for the popup floating window
   config = {
@@ -15,13 +14,13 @@ local M = {
   title = 'Package Management',
 }
 
---- Initializes the window module relative to the size of the vi window
+---Initializes the window module relative to the size of the vi window
 function M.init()
   M.width = math.ceil(vim.o.columns * M.config.width)
   M.height = math.ceil(vim.o.lines * M.config.height)
 end
 
---- Opens the floating window and relative buffer
+---Opens the floating window and relative buffer
 function M.open()
   local row, col =
     math.ceil(((vim.o.lines - M.height) / 2) - 1),
@@ -48,14 +47,14 @@ function M.open()
   vim.api.nvim_set_option_value('winhl', 'Normal:Normal', { win = M.win })
 end
 
---- Closes the floating window
+---Closes the floating window
 function M.close()
   vim.api.nvim_win_close(M.win, true)
   vim.api.nvim_buf_delete(M.buf, { force = true })
 end
 
---- Updates the whole content to the given list of strings
--- @param str A list of strings
+---Updates the whole content to the given list of strings
+---@param str string[] A list of strings
 function M.set_content(str)
   local content = {
     string.rep(' ', math.ceil((M.width - #M.title) / 2)) .. M.title,
@@ -66,33 +65,33 @@ function M.set_content(str)
   M.buflen = #content
 end
 
---- Updates the given single line with the provided new one
--- @param line The index of the line which needs updating
--- @param str The new line string
+---Updates the given single line with the provided new one
+---@param line integer The index of the line which needs updating
+---@param str string[] The new line string
 function M.set_line(line, str)
   vim.api.nvim_buf_set_lines(M.buf, line, line, true, str)
 end
 
---- Sets the title of the dialog
--- @param str The title string
+---Sets the title of the dialog
+---@param str string The title string
 function M.set_title(str)
   M.title = str
 end
 
---- Updates a list of lines between start and end
--- @param start The start of the replacement
--- @param end_ The end of the replacement
--- @param str The list of strings which will serve as a replacement
+---Updates a list of lines between start and end
+---@param start integer The start of the replacement
+---@param end_ integer The end of the replacement
+---@param str string[] The list of strings which will serve as a replacement
 function M.set_lines(start, end_, str)
   vim.api.nvim_buf_set_lines(M.buf, start + 2, end_ + 2, true, str)
 end
 
---- Locks the floating window buffer
+---Locks the floating window buffer
 function M.lock()
   vim.api.nvim_set_option_value('modifiable', false, { buf = M.buf })
 end
 
---- Unlocks the floating window buffer
+---Unlocks the floating window buffer
 function M.unlock()
   vim.api.nvim_set_option_value('modifiable', false, { buf = M.buf })
 end

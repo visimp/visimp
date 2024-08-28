@@ -40,8 +40,8 @@ local maps = {
   ['t'] = 'T',
 }
 
---- Returns a single char to identify the vi mode
--- @return single char mode
+---Returns a single char to identify the vi mode
+---@return string mode Single char mode
 local function get_mode()
   local mode_code = vim.api.nvim_get_mode().mode
   if maps[mode_code] == nil then
