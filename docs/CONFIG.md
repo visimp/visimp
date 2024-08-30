@@ -77,7 +77,6 @@ reference page. You can look it up in the following table.
 
 | Layer name                               | Short description                                |
 | ---------------------------------------- | ------------------------------------------------ |
-| [`alphanvim`](layers/ALPHANVIM.md)       | Custom Nvim greeter                              |
 | [`autopairs`](layers/AUTOPAIRS.md)       | Automatic completion of `{`, `(`, and HTML tags  |
 | [`binds`](layers/BINDS.md)               | Custom bindings for native Vim commands          |
 | [`blankline`](layers/BLANKLINE.md)       | Indentation guides                               |
@@ -88,6 +87,7 @@ reference page. You can look it up in the following table.
 | [`diagnostics`](layers/DIAGNOSTICS.md)   | Pretty list of diagnostics, quickfixes, and more |
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
 | [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
+| [`greeter`](layers/greeter.md)           | Custom Nvim greeter                              |
 | [`icons`](layers/ICONS.md)               | Adds file type icons                             |
 | [`indentline`](layers/BLANKLINE.md)      | Whitespace characters visualization              |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |

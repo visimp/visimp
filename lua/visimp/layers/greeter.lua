@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'alphanvim'
+local L = require('visimp.layer').new_layer 'greeter'
 local get_module = require('visimp.bridge').get_module
 local fortune = require 'alpha.fortune'
 
@@ -37,6 +37,11 @@ local function default_layout()
       { type = 'padding', val = 12 },
       header,
       { type = 'padding', val = 2 },
+
+      -- Accordingly to alpha-nvim doc, this empty button component is required
+      -- for the correct placement of the cursor while the greeter is displayed 
+      { type = 'button', val = ""}, 
+
       footer,
     },
     opts = {
