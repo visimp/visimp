@@ -1,6 +1,6 @@
-# `alphanvim` layer
+# `greeter` layer
 
-The `alphanvim` layer enables the user to customize the default Neovim greeter using
+The `greeter` layer enables the user to customize the default Neovim greeter using
 [alpha-nvim](https://github.com/goolord/alpha-nvim).
 
 ## Configuration
@@ -20,7 +20,7 @@ In the following example `alpha-nvim`'s default _dashboard_ theme is used.
 local dashboard = require('alpha.themes.dashboard').opts
 
 require("visimp")({
-    alphanvim = dashboard,
+    greeter = dashboard,
 })
 ```
 
@@ -49,6 +49,6 @@ function my_wonderful_theme()
 end
 
 require("visimp")({
-    alphanvim = my_wonderful_theme(),
+    greeter = my_wonderful_theme(),
 })
 ```

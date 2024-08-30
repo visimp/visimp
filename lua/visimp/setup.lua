@@ -11,6 +11,7 @@ local M = {
   layers = {
     'cmp',
     'defaults',
+    'greeter',
     'languages',
     'lsp',
     'lspformat',
@@ -21,7 +22,6 @@ local M = {
     'telescope',
     'theme',
     'treesitter',
-    'alphanvim',
   },
   configs = {},
 }
