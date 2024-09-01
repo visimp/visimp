@@ -1,3 +1,7 @@
+---
+weight: 10
+---
+
 # Contributing
 
 Thanks for considering helping us out! This page lists the steps required to

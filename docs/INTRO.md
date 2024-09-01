@@ -1,3 +1,8 @@
+---
+title: Introduction
+weight: 10
+---
+
 # Introduction
 
 `visimp` is a simple, modular Neovim configuration. By itself, `visimp` is

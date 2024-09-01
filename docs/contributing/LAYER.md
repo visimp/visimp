@@ -1,3 +1,7 @@
+---
+weight: 20
+---
+
 # Layer
 
 You've seen a high-level overview of what a layer is and how it's the central
