@@ -148,7 +148,7 @@ function M.remove(packdir)
     end
   end
   for name, dir in pairs(to_rm) do
-    if name ~= 'vismp' then
+    if name ~= 'visimp' then
       init.packages[name] = nil
       local ok = vim.fn.delete(dir, 'rf')
       count.update(name, ok and 'x' or 'X')
