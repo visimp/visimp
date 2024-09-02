@@ -1,12 +1,11 @@
 local L = require('visimp.layer').new_layer 'greeter'
 local get_module = require('visimp.bridge').get_module
-local fortune = require 'alpha.fortune'
 
 function L.packages()
   return { 'goolord/alpha-nvim' }
 end
 
-local function default_layout()
+local function default_layout(fortune)
   local header = {
     type = 'text',
     val = {
@@ -54,8 +53,9 @@ L.default_config = {}
 
 function L.load()
   if L.config.layout == nil then
+    local fortune = require 'alpha.fortune'
     L.config = {
-      layout = default_layout(),
+      layout = default_layout(fortune),
     }
   end
 
