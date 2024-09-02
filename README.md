@@ -1,6 +1,6 @@
 # `visimp`
 
-The simp counterpart of NvChad
+The simp counterpart of NvChad.
 
 ## Install
 
@@ -22,7 +22,8 @@ git clone https://github.com/visimp/visimp.git "$env:LOCALAPPDATA\nvim-data\site
 
 Then you can initialize a default config with the following command:
 
-> WARNING: this will delete your previous `init.lua`
+> [!CAUTION]
+> This will delete your previous `init.lua`!
 
 ```sh
 mkdir -p "${XDG_DATA_HOME:-$HOME}"/.config/nvim
