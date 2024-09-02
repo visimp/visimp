@@ -10,14 +10,14 @@ creation of a simple initial configuration, possibly starting from a template.
 For UNIX-like system:
 
 ```sh
-git clone --depth=1 https://github.com/lucat1/visimp.git \
+git clone --depth=1 https://github.com/visimp/visimp.git \
   "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp
 ```
 
 For Windows:
 
 ```sh
-git clone https://github.com/lucat1/visimp.git "$env:LOCALAPPDATA\nvim-data\site\pack/paks/start/visimp"
+git clone https://github.com/visimp/visimp.git "$env:LOCALAPPDATA\nvim-data\site\pack/paks/start/visimp"
 ```
 
 Then you can initialize a default config with the following command:
