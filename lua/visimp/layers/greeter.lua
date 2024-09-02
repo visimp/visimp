@@ -39,8 +39,8 @@ local function default_layout()
       { type = 'padding', val = 2 },
 
       -- Accordingly to alpha-nvim doc, this empty button component is required
-      -- for the correct placement of the cursor while the greeter is displayed 
-      { type = 'button', val = ""}, 
+      -- for the correct placement of the cursor while the greeter is displayed
+      { type = 'button', val = '' },
 
       footer,
     },
@@ -50,10 +50,16 @@ local function default_layout()
   }
 end
 
-L.default_config = default_layout()
+L.default_config = {}
 
 function L.load()
-  get_module('alpha').setup(L.config)
+  if L.config.layout == nil then
+    L.config = {
+      layout = default_layout(),
+    }
+  end
+
+  get_module('alpha').setup(L.config.layout)
 end
 
 return L
