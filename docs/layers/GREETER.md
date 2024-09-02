@@ -1,12 +1,26 @@
 # `greeter` layer
 
-The `greeter` layer enables the user to customize the default Neovim greeter using
+The `greeter` layer enables the user to customize the default Neovim greeter via 
 [alpha-nvim](https://github.com/goolord/alpha-nvim).
 
 ## Configuration
-The layer can be configured with a layout object that provides the necessary details
-for `alpha-nvim` to render the greeting. For further explaination, refer to the
-plugin official repository and examples.
+The layer can be configured with a custom layout object providing the necessary
+details for `alpha-nvim` to render the greeting. 
+
+```lua
+-- path/of/your/vim/config/init.lua
+
+require("visimp")({
+    greeter = {
+        layout = {
+            -- alpha nvim layout object here
+        }
+    }
+})
+```
+
+For further explaination on the layout object itself, refer to the following 
+examples and the official `alpha-nvim` repository.
 
 ## Examples
 
@@ -20,7 +34,9 @@ In the following example `alpha-nvim`'s default _dashboard_ theme is used.
 local dashboard = require('alpha.themes.dashboard').opts
 
 require("visimp")({
-    greeter = dashboard,
+    greeter = {
+        layout = dashboard,
+    }
 })
 ```
 
@@ -49,6 +65,8 @@ function my_wonderful_theme()
 end
 
 require("visimp")({
-    greeter = my_wonderful_theme(),
+    greeter = {
+        layout = my_wonderful_theme(),
+    },
 })
 ```
