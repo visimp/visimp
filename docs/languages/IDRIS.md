@@ -1,3 +1,7 @@
+---
+title: Idris
+---
+
 # `idris` layer
 
 The `idris` layer enables support for the Idris programming

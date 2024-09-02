@@ -1,3 +1,7 @@
+---
+title: Languages
+---
+
 # `languages` layer
 
 The `languages` layer is in charge of loading languages layers. These usually

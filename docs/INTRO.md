@@ -1,3 +1,8 @@
+---
+title: Introduction
+weight: 10
+---
+
 # Introduction
 
 `visimp` is a simple, modular Neovim configuration. By itself, `visimp` is
@@ -7,7 +12,7 @@ it from your Neovim config and you're good to go (see
 
 `visimp` is designed as a collection of _layers_, which is a pretty common
 structure in vi distributions. A layer is an extension to Neovim's
-functionalities. `vismp` also features a package manager that automatically
+functionalities. `visimp` also features a package manager that automatically
 installs the dependencies needed by your desired layers. The layers and the
 package manager are described in more detail below.
 

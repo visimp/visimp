@@ -1,3 +1,8 @@
+---
+title: Configuration
+weight: 20
+---
+
 # Configuration
 
 ## Configuring `visimp`

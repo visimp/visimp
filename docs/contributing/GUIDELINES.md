@@ -1,4 +1,8 @@
-# Contributing
+---
+weight: 10
+---
+
+# Contributing Guidelines
 
 Thanks for considering helping us out! This page lists the steps required to
 contribute to the `visimp` project.
