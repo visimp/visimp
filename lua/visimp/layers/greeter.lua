@@ -5,7 +5,9 @@ function L.packages()
   return { 'goolord/alpha-nvim' }
 end
 
-local function default_layout(fortune)
+local function default_layout()
+  local fortune = get_module 'alpha.fortune'
+
   local header = {
     type = 'text',
     val = {
@@ -53,9 +55,8 @@ L.default_config = {}
 
 function L.load()
   if L.config.layout == nil then
-    local fortune = require 'alpha.fortune'
     L.config = {
-      layout = default_layout(fortune),
+      layout = default_layout(),
     }
   end
 
