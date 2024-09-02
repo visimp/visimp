@@ -5,6 +5,14 @@ function L.packages()
   return { 'goolord/alpha-nvim' }
 end
 
+---A humand-readable phrase describing Neovim's current version
+---@return string phrase The version's description
+local function vim_version()
+  return 'running on NVIM v' .. tostring(vim.version())
+end
+
+---Default greeter
+---@return table layout alpha-nvim layout describing visimp's default greeter
 local function default_layout()
   local fortune = get_module 'alpha.fortune'
 
@@ -20,7 +28,16 @@ local function default_layout()
     },
     opts = {
       position = 'center',
-      hl = 'Type',
+      hl = 'Title',
+    },
+  }
+
+  local version = {
+    type = 'text',
+    val = vim_version(),
+    opts = {
+      position = 'center',
+      hl = 'Normal',
     },
   }
 
@@ -29,7 +46,7 @@ local function default_layout()
     val = fortune(),
     opts = {
       position = 'center',
-      hl = 'Number',
+      hl = 'Comment',
     },
   }
 
@@ -37,8 +54,8 @@ local function default_layout()
     layout = {
       { type = 'padding', val = 12 },
       header,
+      version,
       { type = 'padding', val = 2 },
-
       -- Accordingly to alpha-nvim doc, this empty button component is required
       -- for the correct placement of the cursor while the greeter is displayed
       { type = 'button', val = '' },
