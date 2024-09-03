@@ -11,6 +11,7 @@ local M = {
   layers = {
     'cmp',
     'defaults',
+    'greeter',
     'languages',
     'lsp',
     'lspformat',

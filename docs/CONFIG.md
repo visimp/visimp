@@ -92,6 +92,7 @@ reference page. You can look it up in the following table.
 | [`diagnostics`](layers/DIAGNOSTICS.md)   | Pretty list of diagnostics, quickfixes, and more |
 | [`fugitive`](layers/FUGITIVE.md)         | Git wrapper                                      |
 | [`gitsigns`](layers/GITSIGNS.md)         | Git code decorations                             |
+| [`greeter`](layers/GREETER.md)           | Custom Nvim greeter                              |
 | [`icons`](layers/ICONS.md)               | Adds file type icons                             |
 | [`languages`](layers/LANGUAGES.md)       | Enable [language layers](#language-layers)       |
 | [`lsp`](layers/LSP.md)                   | Manager for Neovim's LSP client and LSP servers  |
