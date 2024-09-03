@@ -5,7 +5,7 @@ function L.packages()
   return { 'goolord/alpha-nvim' }
 end
 
----A humand-readable phrase describing Neovim's current version
+---A human-readable phrase describing Neovim's current version
 ---@return string phrase The version's description
 local function vim_version()
   return 'running on NVIM v' .. tostring(vim.version())
@@ -28,7 +28,7 @@ local function default_layout()
     },
     opts = {
       position = 'center',
-      hl = 'Title',
+      hl = 'Type',
     },
   }
 
@@ -46,7 +46,7 @@ local function default_layout()
     val = fortune(),
     opts = {
       position = 'center',
-      hl = 'Comment',
+      hl = 'Number',
     },
   }
 
@@ -54,6 +54,7 @@ local function default_layout()
     layout = {
       { type = 'padding', val = 12 },
       header,
+      { type = 'padding', val = 2 },
       version,
       { type = 'padding', val = 2 },
       -- Accordingly to alpha-nvim doc, this empty button component is required
