@@ -28,7 +28,7 @@ local function default_layout()
     },
     opts = {
       position = 'center',
-      hl = 'Type',
+      hl = 'Title',
     },
   }
 
@@ -46,7 +46,7 @@ local function default_layout()
     val = fortune(),
     opts = {
       position = 'center',
-      hl = 'Number',
+      hl = 'String',
     },
   }
 
