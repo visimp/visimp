@@ -6,7 +6,9 @@ local layers = require 'visimp.loader'
 ---https://github.com/neovim/nvim-lspconfig/blob/master/doc/
 ---server_configurations.md#ltex are accepted here.
 L.default_config = {
-  language = 'en-US',
+  ltex = {
+    language = 'en-US',
+  },
 }
 
 function L.dependencies()
