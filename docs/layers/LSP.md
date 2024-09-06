@@ -7,7 +7,7 @@ for layers requiring LSPs, such as most language layers.
 LSs are installed by [mason.nvim](https://github.com/williamboman/mason.nvim)
 by default.
 
-Neovim itself can also act as a LS to inject new LSP-like features via
+Neovim itself can also act as an LS to inject new LSP-like features via
 [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim), a community fork of
 the discontinued "null-ls.nvim". All documentation and code still refer to
 null-ls, as none-ls does not rename its API for compatibility concerns.
@@ -96,7 +96,7 @@ Returns the list of "on-attach-one-time"-like handlers.
 
 ### `get_capabilities()`
 
-Returns the capabilities handler.
+Returns the capabilities' handler.
 
 ## Documentation
 

@@ -1,6 +1,6 @@
 # `gleam` layer
 
-The `gleam` layer enables support for the Gleam pogramming language.
+The `gleam` layer enables support for the Gleam programming language.
 
 ## LSP
 As of this writing, the Gleam LSP is not available in the Mason registry (see

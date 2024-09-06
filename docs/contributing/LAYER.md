@@ -9,7 +9,7 @@ piece of your `visimp` configuration in the [introduction](INTRO.md). More
 concretely, a layer `L` is a structure with the following fields:
 
 - `L.identifier` is a unique string that identifies the layer. This identifier
-  is usually a meaningful name, often matching with the lua filename;
+  is usually a meaningful name, often matching with the Lua filename;
 - `L.default_config` is the layer's default configuration to be extended via a
   merge with the configuration given to `L.configure(...)`. Please see the next
   bullet point for further reference;
@@ -40,5 +40,5 @@ appropriate field of the layer Below is a list of available methods.
   methods. An example is the interaction with the `lsp` layer: in order to
   enable a desired LSP, other layers need to specify it in their `preload`
   section before the `lsp` layer `load` method gets called.
-- `L.load()` is designed to let layers apply side-effects on the Neovim client.
+- `L.load()` is designed to let layers apply side effects on the Neovim client.
   This is where plugins are enabled, the Neovim configuration is set, etcetera.

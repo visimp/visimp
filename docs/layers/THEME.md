@@ -5,7 +5,7 @@ The `theme` layer is tasked with setting a theme.
 ## Configuration
 
 - `package` (default `'gruvbox-community/gruvbox'`) is the theme repository.
-  Could be either be a table with an `url` string field or a string to be
+  Could be either be a table with a `url` string field or a string to be
   appended to `'https://github.com/'`;
 - `colorscheme` (default `'gruvbox'`) is the colorscheme name;
 - `background` (default `dark`) is equivalent to Neovim's `background` option;

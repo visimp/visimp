@@ -1,9 +1,9 @@
 # `rainbow` layer
 
 The `rainbow` layer provides alternating syntax highlighting ("rainbow
-parenthesis") for languages with a Treesitter parser installed. To do so, it
+parenthesis") for languages with a Tree-sitter parser installed. To do so, it
 uses the [rainbow-delimiters.nvim
-plugin](https://lab.vern.cc/gitlab.com/HiPhish/rainbow-delimiters.nvim/)
+plugin](https://lab.vern.cc/gitlab.com/HiPhish/rainbow-delimiters.nvim/).
 
 ## Configuration
 

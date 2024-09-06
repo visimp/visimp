@@ -1,7 +1,8 @@
 # `zen` layer
 
 The `zen` layer offers a Zen mode in which most UI elements are hidden to
-prevent distraction. To do so, it uses the [Zen Mode plugin](https://github.com/folke/zen-mode.nvim)
+prevent distraction. To do so, it uses the [Zen Mode
+plugin](https://github.com/folke/zen-mode.nvim).
 
 ## Configuration
 

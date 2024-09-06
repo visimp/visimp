@@ -7,7 +7,7 @@ weight: 10
 Thanks for considering helping us out! This page lists the steps required to
 contribute to the `visimp` project.
 
-## Working on a feature/fixing a bug
+## Discussing your contribution
 
 Whether you are working on a new feature or fixing a bug, get in touch with the
 project maintainers via the issue tracker. Please discuss the details of your
@@ -19,11 +19,10 @@ not waste time on contributions that will be rejected.
 Before starting to work on your contribution, make sure you have read the
 [Introduction](INTRO.md), [Config](CONFIG.md), and [Layer](LAYER.md) sections.
 
-## Documenting
+## Writing code
 
-All tables and list in the documentation and in the sample configuration at
-`_init.lua` should be presented in alphabetical order. Capitals letters should
-be used uniformly.
+Depending on which part of the codebase you are working on, you might need to
+take different extra steps.
 
 ### Working on internals
 
@@ -58,6 +57,24 @@ document so in [LANGUAGES](layers/LANGUAGES.md#configuration).
 
 Make sure your language is listed in the sample configuration found in
 `_init.lua`.
+
+## Documenting your contribution
+
+Two types of documentation must be provided:
+
+- every Lua function or field must be annotated through
+  [LuaCATS](https://luals.github.io/wiki/annotations/). The Lua Language Server
+  supports this already;
+- the `docs/` folder contains a user manual written in Markdown. Files therein
+  are decorated with headers compatible with the [Hugo
+  Book](https://github.com/alex-shpak/hugo-book) Hugo theme. This way,
+  [`visimp/pages`](https://github.com/visimp/pages) can reuse the `docs/`
+  folder, too.
+
+All tables and list in the documentation and in the sample configuration at
+`_init.lua` should be presented in alphabetical order. Capitals letters should
+be used uniformly. Please especially mind the capitalizations of "visimp" (which
+can also be monospaced as `visimp`) and "Treee-sitter".
 
 ## Final checks
 

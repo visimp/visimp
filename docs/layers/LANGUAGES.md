@@ -8,7 +8,7 @@ The `languages` layer is in charge of loading languages layers. These usually
 provide language-specific features such as:
 
 - a language server;
-- Treesitter parsers-based functionalities;
+- Tree-sitter parsers-based functionalities;
 - language-specific additional plugins.
 
 ## Configuration
@@ -21,7 +21,7 @@ supported as standard layers rather than language layers, and are documented as
 such.
 
 Individual language layers need to be listed among the standard ones only when
-you want to pass an explicit configuration. Language layers have two commoon
+you want to pass an explicit configuration. Language layers have two common
 settings:
 
 - `lsp`: the LS to use. Defaults to `nil`, meaning visimp will install one from
@@ -40,14 +40,14 @@ Several language layers diverge from this basic configuration:
   support for both languages;
 - `coq` has [its own doc page](../languages/COQ.md);
 - `css` adds the `scss` option (defaults to `false`) which, if set to true,
-  adds Treesitter support for SCSS;
+  adds Tree-sitter support for SCSS;
 - `dart` adds the `flutter` boolean option (defaults to `false`) and the
   `flutterconfig` table option for integration with the Flutter framework;
 - `hcl` adds the `terraform` boolean option (defaults to `true`) to indicate
   whether to use or disable the Terraform LS;
 - `idris` has [its own doc page](../languages/IDRIS.md);
 - `javascript` adds the `typescript` boolean option (defaults to `true`) to
-  add Treesitter support for Typescript;
+  add Tree-sitter support for Typescript;
 - `latex` add the `autocompile` (defaults to `true`) option for automatic
   compilation via LS and the `tectonic` (defaults to `false`) option to ask
   default LS Texlab to compile via Tectonic;

@@ -1,7 +1,7 @@
 # `treesitter` layer
 
 The `treesitter` layer is a dependency layer providing languages layers with
-Treesitter support.
+Tree-sitter support.
 
 ## Configuration
 
@@ -25,5 +25,5 @@ require("visimp")({
 
 ### `langs(languages)`
 
-This method ensures the treesitter parsers passed as a list of strings
+This method ensures the Tree-sitter parsers passed as a list of strings
 (`languages`) are installed.

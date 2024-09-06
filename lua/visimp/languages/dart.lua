@@ -29,7 +29,7 @@ function L.packages()
 end
 
 function L.preload()
-  -- Configure treesitter
+  -- Configure Tree-sitter
   layers.get('treesitter').langs { 'dart' }
 
   if L.config.flutter then

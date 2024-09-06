@@ -101,7 +101,7 @@ reference page. You can look it up in the following table.
 | [`ltex`](layers/LTEX.md)                 | Grammar checking via LanguageTool                |
 | [`nvimtree`](layers/NVIMTREE.md)         | File explorer tree                               |
 | [`outline`](layers/OUTLINE.md)           | Buffer outline as a tree-like view of symbols    |
-| [`rainbow`](layers/RAINBOW.md)           | Rainbow parenthesis via Treesitter               |
+| [`rainbow`](layers/RAINBOW.md)           | Rainbow parenthesis via Tree-sitter               |
 | [`snippet`](layers/SNIPPET.md)           | Code snippets engine                             |
 | [`statusline`](layers/STATUSLINE.md)     | Customizable status line                         |
 | [`telescope`](layers/TELESCOPE.md)       | Fuzzy finder and related features                |

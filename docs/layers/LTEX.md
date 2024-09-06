@@ -1,8 +1,8 @@
 # `ltex` layer
 
 The `ltex` layer provides grammar checking by
-[LanguageTool](https://languagetool.org) as a LS for markup documents ($\LaTeX$,
-Markdown, ...).
+[LanguageTool](https://languagetool.org) as an LS for markup documents
+($\LaTeX$, Markdown, ...).
 
 ## Configuration
 

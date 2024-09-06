@@ -1,6 +1,6 @@
 # `whichkey` layer
 
-The `whichkey` layer provides a popup for possible key bindings for the command
+The `whichkey` layer provides a pop-up for possible key bindings for the command
 you started typing via the [WhichKey plugin](https://github.com/folke/which-key.nvim).
 
 ## Configuration

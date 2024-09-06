@@ -5,7 +5,7 @@ The `fugitive` layer allows you to use git from within vim via the
 
 ## Bindings
 
-When in Fugitive-specific buffers,several bindings can be used as documented
+When in Fugitive-specific buffers, several bindings can be used as documented
 [here](https://github.com/tpope/vim-fugitive/blob/master/doc/fugitive.txt).
 
 
