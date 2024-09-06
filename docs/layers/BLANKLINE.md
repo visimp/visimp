@@ -6,7 +6,7 @@ The `blankline` layer adds indentation vertical guides using
 ## Configuration
 
 - `indent_blankline` (`table`): a valid configuration for the
-  `indent-blankline.nvim` plugin, as described in the relevant docs's [`config`
+  `indent-blankline.nvim` plugin, as described in the relevant docs' [`config`
   type](https://github.com/lukas-reineke/indent-blankline.nvim/blob/12e92044d313c54c438bd786d11684c88f6f78cd/doc/indent_blankline.txt);
 - `rainbow_integration` (`table`): if set to a false-ish value, it disables
   integration with the [`rainbow` layer](./RAINBOW.md) even when the latter is

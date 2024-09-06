@@ -17,7 +17,7 @@ local function use_server(language)
 end
 
 function L.preload()
-  -- Configure treesitter
+  -- Configure Tree-sitter
   local langs = {}
   if L.config.c then
     table.insert(langs, 'c')

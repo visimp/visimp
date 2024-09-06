@@ -7,8 +7,8 @@ The `cmp` layer is a dependency for other layers providing a completion engine
 
 In insert mode, with the suggestions list open:
 
-- `<C-d>`: when selecting a suggestions, scrolls the documentation up;
-- `<C-f>`: when selecting a suggestions, scrolls the documentation down;
+- `<C-d>`: when selecting a suggestion, scrolls the documentation up;
+- `<C-f>`: when selecting a suggestion, scrolls the documentation down;
 - `<C-space>`: accepts suggestions;
 - `<C-e>`: closes suggestions list;
 - `<CR>`: accepts the selected suggestion;

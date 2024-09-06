@@ -16,14 +16,14 @@ end
 ---@return table dependencies List of dependencies
 local function language_layer_dependencies(l)
   local deps
-  -- treesitter
+  -- Tree-sitter
   local grammars = l.grammars()
   if type(grammars) ~= 'table' or is_empty(grammars) then
     deps = {}
   else
     deps = { 'treesitter' }
   end
-  -- lsp
+  -- LSP
   if l.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
@@ -39,8 +39,8 @@ local function add_filetypes(filetypes)
   end
 end
 
----Adds the specified languages to Treesitter
----@param grammars table Array of Treesitter grammar names
+---Adds the specified languages to Tree-sitter
+---@param grammars table Array of Tree-sitter grammar names
 local function add_grammars(grammars)
   if not grammars then
     return

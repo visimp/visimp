@@ -19,7 +19,7 @@ require("visimp")({
 })
 ```
 
-For further explaination on the layout object itself, refer to the following 
+For further explanation on the layout object itself, refer to the following 
 examples and the official `alpha-nvim` repository. In particular, be sure to
 read the FAQs to prevent unwanted interactions with other features.
 
