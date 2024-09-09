@@ -13,7 +13,7 @@ function L.grammars()
 end
 
 function L.server()
-  return 'tsserver'
+  return 'ts_ls'
 end
 
 return L
