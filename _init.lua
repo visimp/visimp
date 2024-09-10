@@ -26,6 +26,7 @@ require 'visimp' {
     -- 'prolog',
     -- 'python',
     -- 'rust',
+    -- 'scheme',
     -- 'svelte',
     -- 'swift',
     -- 'toml',
