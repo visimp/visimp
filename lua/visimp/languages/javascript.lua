@@ -13,7 +13,7 @@ function L.grammars()
 end
 
 function L.server()
-  return 'ts_ls'
+  return 'typescript-language-server'
 end
 
 return L
