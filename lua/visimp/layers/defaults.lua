@@ -16,13 +16,7 @@ L.default_config = {
   completeopt = 'menuone,noinsert,noselect',
 }
 
-function L.packages()
-  return { 'lewis6991/impatient.nvim' }
-end
-
 function L.load()
-  get_module 'impatient'
-
   opt('o', 'swapfile', false) -- Do not use swap files
   opt('o', 'backup', false) -- Do not use backups
   opt('o', 'writebackup', false) -- Do not write backups
