@@ -2,7 +2,6 @@ local L = require('visimp.layer').new_layer 'defaults'
 local bridge = require 'visimp.bridge'
 local opt = bridge.opt
 local vfn = bridge.vfn
-local get_module = bridge.get_module
 
 L.default_config = {
   mapleader = ' ',
