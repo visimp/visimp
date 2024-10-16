@@ -41,6 +41,7 @@ end
 ---Configures the visimp distributions and its layers
 ---@param visimp_cfg table The configuration table
 function M.setup(visimp_cfg)
+  vim.loader.enable()
   M.configs = visimp_cfg or {}
   pak.register 'visimp/visimp' -- Let visimp be updated by the package manager
 
