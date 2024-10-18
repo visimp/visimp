@@ -131,6 +131,7 @@ reference page. You can look it up in the following table.
 | `java`                        | Java                  |
 | `javascript`                  | JavaScript/TypeScript |
 | `json`                        | JSON                  |
+| `kotlin`                      | Kotlin                |
 | `latex`                       | $\LaTeX$              |
 | [`lean`](languages/LEAN.md)   | Lean                  |
 | `lua`                         | Lua                   |

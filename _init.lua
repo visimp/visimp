@@ -17,6 +17,7 @@ require 'visimp' {
     -- 'java',
     -- 'javascript',
     -- 'json',
+    -- 'kotlin',
     -- 'latex',
     -- 'lean',
     -- 'lua',
