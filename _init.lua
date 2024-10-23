@@ -22,6 +22,7 @@ require 'visimp' {
     -- 'lean',
     -- 'lua',
     -- 'markdown'
+    -- 'nix',
     -- 'ocaml',
     -- 'php',
     -- 'prolog',
