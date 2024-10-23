@@ -136,6 +136,7 @@ reference page. You can look it up in the following table.
 | [`lean`](languages/LEAN.md)   | Lean                  |
 | `lua`                         | Lua                   |
 | `markdown`                    | Markdown              |
+| `nix`                         | Nix                   |
 | `ocaml`                       | OCaml                 |
 | `php`                         | PHP                   |
 | `prolog`                      | (SWI-/GNU-/...)Prolog |
