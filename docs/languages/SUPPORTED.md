@@ -6,7 +6,7 @@ weight: 10
 # Supported Languages
 
 The following table lists all languages supported by `visimp`. These can be
-enabled using the [`languages` layer](../layers/LANGUAGES.md). In the table,
+enabled using the [`languages` layer](../../layers/LANGUAGES). In the table,
 entries with peculiar features link to a more detailed explanation.
 
 | Layer name                    | Language              |

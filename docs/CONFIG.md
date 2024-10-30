@@ -73,9 +73,11 @@ require 'visimp' {
 }
 ```
 
-## Available Layers
+We refer to language-agnostic layers as "standard". They are listed below. If
+you are interested in layers providing support for a specific language, you can
+check the [list of supported languages](../languages/SUPPORTED) instead.
 
-### Standard Layers
+## Standard Layers
 
 Before configuring a new standard layer, you're advised to take a look at its
 reference page. You can look it up in the following table.
@@ -109,41 +111,3 @@ reference page. You can look it up in the following table.
 | [`treesitter`](layers/TREESITTER.md)     | Syntax highlighting                              |
 | [`whichkey`](layers/WHICHKEY.md)         | Popups for key bindings suggestions              |
 | [`zen`](layers/ZEN.md)                   | Distraction-free "zen" mode                      |
-
-### Language layers
-
-| Layer name                    | Language              |
-| ----------------------------- | --------------------- |
-| `agda`                        | Agda                  |
-| `ampl`                        | AMPL                  |
-| `bash`                        | Bash                  |
-| `c`                           | C/C++                 |
-| [`coq`](languages/COQ.md)     | Coq                   |
-| `csharp`                      | C#                    |
-| `css`                         | CSS                   |
-| `dart`                        | Dart                  |
-| [`gleam`](languages/GLEAM.md) | Gleam                 |
-| `go`                          | Go                    |
-| `haskell`                     | Haskell               |
-| `hcl`                         | HCL                   |
-| `html`                        | HTML                  |
-| [`idris`](languages/IDRIS.md) | Idris                 |
-| `java`                        | Java                  |
-| `javascript`                  | JavaScript/TypeScript |
-| `json`                        | JSON                  |
-| `kotlin`                      | Kotlin                |
-| `latex`                       | $\LaTeX$              |
-| [`lean`](languages/LEAN.md)   | Lean                  |
-| `lua`                         | Lua                   |
-| `markdown`                    | Markdown              |
-| `nix`                         | Nix                   |
-| `ocaml`                       | OCaml                 |
-| `php`                         | PHP                   |
-| `prolog`                      | (SWI-/GNU-/...)Prolog |
-| `python`                      | Python                |
-| `rust`                        | Rust                  |
-| `svelte`                      | Svelte                |
-| `swift`                       | Swift                 |
-| `toml`                        | TOML                  |
-| `typst`                       | Typst                 |
-| `vue`                         | Vue                   |

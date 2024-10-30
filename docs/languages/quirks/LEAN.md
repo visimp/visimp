@@ -1,3 +1,7 @@
+---
+weight: 40
+---
+
 # `lean` layer
 
 The `lean` layer enables support for the lean proof assistant/programming

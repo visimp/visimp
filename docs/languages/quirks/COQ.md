@@ -1,3 +1,7 @@
+---
+weight: 10
+---
+
 # `coq` layer
 
 The `coq` layer enables support for the Coq proof assistant/programming

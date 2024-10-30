@@ -1,3 +1,7 @@
+---
+weight: 20
+---
+
 # `gleam` layer
 
 The `gleam` layer enables support for the Gleam programming language.
