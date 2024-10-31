@@ -1,5 +1,6 @@
 ---
 title: Idris
+weight: 30
 ---
 
 # `idris` layer
