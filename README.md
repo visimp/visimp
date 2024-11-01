@@ -15,7 +15,7 @@ git clone https://github.com/visimp/visimp.git "$env:LOCALAPPDATA\nvim-data\site
 ```
 
 ```sh
-# This will delete your previous `init.lua`!
+# This will replace your previous `init.lua` with a visimp config
 mkdir -p "${XDG_DATA_HOME:-$HOME}"/.config/nvim
 cp "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paks/start/visimp/_init.lua \
   "${XDG_DATA_HOME:-$HOME}"/.config/nvim/init.lua
