@@ -16,7 +16,7 @@ function L.dependencies()
 end
 
 function L.preload()
-  layers.get('lsp').use_server('ltex', true, 'ltex', L.config or {})
+  layers.get('lsp').use_server('ltex', true, 'ltex_plus', L.config or {})
 end
 
 return L
