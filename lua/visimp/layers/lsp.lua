@@ -15,7 +15,12 @@ L.default_config = {
   install = true,
   ---Can be set to nil to disable LSP progress reports
   progress = {},
-  mason = {},
+  mason = {
+    registries = {
+      'github:mason-org/mason-registry',
+      'github:visimp/mason-registry',
+    },
+  },
   ---Strings used as keys are considered null-ls source names, and their values
   ---the respective configs. When non-strings are used as keys (e.g. implicit
   ---number indices in arrays), their values are assumed to be null-ls source
