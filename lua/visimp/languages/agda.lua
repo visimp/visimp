@@ -59,12 +59,12 @@ L.default_config = {
     }] = vim_cmd_cb 'CornelisGoToDefinition',
     [{
       mode = 'n',
-      bind = '<leader>[/',
+      bind = '[/',
       desc = 'Jump to previous goal',
     }] = vim_cmd_cb 'CornelisPrevGoal',
     [{
       mode = 'n',
-      bind = ']//',
+      bind = ']/',
       desc = 'Jump to next goal',
     }] = vim_cmd_cb 'CornelisNextGoal',
     [{
