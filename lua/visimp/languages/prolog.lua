@@ -10,6 +10,10 @@ function L.filetypes()
   }
 end
 
+function L.grammars()
+  return { 'prolog' }
+end
+
 function L.server()
   return 'prolog_ls'
 end
