@@ -106,7 +106,7 @@ local function default_layout()
       { type = 'padding', val = 2 },
       footer,
       { type = 'padding', val = 2 },
-      button('e', 'New file', '<cmd>ene <CR>'),
+      button('e', 'New file', '<cmd>ene | startinsert <CR>'),
     },
     opts = {
       margin = 5,
