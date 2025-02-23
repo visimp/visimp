@@ -15,7 +15,15 @@ L.default_config = {
   install = true,
   ---Can be set to nil to disable LSP progress reports
   progress = {},
-  mason = {},
+  ---A valid mason.nvim configuration
+  mason = {
+    registries = {
+      'github:mason-org/mason-registry',
+      'github:visimp/mason-registry',
+    },
+  },
+  ---A valid mason-tool-installer.nvim configuration
+  mason_tool_installer = {},
   ---Strings used as keys are considered null-ls source names, and their values
   ---the respective configs. When non-strings are used as keys (e.g. implicit
   ---number indices in arrays), their values are assumed to be null-ls source
@@ -127,6 +135,7 @@ function L.packages()
     'neovim/nvim-lspconfig',
     { 'williamboman/mason.nvim', opt = true },
     { 'williamboman/mason-lspconfig.nvim', opt = true },
+    { 'WhoIsSethDaniel/mason-tool-installer.nvim', opt = true },
     -- TODO: should be optional as its required by null-ls, itself being an
     -- optional dependency. This currently cannot be achieved as it'll break
     -- other packages which have a hard dependency on plenary. This fix belongs
@@ -161,6 +170,7 @@ function L.load()
   if L.config.install then
     vim.cmd 'packadd mason.nvim'
     vim.cmd 'packadd mason-lspconfig.nvim'
+    vim.cmd 'packadd mason-tool-installer.nvim'
     get_module('mason').setup(L.config.mason or {})
 
     local required = {}
@@ -169,9 +179,13 @@ function L.load()
         table.insert(required, srv.server)
       end
     end
-    get_module('mason-lspconfig').setup {
-      ensure_installed = required,
-    }
+    get_module('mason-tool-installer').setup(
+      vim.tbl_deep_extend(
+        'force',
+        { ensure_installed = required },
+        L.config.mason_tool_installer
+      )
+    )
   end
 
   if L.config.progress ~= nil then
