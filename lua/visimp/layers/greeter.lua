@@ -11,6 +11,53 @@ local function vim_version()
   return 'running on NVIM v' .. tostring(vim.version())
 end
 
+---A substring to be used to represent the leader button (space) on screen.
+local leader = 'SPC'
+
+---From
+---https://github.com/goolord/alpha-nvim/blob/main/lua/alpha/themes/startify.lua
+---@param sc string
+---@param txt string
+---@param keybind string? optional
+---@param keybind_opts table? optional
+local function button(sc, txt, keybind, keybind_opts)
+  local sc_ = sc:gsub('%s', ''):gsub(leader, '<leader>')
+
+  local opts = {
+    position = 'center',
+    shortcut = '[' .. sc .. '] ',
+    cursor = 1,
+    -- width = 50,
+    align_shortcut = 'left',
+    hl_shortcut = {
+      { 'Operator', 0, 1 },
+      { 'Number', 1, #sc + 1 },
+      { 'Operator', #sc + 1, #sc + 2 },
+    },
+    shrink_margin = false,
+  }
+  if keybind then
+    keybind_opts = vim.F.if_nil(
+      keybind_opts,
+      { noremap = true, silent = true, nowait = true }
+    )
+    opts.keymap = { 'n', sc_, keybind, keybind_opts }
+  end
+
+  local function on_press()
+    local key =
+      vim.api.nvim_replace_termcodes(keybind .. '<Ignore>', true, false, true)
+    vim.api.nvim_feedkeys(key, 't', false)
+  end
+
+  return {
+    type = 'button',
+    val = txt,
+    on_press = on_press,
+    opts = opts,
+  }
+end
+
 ---Default greeter
 ---@return table layout alpha-nvim layout describing visimp's default greeter
 local function default_layout()
@@ -57,11 +104,9 @@ local function default_layout()
       { type = 'padding', val = 2 },
       version,
       { type = 'padding', val = 2 },
-      -- Accordingly to alpha-nvim doc, this empty button component is required
-      -- for the correct placement of the cursor while the greeter is displayed
-      { type = 'button', val = '' },
-
       footer,
+      { type = 'padding', val = 2 },
+      button('e', 'New file', '<cmd>ene | startinsert <CR>'),
     },
     opts = {
       margin = 5,
