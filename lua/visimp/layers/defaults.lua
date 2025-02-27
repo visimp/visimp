@@ -28,7 +28,7 @@ function L.load()
   opt('o', 'termguicolors', true) -- Enable true colors in modern terminals
 
   opt('o', 'incsearch', true) -- Search while typing (incrementally)
-  opt('o', 'hlsearch', false) -- Do not hightlight searches
+  opt('o', 'hlsearch', false) -- Do not highlight searches
   opt('o', 'showmatch', false) -- Do not show search matched words in files
   -- Ignore case when searching if everything is lowercase
   opt('o', 'smartcase', true)

@@ -26,7 +26,7 @@ end
 ---@param cwd string|nil The working directory of the spawned process
 ---@param cb function A function to be run as a callback upon process exit
 ---(with an argument set to true if exit code was equal to zero, falsey
----otherwhise)
+---otherwise)
 local function call_proc(process, args, cwd, cb)
   local log, stderr, handle
   log = uv.fs_open(init.logfile, 'a+', 0x1A4)

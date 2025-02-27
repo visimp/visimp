@@ -27,3 +27,5 @@ jobs:
         uses: mrcjkb/lua-typecheck-action@v1
         with:
           configpath: ".luarc.json"
+      - name: typos-action
+        uses: crate-ci/typos@v1.29.10
