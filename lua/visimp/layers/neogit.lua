@@ -12,13 +12,6 @@ end
 function L.packages()
   return {
     'nvim-lua/plenary.nvim',
-    { 'sindrets/diffview.nvim', opt = true },
-
-    -- Only one of these is needed.
-    { 'nvim-telescope/telescope.nvim', opt = true },
-    { 'ibhagwan/fzf-lua', opt = true },
-    { 'echasnovski/mini.pick', opt = true },
-
     'NeogitOrg/neogit',
   }
 end
