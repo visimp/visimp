@@ -1,11 +1,11 @@
----Utilites for binding vi keys to actions
+---Utilities for binding vi keys to actions
 local M = {
   registered = {},
 }
 
 ---Checks if a bind object is correct
 ---@param bind table The bind object
----@return boolean result True if the bind is _valid_, false otherwhise
+---@return boolean result True if the bind is _valid_, false otherwise
 function M.is_valid(bind)
   return bind ~= nil and bind.mode ~= nil and bind.bind ~= nil
 end
@@ -51,7 +51,7 @@ end
 ---@param handler function[]|function|nil Either a table of bind actions or a
 ---function for manually assigning a bind function to a key (or neither)
 ---@param buffer integer|nil A buffer identifier if all binds want to be
----registered as local to a certain buffer. Nil otherwhise.
+---registered as local to a certain buffer. Nil otherwise.
 function M.bind(binds, handler, buffer)
   if
     type(handler) ~= 'function'
