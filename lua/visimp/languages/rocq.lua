@@ -177,8 +177,8 @@ end
 function L.load()
   layer.to_vimscript_config(L, 'coqtail_', true, 'coqtail')
   -- User bindings. Coqtail's CoqtailHookDefineMappings needs to be a global
-  -- vimscript function with no parameters, so we need to rely on our own
-  -- autocommand instead.
+  -- vimscript function with no parameters, so we rely on our own autocommand
+  -- instead.
   vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     pattern = { '*.v', '*.coq' },
     callback = function(event)
