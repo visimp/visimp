@@ -3,5 +3,10 @@
   "Lua.diagnostics.globals": [
     "vim"
   ],
-  "runtime.version": "Lua 5.1"
+  "runtime.version": "LuaJIT",
+  "workspace": {
+    "checkThirdParty": false,
+    "library": ["/usr/share/nvim/runtime"]
+  },
+  "diagnostics.libraryFiles": "Disable"
 }
