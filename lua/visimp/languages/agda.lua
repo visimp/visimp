@@ -1,15 +1,8 @@
 local L = require('visimp.language').new_language 'agda'
-local bind = require('visimp.bind').bind
+local bind_module = require 'visimp.bind'
+local vim_cmd_cb = bind_module.vim_cmd_cb
+local bind = bind_module.bind
 local layer = require 'visimp.layer'
-
----Constructs callbacks that simply invoke the specified vim command
----@param command string Vim command to invoke (w/o the colon prefix)
----@return function cb The constructed callback
-local function vim_cmd_cb(command)
-  return function()
-    vim.cmd(command)
-  end
-end
 
 L.default_config = {
   --Settings for the cornelis plugin (https://github.com/isovector/cornelis).

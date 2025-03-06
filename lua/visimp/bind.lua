@@ -80,4 +80,13 @@ function M.bind(binds, handler, buffer)
   end
 end
 
+---Constructs callbacks that simply invoke the specified vim command
+---@param command string Vim command to invoke (w/o the colon prefix)
+---@return function cb The constructed callback
+function M.vim_cmd_cb(command)
+  return function()
+    vim.cmd(command)
+  end
+end
+
 return M
