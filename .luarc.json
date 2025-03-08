@@ -6,7 +6,10 @@
   "runtime.version": "LuaJIT",
   "workspace": {
     "checkThirdParty": false,
-    "library": ["/usr/share/nvim/runtime"]
+    "library": [
+      "/usr/share/nvim/runtime",
+      "${3rd}/luv/library"
+    ]
   },
   "diagnostics.libraryFiles": "Disable"
 }

@@ -2,7 +2,7 @@ local count = require 'visimp.pak.count'
 local init = require 'visimp.pak.init'
 local window = require 'visimp.pak.window'
 local M = {}
-local uv = vim.loop
+local uv = vim.uv
 
 ---Returns the git hash of the repository at the given path
 ---@param dir string The git directory
@@ -31,11 +31,23 @@ local function call_proc(process, args, cwd, cb)
   local log, stderr, handle
   log = uv.fs_open(init.logfile, 'a+', 0x1A4)
   stderr = uv.new_pipe(false)
+  if not log then
+    error 'visimp: git.lua: call_proc: cannot open logfile'
+    return
+  end
+  if not stderr then
+    error 'visimp: git.lua: call_proc: cannot open error channel'
+    return
+  end
   stderr:open(log)
   handle = uv.spawn(
     process,
+    -- As shown in https://neovim.io/doc/user/luvref.html#uv.spawn() , these
+    -- fields are actually optional.
+    ---@diagnostic disable-next-line: missing-fields
     {
       args = args,
+      ---@diagnostic disable-next-line: assign-type-mismatch
       cwd = cwd,
       stdio = { nil, nil, stderr },
       env = { 'GIT_TERMINAL_PROMPT=0' },
