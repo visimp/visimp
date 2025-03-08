@@ -12,76 +12,90 @@ L.default_config = {
   binds = {
     [{
       mode = 'n',
-      bind = '<leader>l',
-      desc = 'Load and type-check buffer',
+      bind = '<leader>al',
+      opts = {
+        desc = 'Agda: Load and type-check buffer',
+      },
     }] = vim_cmd_cb 'CornelisLoad',
     [{
       mode = 'n',
-      bind = '<leader>r',
-      desc = 'Refine goal',
+      bind = '<leader>ar',
+      opts = {
+        desc = 'Agda: Refine goal',
+      },
     }] = vim_cmd_cb 'CornelisRefine',
     [{
       mode = 'n',
-      bind = '<leader>d',
-      desc = 'Case split',
+      bind = '<leader>ad',
+      opts = {
+        desc = 'Agda: Case split',
+      },
     }] = vim_cmd_cb 'CornelisMakeCase',
     [{
       mode = 'n',
-      bind = '<leader>,',
-      desc = 'Show Goal type and context',
+      bind = '<leader>a,',
+      opts = {
+        desc = 'Agda: Show Goal type and context',
+      },
     }] = vim_cmd_cb 'CornelisTypeContext',
     [{
       mode = 'n',
-      bind = '<leader>.',
-      desc = 'Show inferred type of hole contents',
+      bind = '<leader>a.',
+      opts = {
+        desc = 'Agda: Show inferred type of hole contents',
+      },
     }] = vim_cmd_cb 'CornelisTypeContextInfer',
     [{
       mode = 'n',
-      bind = '<leader>n',
-      desc = 'Solve constraints',
+      bind = '<leader>an',
+      opts = {
+        desc = 'Agda: Solve constraints',
+      },
     }] = vim_cmd_cb 'CornelisSolve',
     [{
       mode = 'n',
-      bind = '<leader>a',
-      desc = 'Automatic proof search',
+      bind = '<leader>aa',
+      opts = {
+        desc = 'Agda: Automatic proof search',
+      },
     }] = vim_cmd_cb 'CornelisAuto',
     [{
       mode = 'n',
-      bind = 'gd',
-      desc = 'Jump to definition of name at cursor',
+      bind = '<leader>ag',
+      opts = {
+        desc = 'Agda: Jump to definition of name at cursor',
+      },
     }] = vim_cmd_cb 'CornelisGoToDefinition',
     [{
       mode = 'n',
       bind = '[/',
-      desc = 'Jump to previous goal',
+      opts = {
+        desc = 'Agda: Jump to previous goal',
+      },
     }] = vim_cmd_cb 'CornelisPrevGoal',
     [{
       mode = 'n',
       bind = ']/',
-      desc = 'Jump to next goal',
+      opts = {
+        desc = 'Agda: Jump to next goal',
+      },
     }] = vim_cmd_cb 'CornelisNextGoal',
     [{
       mode = 'n',
       bind = '<C-A>',
-      desc = '<C-A> (also sub-/superscripts)',
+      opts = {
+        desc = 'Agda: <C-A> (also sub-/superscripts)',
+      },
     }] = vim_cmd_cb 'CornelisInc',
     [{
       mode = 'n',
-      bind = 'CornelisDec',
-      desc = '<C-A> (also sub-/superscripts)',
+      bind = '<C-X>',
+      opts = {
+        desc = 'Agda: <C-X> (also sub-/superscripts)',
+      },
     }] = vim_cmd_cb 'CornelisDec',
   },
 }
-
-function L.filetypes()
-  return {
-    extension = {
-      agda = 'agda',
-      ['agda-lib'] = 'agda',
-      lagda = 'lagda',
-    },
-  }
-end
 
 function L.packages()
   return {
@@ -95,13 +109,23 @@ end
 
 ---Adds all the Agda-specific bindings specified in this layer's config.
 local function add_agda_bindings()
-  bind(L.config.binds, nil)
+  bind(L.config.binds)
 end
 
 ---Adds Agda-specific autocommands to be triggered when using (literate) Agda
 ---files.
 local function create_autocommands()
-  local patterns = { '*.agda', '*.lagda' }
+  local patterns = {
+    '*.agda',
+    -- https://agda.readthedocs.io/en/latest/tools/literate-programming.html
+    '*.lagda',
+    '*.lagda.tex',
+    '*.lagda.rst',
+    '*.lagda.md',
+    '*.lagda.typ',
+    '*.lagda.org',
+    '*.lagda.tree',
+  }
   vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     pattern = patterns,
     callback = add_agda_bindings,
