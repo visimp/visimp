@@ -19,56 +19,56 @@ L.default_config = {
   binds = {
     [{
       mode = 'n',
-      bind = '<leader>l',
+      bind = '<leader>al',
       opts = {
         desc = 'Agda: Load and type-check buffer',
       },
     }] = vim_cmd_cb 'CornelisLoad',
     [{
       mode = 'n',
-      bind = '<leader>r',
+      bind = '<leader>ar',
       opts = {
         desc = 'Agda: Refine goal',
       },
     }] = vim_cmd_cb 'CornelisRefine',
     [{
       mode = 'n',
-      bind = '<leader>d',
+      bind = '<leader>ad',
       opts = {
         desc = 'Agda: Case split',
       },
     }] = vim_cmd_cb 'CornelisMakeCase',
     [{
       mode = 'n',
-      bind = '<leader>,',
+      bind = '<leader>a,',
       opts = {
         desc = 'Agda: Show Goal type and context',
       },
     }] = vim_cmd_cb 'CornelisTypeContext',
     [{
       mode = 'n',
-      bind = '<leader>.',
+      bind = '<leader>a.',
       opts = {
         desc = 'Agda: Show inferred type of hole contents',
       },
     }] = vim_cmd_cb 'CornelisTypeContextInfer',
     [{
       mode = 'n',
-      bind = '<leader>n',
+      bind = '<leader>an',
       opts = {
         desc = 'Agda: Solve constraints',
       },
     }] = vim_cmd_cb 'CornelisSolve',
     [{
       mode = 'n',
-      bind = '<leader>a',
+      bind = '<leader>aa',
       opts = {
         desc = 'Agda: Automatic proof search',
       },
     }] = vim_cmd_cb 'CornelisAuto',
     [{
       mode = 'n',
-      bind = 'gd',
+      bind = '<leader>ag',
       opts = {
         desc = 'Agda: Jump to definition of name at cursor',
       },
