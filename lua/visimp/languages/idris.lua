@@ -5,6 +5,10 @@ function L.packages()
   return { 'edwinb/idris2-vim' }
 end
 
+function L.grammars()
+  return { 'idris' }
+end
+
 function L.server()
   return 'idris2_lsp'
 end
