@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'whichkey'
+---@class WhichkeyLayer: Layer
+local L = require('visimp.layer'):new_layer 'whichkey'
 local get_module = require('visimp.bridge').get_module
 
 ---All fields from

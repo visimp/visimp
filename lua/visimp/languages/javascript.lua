@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'javascript'
+local L = require('visimp.language'):new_language 'javascript'
 
 L.default_config = {
   --Enable the typescript grammar

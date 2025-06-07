@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'statusline'
+local L = require('visimp.layer'):new_layer 'statusline'
 local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
@@ -44,7 +44,9 @@ function L.load()
   -- Respect the theme setting if imposed
   local theme = nil
   if not L.config.options.theme then
-    theme = loader.get('theme').get_theme()
+    theme = loader
+      .get('theme') --[[@as ThemeLayer]]
+      :get_theme()
     local ok, _ = pcall(get_module('lualine.utils.loader').load_theme, theme)
     if not ok then
       theme = 'auto'

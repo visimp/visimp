@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'hcl'
+local L = require('visimp.language'):new_language 'hcl'
 
 L.default_config = {
   ---Whether to use or disable the terraform lsp

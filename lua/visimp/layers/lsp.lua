@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'lsp'
+---@class LspLayer: Layer
+local L = require('visimp.layer'):new_layer 'lsp'
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.bridge').get_module
 
@@ -112,14 +113,18 @@ L.default_config = {
       opts = {
         desc = 'Go to previous diagnostic',
       },
-    }] = vim.diagnostic.goto_prev,
+    }] = function()
+      vim.diagnostic.jump { count = 1, float = true }
+    end,
     [{
       mode = 'n',
       bind = ']d',
       opts = {
         desc = 'Go to next diagnostic',
       },
-    }] = vim.diagnostic.goto_next,
+    }] = function()
+      vim.diagnostic.jump { count = 1, float = true }
+    end,
     [{
       mode = 'n',
       bind = 'gf',
@@ -130,7 +135,7 @@ L.default_config = {
   },
 }
 
-function L.packages()
+function L:packages()
   return {
     'neovim/nvim-lspconfig',
     { 'williamboman/mason.nvim', opt = true },
@@ -147,9 +152,9 @@ function L.packages()
   }
 end
 
-function L.preload()
-  if next(L.config.nullls) then
-    L.use_nullls = true
+function L:preload()
+  if next(self.config.nullls) then
+    self.use_nullls = true
   end
 end
 
@@ -166,15 +171,15 @@ local function add_source(sources, new_source_name, config)
   table.insert(sources, module)
 end
 
-function L.load()
-  if L.config.install then
+function L:load()
+  if self.config.install then
     vim.cmd 'packadd mason.nvim'
     vim.cmd 'packadd mason-lspconfig.nvim'
     vim.cmd 'packadd mason-tool-installer.nvim'
-    get_module('mason').setup(L.config.mason or {})
+    get_module('mason').setup(self.config.mason or {})
 
     local required = {}
-    for _, srv in ipairs(L.servers) do
+    for _, srv in ipairs(self.servers) do
       if srv.install and type(srv.server) == 'string' then
         table.insert(required, srv.server)
       end
@@ -183,21 +188,21 @@ function L.load()
       vim.tbl_deep_extend(
         'force',
         { ensure_installed = required },
-        L.config.mason_tool_installer
+        self.config.mason_tool_installer
       )
     )
   end
 
-  if L.config.progress ~= nil then
+  if self.config.progress ~= nil then
     vim.cmd 'packadd fidget.nvim'
     get_module('fidget').setup()
   end
 
   -- null-ls sources
   local sources = {}
-  if L.use_nullls then
+  if self.use_nullls then
     vim.cmd 'packadd none-ls.nvim'
-    for k, v in pairs(L.config.nullls) do
+    for k, v in pairs(self.config.nullls) do
       -- source config is specified
       if type(k) == 'string' then
         add_source(sources, k, v)
@@ -209,33 +214,33 @@ function L.load()
   end
 
   local on_attach = function(client, bufnr, ...)
-    if not L.buffers[bufnr] then
+    if not self.buffers[bufnr] then
       -- Enable module binds first so they can be overwritten by other
       -- callbacks if needed
-      bind(L.config.binds, nil, bufnr)
-      for _, fn in ipairs(L.one_time_callbacks) do
+      bind(self.config.binds, nil, bufnr)
+      for _, fn in ipairs(self.one_time_callbacks) do
         fn(client, bufnr, ...)
       end
 
-      L.buffers[bufnr] = true
+      self.buffers[bufnr] = true
     end
 
-    for _, fn in ipairs(L.callbacks) do
+    for _, fn in ipairs(self.callbacks) do
       fn(client, bufnr, ...)
     end
   end
 
-  for _, srv in ipairs(L.servers) do
+  for _, srv in ipairs(self.servers) do
     get_module('lspconfig')[srv.server].setup {
       settings = srv.settings,
-      capabilities = L.capabilities,
+      capabilities = self.capabilities,
       on_attach = on_attach,
     }
   end
-  if L.use_nullls then
+  if self.use_nullls then
     get_module('null-ls').setup {
       sources = sources,
-      capabilities = L.capabilities,
+      capabilities = self.capabilities,
       on_attach = on_attach,
     }
   end
@@ -246,8 +251,8 @@ end
 ---@param install boolean True if the server should be installed via Mason
 ---@param srv string The name of the server executable (if any)
 ---@param settings table|nil Any optional settings for the language server
-function L.use_server(lang, install, srv, settings)
-  table.insert(L.servers, {
+function L:use_server(lang, install, srv, settings)
+  table.insert(self.servers, {
     language = lang,
     install = install,
     server = srv,
@@ -258,39 +263,39 @@ end
 ---Adds an on_attach function which gets called when LSPs get enabled on
 ---buffers
 ---@param fn function The callback function
-function L.on_attach(fn)
-  table.insert(L.callbacks, fn)
+function L:on_attach(fn)
+  table.insert(self.callbacks, fn)
 end
 
 ---Adds a one-time on_attach function which gets called the first time a LS is
 ---enabled on each buffer
 ---@param fn function The callback function
-function L.on_attach_one_time(fn)
-  table.insert(L.one_time_callbacks, fn)
+function L:on_attach_one_time(fn)
+  table.insert(self.one_time_callbacks, fn)
 end
 
 ---Returns the list of on_attach callbacks
 ---@return function[] callbacks A list of callbacks
-function L.get_callbacks()
-  return L.callbacks
+function L:get_callbacks()
+  return self.callbacks
 end
 
 ---Returns the list of one-time on_attach callbacks
 ---@returns function[] callbacks A list of callbacks
-function L.get_callbacks_one_time()
-  return L.one_time_callbacks
+function L:get_callbacks_one_time()
+  return self.one_time_callbacks
 end
 
 ---Sets the capabilities table
 ---@param fn function The hook
-function L.on_capabilities(fn)
-  L.capabilities = fn
+function L:on_capabilities(fn)
+  self.capabilities = fn
 end
 
 ---Returns the current capabilities handler
 ---@return function capabilities The capabilities handler
-function L.get_capabilities()
-  return L.capabilities
+function L:get_capabilities()
+  return self.capabilities
 end
 
 return L

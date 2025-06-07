@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'c'
+local L = require('visimp.layer'):new_layer 'c'
 local layers = require 'visimp.loader'
 
 L.default_config = {
@@ -13,7 +13,8 @@ local function use_server(language)
   local install = L.config.lsp == nil
   local server = L.config.lsp or 'clangd'
   local settings = L.config.lspconfig
-  layers.get('lsp').use_server(language, install, server, settings)
+  local lsp = layers.get 'lsp' --[[@as LspLayer]]
+  lsp:use_server(language, install, server, settings)
 end
 
 function L.preload()
@@ -25,7 +26,7 @@ function L.preload()
   if L.config.cpp then
     table.insert(langs, 'cpp')
   end
-  layers.get('treesitter').langs(langs)
+  (layers.get 'treesitter' --[[@as TreesitterLayer]]):langs(langs)
 
   -- Enable the language server
   if L.config.lsp ~= false then

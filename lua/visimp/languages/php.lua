@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'php'
+local L = require('visimp.language'):new_language 'php'
 
 function L.grammars()
   return { 'php' }

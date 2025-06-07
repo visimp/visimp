@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'css'
+local L = require('visimp.language'):new_language 'css'
 
 L.default_config = {
   ---Enable SCSS support

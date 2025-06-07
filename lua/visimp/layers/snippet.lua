@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'snippet'
+---@class SnippetLayer: Layer
+local L = require('visimp.layer'):new_layer 'snippet'
 local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 local bind = require('visimp.bind').bind
@@ -25,7 +26,7 @@ end
 ---@param ldr string Snippets loader ('lua', 'snipmate', 'vscode')
 ---@param opts table|nil Options table
 ---@see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#loaders
-function L.add_snippets(ldr, opts)
+function L:add_snippets(ldr, opts)
   local available_loaders = { 'lua', 'snipmate', 'vscode' }
   for _, available_loader in pairs(available_loaders) do
     if available_loader == ldr then
@@ -38,7 +39,7 @@ end
 
 local function load_snippets(loaders)
   for snippets_loader, config in pairs(loaders) do
-    L.add_snippets(snippets_loader, config)
+    L:add_snippets(snippets_loader, config)
   end
 end
 
@@ -83,9 +84,9 @@ local function has_words_before()
       == nil
 end
 
-function L.preload()
+function L:preload()
   -- Configure the completion layer
-  local cmp_layer = loader.get 'cmp'
+  local cmp_layer = loader.get 'cmp' --[[@as CmpLayer]]
 
   if
     cmp_layer.config.mapping['<Tab>']
@@ -131,8 +132,8 @@ function L.preload()
     end
   end
 
-  cmp_layer.add_source { name = 'luasnip' }
-  cmp_layer.set_snippet {
+  cmp_layer:add_source { name = 'luasnip' }
+  cmp_layer:set_snippet {
     expand = function(args)
       get_module('luasnip').lsp_expand(args.body)
     end,

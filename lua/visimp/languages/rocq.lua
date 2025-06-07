@@ -2,7 +2,7 @@ local bind_module = require 'visimp.bind'
 local vim_cmd_cb = bind_module.vim_cmd_cb
 local bind = bind_module.bind
 local layer = require 'visimp.layer'
-local L = layer.new_layer 'rocq'
+local L = layer:new_layer 'rocq'
 
 L.default_config = {
   coqtail = {

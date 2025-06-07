@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'agda'
+local L = require('visimp.language'):new_language 'agda'
 local bind_module = require 'visimp.bind'
 local vim_cmd_cb = bind_module.vim_cmd_cb
 local bind = bind_module.bind

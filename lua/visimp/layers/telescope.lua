@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'telescope'
+local L = require('visimp.layer'):new_layer 'telescope'
 local get_module = require('visimp.bridge').get_module
 local bind = require('visimp.bind').bind
 

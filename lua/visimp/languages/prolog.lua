@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'prolog'
+local L = require('visimp.language'):new_language 'prolog'
 
 function L.filetypes()
   return {

@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'greeter'
+local L = require('visimp.layer'):new_layer 'greeter'
 local get_module = require('visimp.bridge').get_module
 
 function L.packages()

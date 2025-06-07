@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'treesitter'
+---@class TreesitterLayer: Layer
+local L = require('visimp.layer'):new_layer 'treesitter'
 local get_module = require('visimp.bridge').get_module
 
 L.default_config = {
@@ -27,8 +28,8 @@ end
 
 ---Ensures the given tree sitter parsers are installed
 ---@param languages string[] The array of languages to check
-function L.langs(languages)
-  vim.list_extend(L.languages, languages)
+function L:langs(languages)
+  vim.list_extend(self.languages, languages)
 end
 
 return L

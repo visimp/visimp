@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'latex'
+local L = require('visimp.language'):new_language 'latex'
 local layers = require 'visimp.loader'
 
 L.default_config = {
@@ -10,7 +10,7 @@ L.default_config = {
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs { 'latex' }
+  (layers.get 'treesitter' --[[@as TreesitterLayer]]):langs { 'latex' }
 
   -- Enable the language server
   local cfg = {}
@@ -34,8 +34,13 @@ function L.preload()
   cfg = vim.tbl_deep_extend('force', cfg, L.config.lspconfig or {})
   if L.config.lsp ~= false then
     local install = L.config.lsp == nil
-    local server = L.config.lsp or 'texlab'
-    layers.get('lsp').use_server('latex', install, server, cfg)
+    local server = L.config.lsp or 'texlab';
+    (layers.get 'lsp' --[[@as LspLayer]]):use_server(
+      'latex',
+      install,
+      server,
+      cfg
+    )
   end
 end
 

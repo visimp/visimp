@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'ampl'
+local L = require('visimp.language'):new_language 'ampl'
 
 function L.filetypes()
   return {

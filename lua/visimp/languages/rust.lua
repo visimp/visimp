@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'rust'
+local L = require('visimp.language'):new_language 'rust'
 
 function L.grammars()
   return { 'rust' }

@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'ocaml'
+local L = require('visimp.language'):new_language 'ocaml'
 
 function L.grammars()
   return { 'ocaml' }

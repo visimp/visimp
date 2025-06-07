@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'idris'
+local L = require('visimp.language'):new_language 'idris'
 local layer = require 'visimp.layer'
 
 function L.packages()

@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'ltex'
+local L = require('visimp.layer'):new_layer 'ltex'
 local layers = require 'visimp.loader'
 
 ---Optional configuration to be provided for the language server
@@ -16,7 +16,9 @@ function L.dependencies()
 end
 
 function L.preload()
-  layers.get('lsp').use_server('ltex', true, 'ltex_plus', L.config or {})
+  layers
+    .get('lsp') --[[@as LspLayer]]
+    :use_server('ltex', true, 'ltex_plus', L.config or {})
 end
 
 return L

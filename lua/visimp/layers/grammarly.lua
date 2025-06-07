@@ -1,5 +1,5 @@
 -- DEPRECATED
-local L = require('visimp.layer').new_layer 'grammarly'
+local L = require('visimp.layer'):new_layer 'grammarly'
 local layers = require 'visimp.loader'
 
 -- Optional configuration to be provided for the language server
@@ -16,7 +16,9 @@ function L.dependencies()
 end
 
 function L.preload()
-  layers.get('lsp').use_server('grammarly', true, 'grammarly', L.config or {})
+  layers
+    .get('lsp') --[[@as LspLayer]]
+    :use_server('grammarly', true, 'grammarly', L.config or {})
 end
 
 return L

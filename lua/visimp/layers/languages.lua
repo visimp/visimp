@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'languages'
+local L = require('visimp.layer'):new_layer 'languages'
 local loader = require 'visimp.loader'
 local visimp = require 'visimp.setup'
 
@@ -27,7 +27,7 @@ function L.configure(cfg)
   for _, l in ipairs(L.config) do
     local ll = loader.get(l)
     local layer_cfg = visimp.configs[ll.identifier] or {}
-    loader.get(l).configure(layer_cfg)
+    loader.get(l):configure(layer_cfg)
   end
 end
 

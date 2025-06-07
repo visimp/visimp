@@ -1,37 +1,77 @@
----Utilities for constructing and identifying layers
-local M = {}
+---@alias LayerId string
+
+---A visimp functionality
+---@class Layer
+---@field public identifier LayerId A unique, human-readable identifier
+---@field public default_config table The default configuration of the layer
+---@field public config table The current user configuration for this layer
+---@field public deprecated boolean Whether the layer has been deprecated
+local Layer = {
+  default_config = {},
+  config = {},
+  deprecated = false,
+}
+
+---@alias PackageSlug string
+
+---A (Neo)vim plugin
+---@class Package
+---@field public url string? A git repository URL. If unspecified, the field
+---with (implicit) key `1` will be treated as `username/repository` of a GitHub
+---repository
+---@field public branch string? Possible non-default branch name to use
+---@field public opt boolean? Whether the plugin is optionally not needed by the
+---layer. If it is not needed, it will not be loaded automatically at startup.
+
+---Returns a list of dependency layers
+---@return LayerId[] dep A list of identifiers for the dependency layers
+function Layer:dependencies()
+  return {}
+end
+
+---Returns a list of dependency packages (i.e., (Neo)vim plugins). Each can be
+---specified as either a simple GitH*b repository name (`user/repository`), or
+---using the appropriate class.
+---@return (PackageSlug|Package)[] dep A list of repo names or full-fledged
+---packages
+function Layer:packages()
+  return {}
+end
+
+---A handler which is called on all layers before the load method is called on
+---any of them. This is used to modify behavior of other layers’ load methods.
+function Layer:preload()
+  return {}
+end
+
+---A handler designed to let layers apply side effects on the Neovim client.
+---This is where plugins are enabled, the Neovim configuration is set, etcetera.
+function Layer:load()
+  return {}
+end
+
+---Replaces the current configuration with the result of recursively extending
+---the default layer configuration with the given value.
+---@param cfg table The settings used to extend the default layer configuration
+function Layer:configure(cfg)
+  self.config = vim.tbl_deep_extend('force', self.default_config, cfg)
+end
 
 ---Returns an empty new layer for the given identifier
----@param id string The layer identifier
----@return table layer The newly created layer
-function M.new_layer(id)
-  local layer = {
-    identifier = id,
-    default_config = {},
-    config = {},
-
-    dependencies = function()
-      return {}
-    end,
-    packages = function()
-      return {}
-    end,
-    preload = function() end,
-    load = function() end,
-    deprecated = false,
-  }
-  function layer.configure(cfg)
-    layer.config = vim.tbl_deep_extend('force', layer.default_config, cfg)
-  end
-
+---@param id LayerId The layer identifier
+---@return Layer layer The newly created layer
+function Layer:new_layer(id)
+  local layer = { identifier = id }
+  setmetatable(layer, self)
+  self.__index = self
   return layer
 end
 
 ---Returns true if the given argument is a proper layer
----@param layer table The hypothetical layer to analyze
+---@param layer any The hypothetical layer to analyze
 ---@return boolean result Whether the provided argument is a layer
-function M.is_layer(layer)
-  return layer ~= nil
+function Layer.is_layer(layer)
+  return type(layer) == 'table'
     and type(layer.identifier) == 'string'
     and layer.identifier ~= nil
     and type(layer.configure) == 'function'
@@ -53,7 +93,6 @@ end
 
 ---Exports a layer config as a vimscript plugin config (i.e., vim global
 ---variables)
----@param layer table The layer whose config is to be exported
 ---@param vim_config_field string The name of the global vimscript variable
 -- storing the plugin config, or the common prefix shared by all the plugin
 -- config fields if these are stored as individual vimscript global variables.
@@ -64,18 +103,17 @@ end
 ---@param layer_config_field string|nil The field in the layer config where the
 -- plugin config is stored. If the plugin config is stored at the root of the
 -- layer config, nil should be passed instead.
----@param blacklist table|nil A list of fields that should not be copied from
+---@param blacklist string[]|nil A list of fields that should not be copied from
 -- the layer config (as they do not belong to the plugin config). If nil, it is
 -- considered to be empty.
-function M.to_vimscript_config(
-  layer,
+function Layer:to_vimscript_config(
   vim_config_field,
   prefix_mode,
   layer_config_field,
   blacklist
 )
   -- Config source
-  local layer_config = layer.config
+  local layer_config = self.config
   if layer_config_field then
     layer_config = layer_config[layer_config_field]
   end
@@ -102,4 +140,4 @@ function M.to_vimscript_config(
   end
 end
 
-return M
+return Layer

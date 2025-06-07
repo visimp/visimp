@@ -1,4 +1,4 @@
-local L = require('visimp.language').new_language 'kotlin'
+local L = require('visimp.language'):new_language 'kotlin'
 
 function L.grammars()
   return { 'kotlin' }

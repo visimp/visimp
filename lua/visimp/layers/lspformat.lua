@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'lspformat'
+local L = require('visimp.layer'):new_layer 'lspformat'
 local get_module = require('visimp.bridge').get_module
 local get_layer = require('visimp.loader').get
 
@@ -18,7 +18,8 @@ function L.packages()
 end
 
 function L.preload()
-  get_layer('lsp').on_attach(get_module('lsp-format').on_attach)
+  get_layer('lsp') --[[@as LspLayer]]
+    :on_attach(get_module('lsp-format').on_attach)
 end
 
 function L.load()
