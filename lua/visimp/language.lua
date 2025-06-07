@@ -15,7 +15,7 @@ Language.default_config = {
 }
 
 ---Returns an optional list of needed filetypes mappings
----@returns filetypes table? Filetypes mappings as described in
+---@return filetypes table? Filetypes mappings as described in
 ---https://neovim.io/doc/user/lua.html#vim.filetype.add()
 function Language:filetypes()
   return nil
@@ -28,7 +28,7 @@ function Language:grammars()
 end
 
 ---Returns the (optional) LSP name to install from Mason
----@returns string? lsp The name of the LSP
+---@return string? lsp The name of the LSP
 function Language:server()
   return nil
 end
