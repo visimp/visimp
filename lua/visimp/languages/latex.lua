@@ -34,7 +34,7 @@ function L.preload()
   cfg = vim.tbl_deep_extend('force', cfg, L.config.lspconfig or {})
   if L.config.lsp ~= false then
     local install = L.config.lsp == nil
-    local server = L.config.lsp or 'texlab';
+    local server = L.config.lsp or 'texlab'
     (layers.get 'lsp' --[[@as LspLayer]]):use_server(
       'latex',
       install,
