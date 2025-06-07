@@ -15,7 +15,7 @@ Language.default_config = {
 }
 
 ---Returns an optional list of needed filetypes mappings
----@return filetypes table? Filetypes mappings as described in
+---@return table? filetypes Filetypes mappings as described in
 ---https://neovim.io/doc/user/lua.html#vim.filetype.add()
 function Language:filetypes()
   return nil
