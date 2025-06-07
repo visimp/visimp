@@ -1,7 +1,7 @@
 local Layer = require 'visimp.layer'
 local layers = require 'visimp.loader'
 
----Utilities for constructing and identifying layers
+---Prototype for language layers
 ---@class LanguageLayer: Layer
 ---@field public default_config {lsp: (string|boolean)?, lspconfig: table?}
 local Language = Layer:new_layer ''
@@ -27,6 +27,8 @@ function Language:grammars()
   return nil
 end
 
+---Returns the (optional) LSP name to install from Mason
+---@returns string? lsp The name of the LSP
 function Language:server()
   return nil
 end

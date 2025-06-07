@@ -40,15 +40,11 @@ end
 
 ---A handler which is called on all layers before the load method is called on
 ---any of them. This is used to modify behavior of other layers’ load methods.
-function Layer:preload()
-  return {}
-end
+function Layer:preload() end
 
 ---A handler designed to let layers apply side effects on the Neovim client.
 ---This is where plugins are enabled, the Neovim configuration is set, etcetera.
-function Layer:load()
-  return {}
-end
+function Layer:load() end
 
 ---Replaces the current configuration with the result of recursively extending
 ---the default layer configuration with the given value.

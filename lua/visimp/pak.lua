@@ -2,6 +2,7 @@ local git = require 'visimp.pak.git'
 local logic = require 'visimp.pak.logic'
 local window = require 'visimp.pak.window'
 
+---visimp's in-house plugin manager
 local M = {
   register = logic.register,
   any_missing = logic.any_missing,
