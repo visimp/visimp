@@ -4,6 +4,7 @@ local layers = require 'visimp.loader'
 ---Prototype for language layers
 ---@class LanguageLayer: Layer
 ---@field public default_config {lsp: (string|boolean)?, lspconfig: table?}
+---@field public config {lsp: (string|boolean)?, lspconfig: table?}
 local Language = Layer:new_layer ''
 
 Language.default_config = {
