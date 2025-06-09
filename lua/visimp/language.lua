@@ -1,17 +1,22 @@
 local Layer = require 'visimp.layer'
 local layers = require 'visimp.loader'
 
+---Minimal language configuration
+---@class LanguageConfig
+---@field public lsp (string|false)? The LSP server to use. Defaults to nil \
+---(recommended LS) but users can also use alternatives. Can be set to false to
+---disable this functionality
+---@field public lspconfig table? Optional configuration to be provided for the
+---chosen language server
+
 ---Prototype for language layers
 ---@class LanguageLayer: Layer
----@field public default_config {lsp: (string|boolean)?, lspconfig: table?}
----@field public config {lsp: (string|boolean)?, lspconfig: table?}
+---@field public default_config LanguageConfig
+---@field public config LanguageConfig
 local Language = Layer:new_layer ''
 
 Language.default_config = {
-  -- The LSP server to use. Defaults to nil (recommended LS) but users can
-  -- also use alternatives. Can be set to false to disable this functionality
   lsp = nil,
-  -- Optional configuration to be provided for the chosen language server
   lspconfig = nil,
 }
 
@@ -86,6 +91,7 @@ function Language:add_server()
   if self.config.lsp == false then -- explicitly disabled server
     return
   end
+  ---@type (boolean|string)?
   local server = self:server() -- default server
   if not server then -- custom server
     server = self.config.lsp

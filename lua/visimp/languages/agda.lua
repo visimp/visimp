@@ -1,3 +1,11 @@
+---Configuration for the Agda layer
+---@class AgdaConfig: LanguageConfig
+---@field public cornelis table Cornelis configuration
+---@field public binds table<table, function> Agda-specific binds
+
+---@class AgdaLayer: LanguageLayer
+---@field public default_config AgdaConfig
+---@field public config AgdaConfig
 local L = require('visimp.language'):new_language 'agda'
 local bind_module = require 'visimp.bind'
 local vim_cmd_cb = bind_module.vim_cmd_cb

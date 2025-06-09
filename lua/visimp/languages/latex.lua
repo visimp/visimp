@@ -1,10 +1,16 @@
+---Configuration for the Latex layer
+---@class LatexConfig: LanguageConfig
+---@field public autocompile boolean Whether Texlab should recompile on save
+---@field public tectonic boolean Whether Tectonic should be used to recompile
+
+---@class LatexLayer: LanguageLayer
+---@field public default_config LatexConfig
+---@field public config LatexConfig
 local L = require('visimp.language'):new_language 'latex'
 local layers = require 'visimp.loader'
 
 L.default_config = {
-  ---Automatically compile latex via texlab LSP
   autocompile = true,
-  ---Sets the latex compiler to tectonic
   tectonic = false,
 }
 

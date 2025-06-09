@@ -1,3 +1,10 @@
+---Configuration for the CSS layer
+---@class CssConfig: LanguageConfig
+---@field public scss boolean Whether SCSS support should be enabled
+
+---@class CssLayer: LanguageLayer
+---@field public default_config CssConfig
+---@field public config CssConfig
 local L = require('visimp.language'):new_language 'css'
 
 L.default_config = {
