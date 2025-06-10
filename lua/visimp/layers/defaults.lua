@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'defaults'
+local L = require('visimp.layer'):new_layer 'defaults'
 local bridge = require 'visimp.bridge'
 local opt = bridge.opt
 local vfn = bridge.vfn

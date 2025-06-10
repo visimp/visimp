@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'cmp'
+---@class CmpLayer : Layer
+local L = require('visimp.layer'):new_layer 'cmp'
 local loader = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
@@ -53,7 +54,7 @@ L.default_config = {
   },
 }
 
-function L.packages()
+function L:packages()
   return {
     'hrsh7th/nvim-cmp',
     { 'hrsh7th/cmp-buffer', opt = true },
@@ -62,14 +63,14 @@ function L.packages()
   }
 end
 
-function L.dependencies()
-  if L.config.lsp then
+function L:dependencies()
+  if self.config.lsp then
     return { 'lsp' }
   end
   return {}
 end
 
-function L.preload()
+function L:preload()
   -- load optional packages
   if L.config.buffer then
     vim.cmd 'packadd cmp-buffer'
@@ -80,49 +81,49 @@ function L.preload()
   end
 
   if L.config.lsp then
-    vim.cmd 'packadd cmp-nvim-lsp'
-    loader
-      .get('lsp')
-      .on_capabilities(get_module('cmp_nvim_lsp').default_capabilities())
+    vim.cmd 'packadd cmp-nvim-lsp';
+    (loader.get 'lsp' --[[@as LspLayer]]):on_capabilities(
+      get_module('cmp_nvim_lsp').default_capabilities()
+    )
   end
 end
 
-function L.load()
+function L:load()
   local cmp = get_module 'cmp'
   local cfg = vim.tbl_deep_extend(
     'force',
-    L.config.config,
-    { sources = L.sources, snippet = L.snippet }
+    self.config.config,
+    { sources = L.sources, snippet = self.snippet }
   )
-  if L.config.buffer then
+  if self.config.buffer then
     table.insert(cfg.sources, { name = 'buffer' })
   end
-  if L.config.lsp then
+  if self.config.lsp then
     table.insert(cfg.sources, { name = 'nvim_lsp' })
   end
-  if L.config.lspkind then
+  if self.config.lspkind then
     local lspkind = get_module 'lspkind'
     cfg.formatting = {
-      format = lspkind.cmp_format(L.config.lspkindconfig),
+      format = lspkind.cmp_format(self.config.lspkindconfig),
     }
   end
   cfg.mapping = vim.tbl_map(function(f)
     return f(cmp)
-  end, L.config.mapping)
+  end, self.config.mapping)
 
   cmp.setup(cfg)
 end
 
 ---Adds a completion source object
 ---@param source table The source completion object
-function L.add_source(source)
-  table.insert(L.sources, source)
+function L:add_source(source)
+  table.insert(self.sources, source)
 end
 
 ---Sets the completion snippet handler
 ---@param snippet table The snippet object
-function L.set_snippet(snippet)
-  L.snippet = snippet
+function L:set_snippet(snippet)
+  self.snippet = snippet
 end
 
 return L

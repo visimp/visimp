@@ -1,16 +1,22 @@
-local L = require('visimp.language').new_language 'latex'
+---Configuration for the Latex layer
+---@class LatexConfig: LanguageConfig
+---@field public autocompile boolean Whether Texlab should recompile on save
+---@field public tectonic boolean Whether Tectonic should be used to recompile
+
+---@class LatexLayer: LanguageLayer
+---@field public default_config LatexConfig
+---@field public config LatexConfig
+local L = require('visimp.language'):new_language 'latex'
 local layers = require 'visimp.loader'
 
 L.default_config = {
-  ---Automatically compile latex via texlab LSP
   autocompile = true,
-  ---Sets the latex compiler to tectonic
   tectonic = false,
 }
 
 function L.preload()
   -- Configure treesitter
-  layers.get('treesitter').langs { 'latex' }
+  (layers.get 'treesitter' --[[@as TreesitterLayer]]):langs { 'latex' }
 
   -- Enable the language server
   local cfg = {}
@@ -35,7 +41,12 @@ function L.preload()
   if L.config.lsp ~= false then
     local install = L.config.lsp == nil
     local server = L.config.lsp or 'texlab'
-    layers.get('lsp').use_server('latex', install, server, cfg)
+    (layers.get 'lsp' --[[@as LspLayer]]):use_server(
+      'latex',
+      install,
+      server,
+      cfg
+    )
   end
 end
 

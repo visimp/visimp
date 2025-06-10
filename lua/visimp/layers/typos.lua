@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'typos'
+local L = require('visimp.layer'):new_layer 'typos'
 local layers = require 'visimp.loader'
 
 ---Typos is to be configured via its own config files.
@@ -9,7 +9,9 @@ function L.dependencies()
 end
 
 function L.preload()
-  layers.get('lsp').use_server('typos', true, 'typos_lsp', {})
+  layers
+    .get('lsp') --[[@as LspLayer]]
+    :use_server('typos', true, 'typos_lsp', {})
 end
 
 return L

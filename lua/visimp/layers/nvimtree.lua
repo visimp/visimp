@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'nvimtree'
+local L = require('visimp.layer'):new_layer 'nvimtree'
 local get_module = require('visimp.bridge').get_module
 
 ---For nvim-tree default config see https://github.com/nvim-tree/nvim-tree.lua

@@ -1,8 +1,43 @@
-local new_layer = require('visimp.layer').new_layer
+local Layer = require 'visimp.layer'
 local layers = require 'visimp.loader'
 
----Utilities for constructing and identifying layers
-local M = {}
+---Minimal language configuration
+---@class LanguageConfig
+---@field public lsp (string|false)? The LSP server to use. Defaults to nil \
+---(recommended LS) but users can also use alternatives. Can be set to false to
+---disable this functionality
+---@field public lspconfig table? Optional configuration to be provided for the
+---chosen language server
+
+---Prototype for language layers
+---@class LanguageLayer: Layer
+---@field public default_config LanguageConfig
+---@field public config LanguageConfig
+local Language = Layer:new_layer ''
+
+Language.default_config = {
+  lsp = nil,
+  lspconfig = nil,
+}
+
+---Returns an optional list of needed filetypes mappings
+---@return table? filetypes Filetypes mappings as described in
+---https://neovim.io/doc/user/lua.html#vim.filetype.add()
+function Language:filetypes()
+  return nil
+end
+
+---Returns an optional list of Tree-sitter grammars
+---@return string[]? grammars The optional list
+function Language:grammars()
+  return nil
+end
+
+---Returns the (optional) LSP name to install from Mason
+---@return string? lsp The name of the LSP
+function Language:server()
+  return nil
+end
 
 ---Checks if a given table is empty or not
 ---@param t table The table to inspect
@@ -12,26 +47,25 @@ local function is_empty(t)
 end
 
 ---Default implementation for "dependencies" method of language layers
----@param l table Language layer
----@return table dependencies List of dependencies
-local function language_layer_dependencies(l)
+---@return string[] dependencies List of dependencies
+function Language:dependencies()
   local deps
   -- Tree-sitter
-  local grammars = l.grammars()
+  local grammars = self:grammars()
   if type(grammars) ~= 'table' or is_empty(grammars) then
     deps = {}
   else
     deps = { 'treesitter' }
   end
   -- LSP
-  if l.config.lsp ~= false then
+  if self.config.lsp ~= false then
     table.insert(deps, 'lsp')
   end
   return deps
 end
 
 ---Adds new filetypes mappings
----@param filetypes table Filetypes mappings as described in
+---@param filetypes table? Filetypes mappings as described in
 ---https://neovim.io/doc/user/lua.html#vim.filetype.add()
 local function add_filetypes(filetypes)
   if filetypes then
@@ -40,7 +74,7 @@ local function add_filetypes(filetypes)
 end
 
 ---Adds the specified languages to Tree-sitter
----@param grammars table Array of Tree-sitter grammar names
+---@param grammars string[]? Array of Tree-sitter grammar names
 local function add_grammars(grammars)
   if not grammars then
     return
@@ -49,18 +83,18 @@ local function add_grammars(grammars)
   if t ~= 'table' then
     error('Grammars should be string array. Got ' .. t)
   end
-  layers.get('treesitter').langs(grammars)
+  (layers.get 'treesitter' --[[@as TreesitterLayer]]):langs(grammars)
 end
 
 ---Adds the appropriate language server based on the language layer
----@param l table Language layer
-local function add_server(l)
-  if l.config.lsp == false then -- explicitly disabled server
+function Language:add_server()
+  if self.config.lsp == false then -- explicitly disabled server
     return
   end
-  local server = l.server() -- default server
+  ---@type (boolean|string)?
+  local server = self:server() -- default server
   if not server then -- custom server
-    server = l.config.lsp
+    server = self.config.lsp
   end
   if not server then -- no default server, no custom server
     return
@@ -69,54 +103,25 @@ local function add_server(l)
   if t ~= 'string' then
     error('Server name should be string. Got ' .. t)
   end
-  layers
-    .get('lsp')
-    .use_server(l.identifier, l.config.lsp == nil, server, l.config.lspconfig)
+  (layers.get 'lsp' --[[@as LspLayer]]):use_server(
+    self.identifier,
+    self.config.lsp == nil,
+    server,
+    self.config.lspconfig
+  )
 end
 
----Default implementation for "preload" method of language layers
----@param l table Language layer
-local function language_layer_preload(l)
-  add_filetypes(l.filetypes())
-  add_grammars(l.grammars())
-  add_server(l)
+function Language:preload()
+  add_filetypes(self:filetypes())
+  add_grammars(self:grammars())
+  self:add_server()
 end
 
 ---Returns an new language layer for the given identifier
----@param id string The layer identifier
----@return table layer The newly created layer
-function M.new_language(id)
-  local l = new_layer(id)
-
-  l.default_config = {
-    -- The LSP server to use. Defaults to nil (recommended LS) but users can
-    -- also use alternatives. Can be set to false to disable this functionality
-    lsp = nil,
-    -- Optional configuration to be provided for the chosen language server
-    lspconfig = nil,
-  }
-
-  function l.filetypes()
-    return nil
-  end
-
-  function l.grammars()
-    return nil
-  end
-
-  function l.server()
-    return nil
-  end
-
-  function l.dependencies()
-    return language_layer_dependencies(l)
-  end
-
-  function l.preload()
-    language_layer_preload(l)
-  end
-
-  return l
+---@param id LayerId The layer identifier
+---@return LanguageLayer layer The newly created layer
+function Language:new_language(id)
+  return self:new_layer(id) --[[@as LanguageLayer]]
 end
 
-return M
+return Language

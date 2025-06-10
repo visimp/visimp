@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'blankline'
+local L = require('visimp.layer'):new_layer 'blankline'
 local get_module = require('visimp.bridge').get_module
 local loader = require 'visimp.loader'
 

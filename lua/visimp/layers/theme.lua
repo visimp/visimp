@@ -1,4 +1,5 @@
-local L = require('visimp.layer').new_layer 'theme'
+---@class ThemeLayer: Layer
+local L = require('visimp.layer'):new_layer 'theme'
 local opt = require('visimp.bridge').opt
 
 L.default_config = {
@@ -17,19 +18,19 @@ L.default_config = {
   after = function() end,
 }
 
-function L.packages()
-  return { L.config.package }
+function L:packages()
+  return { self.config.package }
 end
 
-function L.load()
-  L.config.before()
+function L:load()
+  self.config.before()
   vim.cmd('colorscheme ' .. L.config.colorscheme)
   opt('o', 'background', L.config.background)
-  L.config.after()
+  self.config.after()
 end
 
-function L.get_theme()
-  return L.config.lualine or L.config.colorscheme
+function L:get_theme()
+  return self.config.lualine or self.config.colorscheme
 end
 
 return L

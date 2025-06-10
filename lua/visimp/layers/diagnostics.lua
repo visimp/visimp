@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'diagnostics'
+local L = require('visimp.layer'):new_layer 'diagnostics'
 local bind = require('visimp.bind').bind
 local get_module = require('visimp.bridge').get_module
 local get_layer = require('visimp.loader').get
@@ -83,7 +83,8 @@ end
 
 function L.load()
   get_module('trouble').setup(L.config.trouble)
-  get_layer('lsp').on_attach_one_time(on_attach)
+  get_layer('lsp') --[[@as LspLayer]]
+    :on_attach_one_time(on_attach)
 end
 
 return L

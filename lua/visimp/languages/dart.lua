@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'dart'
+local L = require('visimp.layer'):new_layer 'dart'
 local layers = require 'visimp.loader'
 local get_module = require('visimp.bridge').get_module
 
@@ -30,7 +30,7 @@ end
 
 function L.preload()
   -- Configure Tree-sitter
-  layers.get('treesitter').langs { 'dart' }
+  (layers.get 'treesitter' --[[@as TreesitterLayer]]):langs { 'dart' }
 
   if L.config.flutter then
     vim.cmd 'packadd flutter-tools.nvim'
@@ -38,7 +38,12 @@ function L.preload()
 
   -- Enable the language server
   if L.config.lsp ~= false and not L.config.flutter then
-    layers.get('lsp').use_server('dart', false, 'dartls', L.config.lspconfig)
+    (layers.get 'lsp' --[[@as LspLayer]]):use_server(
+      'dart',
+      false,
+      'dartls',
+      L.config.lspconfig
+    )
   end
 end
 

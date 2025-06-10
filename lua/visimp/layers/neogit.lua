@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'neogit'
+local L = require('visimp.layer'):new_layer 'neogit'
 local get_module = require('visimp.bridge').get_module
 
 ---All fields from https://github.com/NeogitOrg/neogit#configuration

@@ -1,7 +1,13 @@
-local L = require('visimp.language').new_language 'javascript'
+---Configuration for the JavaScript layer
+---@class JavaScriptConfig: LanguageConfig
+---@field public typescript boolean Whether TypeScript support should be enabled
+
+---@class JavaScriptLayer: LanguageLayer
+---@field public default_config JavaScriptConfig
+---@field public config JavaScriptConfig
+local L = require('visimp.language'):new_language 'javascript'
 
 L.default_config = {
-  --Enable the typescript grammar
   typescript = true,
 }
 

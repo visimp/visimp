@@ -1,13 +1,16 @@
-local layer = require 'visimp.layer'
+local Layer = require 'visimp.layer'
 local loader = require 'visimp.loader'
 
 local git = require 'visimp.pak.git'
 local pak = require 'visimp.pak'
 local window = require 'visimp.pak.window'
 
+---@alias VisimpConfig table<LayerId, table>
+
 ---Setup module used to initialize visimp and load user's configurations
 local M = {
   -- Layers which get enabled by default unless disabled
+  ---@type (LayerId|Layer)[]
   layers = {
     'cmp',
     'defaults',
@@ -23,6 +26,7 @@ local M = {
     'theme',
     'treesitter',
   },
+  ---@type VisimpConfig
   configs = {},
 }
 
@@ -39,7 +43,7 @@ local function next()
 end
 
 ---Configures the visimp distributions and its layers
----@param visimp_cfg table The configuration table
+---@param visimp_cfg VisimpConfig The configuration table
 function M.setup(visimp_cfg)
   vim.loader.enable()
   M.configs = visimp_cfg or {}
@@ -65,20 +69,22 @@ function M.setup(visimp_cfg)
   for i, l in ipairs(M.layers) do
     if type(l) == 'string' then
       loader.define_builtin(l)
-    elseif layer.is_layer(l) then
+    elseif Layer.is_layer(l) then
       loader.define_layer(l)
       -- sanitize any custom layer into its id
       M.layers[i] = l.identifier
     else
-      error('Invalid layer provided:\n' .. vim.inspect(layer))
+      error('Invalid layer provided:\n' .. vim.inspect(l))
     end
   end
+  ---@type LayerId[]
+  local layers = M.layers
 
   -- Configure layers
-  for _, l in ipairs(M.layers) do
+  for _, l in ipairs(layers) do
     local ll = loader.get(l)
     local cfg = M.configs[ll.identifier] or {}
-    loader.get(l).configure(cfg)
+    loader.get(l):configure(cfg)
   end
 
   -- Check for cyclic dependency graphs
@@ -92,7 +98,7 @@ function M.setup(visimp_cfg)
   end
 
   -- let layers define needed packages
-  for _, l in ipairs(M.layers) do
+  for _, l in ipairs(layers) do
     loader.packages(l)
   end
 

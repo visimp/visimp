@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'fugitive'
+local L = require('visimp.layer'):new_layer 'fugitive'
 
 L.default_config = {}
 L.deprecated = true

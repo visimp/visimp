@@ -1,7 +1,13 @@
-local L = require('visimp.language').new_language 'bash'
+---Configuration for the Bash layer
+---@class BashConfig: LanguageConfig
+---@field public fish boolean Whether Fish support should be enabled
+
+---@class BashLayer: LanguageLayer
+---@field public default_config BashConfig
+---@field public config BashConfig
+local L = require('visimp.language'):new_language 'bash'
 
 L.default_config = {
-  ---Enable fish support (fish being a superset of bash)
   fish = false,
 }
 

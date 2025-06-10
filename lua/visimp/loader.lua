@@ -1,3 +1,5 @@
+local Layer = require 'visimp.layer'
+
 ---Layer loader and (layer) dependency manager
 local M = {
   layers = {},
@@ -69,7 +71,7 @@ function M.are_cyclic(loading, list)
     end
 
     loading[id] = true
-    local val = M.are_cyclic(loading, M.layers[id].dependencies())
+    local val = M.are_cyclic(loading, M.layers[id]:dependencies())
     if val ~= nil then
       return val
     end
@@ -87,28 +89,32 @@ function M.packages(id)
   end
 
   local layer = M.get(id)
-  for _, did in ipairs(layer.dependencies()) do
+  for _, did in ipairs(layer:dependencies()) do
     M.packages(did) -- did = Dependency IDentifier
   end
 
-  vim.list_extend(M._packages, layer.packages() or {})
+  vim.list_extend(M._packages, layer:packages() or {})
   M.packaged[id] = true
 end
 
 ---Calls the preaload function for the given layer and its dependencies
----@param id string The layer identifier
-function M.preload(id)
-  if M.preloaded[id] then
+---@param l LayerId|Layer The layer (identifier)
+function M.preload(l)
+  if Layer.is_layer(l) then
+    l = l.identifier
+  end
+  ---@cast l LayerId
+  if M.preloaded[l] then
     return
   end
 
-  local layer = M.get(id)
-  for _, did in ipairs(layer.dependencies()) do
+  local layer = M.get(l)
+  for _, did in ipairs(layer:dependencies()) do
     M.preload(did) -- did = Dependency IDentifier
   end
 
-  layer.preload()
-  M.preloaded[id] = true
+  layer:preload()
+  M.preloaded[l] = true
 end
 
 ---Prints a warning message in case the layer is deprecated.
@@ -126,27 +132,31 @@ end
 ---Loads a registered layer by its identifier with its dependencies.
 ---This function also takes care of calling all the needed functions on each
 ---layer to properly initialize your editor.
----@param id string The layer identifier
-function M.load(id)
-  if M.loaded[id] then
+---@param l LayerId|Layer The layer identifier
+function M.load(l)
+  if Layer.is_layer(l) then
+    l = l.identifier
+    ---@cast l LayerId
+  end
+  if M.loaded[l] then
     return
   end
 
-  local layer = M.get(id)
-  for _, did in ipairs(layer.dependencies()) do
+  local layer = M.get(l)
+  for _, did in ipairs(layer:dependencies()) do
     M.load(did) -- did = Dependency IDentifier
   end
 
   deprecation_check(layer)
-  layer.load()
-  M.loaded[id] = true
+  layer:load()
+  M.loaded[l] = true
 end
 
 ---Returns the requested layer by its id.
 ---This function adds all needed safety checks to the dangerous M.layers[id]
 ---access.
----@param id string The layer id
----@return any The requested layer
+---@param id LayerId The layer id
+---@return Layer layer The requested layer
 function M.get(id)
   if M.layers[id] == nil then
     error('Requested an undefined layer: ' .. id)
@@ -156,7 +166,7 @@ function M.get(id)
 end
 
 ---Returns the list of required packages
----@return string[] packages The list of required packages
+---@return (PackageSlug|Package)[] packages The list of required packages
 function M.get_packages()
   return M._packages
 end

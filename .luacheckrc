@@ -5,4 +5,7 @@ return {
     'vim',
   },
   std = 'lua51c',
+  ignore = {
+    '212/self', -- base classes usually provide mock implementations
+  },
 }

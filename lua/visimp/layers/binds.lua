@@ -1,4 +1,4 @@
-local L = require('visimp.layer').new_layer 'binds'
+local L = require('visimp.layer'):new_layer 'binds'
 
 L.default_config = {}
 
