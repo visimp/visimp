@@ -33,25 +33,27 @@ end
 ---not been specified, it is automatically populated based on the enabled
 ---language layers.
 local function populate_init_filetypes()
-  if L.config and not L.config.init_filetypes then
-    local languages = layers.get('languages').config
+  local config = L.config
+  if config and not config.init_filetypes then
     local init_filetypes = {}
-    if languages.latex then
-      table.insert(init_filetypes, 'tex')
+    for _, language in pairs(layers.get('languages').config) do
+      if language == 'latex' then
+        table.insert(init_filetypes, 'tex')
+      elseif language == 'markdown' then
+        table.insert(init_filetypes, 'markdown')
+        table.insert(init_filetypes, 'rmd')
+      elseif language == 'typst' then
+        table.insert(init_filetypes, 'typst')
+      end
     end
-    if languages.markdown then
-      table.insert(init_filetypes, 'markdown')
-      table.insert(init_filetypes, 'rmd')
-    end
-    if languages.typst then
-      table.insert(init_filetypes, 'typst')
-    end
+    config.init_filetypes = init_filetypes
   end
 end
 
 function L.load()
   install_ts_yaml()
   populate_init_filetypes()
+  vim.print(L.config.init_filetypes)
   get_module('papis').setup(L.config)
 end
 
