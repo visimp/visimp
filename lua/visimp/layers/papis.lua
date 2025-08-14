@@ -50,11 +50,16 @@ local function populate_init_filetypes()
   end
 end
 
+---Adds papis to the active cmp sources for autocompletion
+local function add_cmp_source()
+  table.insert(get_module('cmp').get_config().sources, { name = 'papis' })
+end
+
 function L.load()
   install_ts_yaml()
   populate_init_filetypes()
-  vim.print(L.config.init_filetypes)
   get_module('papis').setup(L.config)
+  add_cmp_source()
 end
 
 return L
