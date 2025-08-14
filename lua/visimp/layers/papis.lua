@@ -2,9 +2,8 @@ local L = require('visimp.layer'):new_layer 'papis'
 local get_module = require('visimp.bridge').get_module
 local layers = require 'visimp.loader'
 
-L.default_config = {
-  init_filetypes = { 'markdown', 'norg', 'yaml', 'typst' },
-}
+-- See https://github.com/jghauser/papis.nvim?tab=readme-ov-file#setup
+L.default_config = {}
 
 function L.dependencies()
   return { 'telescope', 'cmp', 'treesitter' }
@@ -22,9 +21,10 @@ function L.packages()
 end
 
 function L.load()
-  get_module('papis').setup(L.config or {})
   local tsLayer = layers.get 'treesitter' --[[@as TreesitterLayer]]
   tsLayer:langs { 'yaml' }
+
+  get_module('papis').setup(L.config or {})
 end
 
 return L
