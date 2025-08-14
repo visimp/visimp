@@ -10,8 +10,8 @@ end
 
 function L.packages()
   return {
-    { 'jalvesaq/zotcite', branch = 'typst' },
-    { 'jalvesaq/cmp-zotcite', branch = 'typst' },
+    { 'jalvesaq/zotcite' },
+    { 'jalvesaq/cmp-zotcite' },
   }
 end
 
