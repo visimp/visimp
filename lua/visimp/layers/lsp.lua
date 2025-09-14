@@ -177,6 +177,7 @@ function L:load()
     vim.cmd 'packadd mason-lspconfig.nvim'
     vim.cmd 'packadd mason-tool-installer.nvim'
     get_module('mason').setup(self.config.mason or {})
+    get_module('mason-lspconfig').setup { automatic_enable = false }
 
     local required = {}
     for _, srv in ipairs(self.servers) do
