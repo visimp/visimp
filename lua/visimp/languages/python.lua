@@ -5,7 +5,11 @@ function L.grammars()
 end
 
 function L.server()
-  return 'pyright'
+  -- Using 'basedpyright' instead of 'pyright' here
+  -- provides a more modern and feature right fork.
+  -- Also allows us to drop the dependency on node for working with python.
+  -- (pyright with mason is installed using nodejs for some reason).
+  return 'basedpyright'
 end
 
 return L
