@@ -196,7 +196,7 @@ function L:load()
 
   if self.config.progress ~= nil then
     vim.cmd 'packadd fidget.nvim'
-    get_module('fidget').setup()
+    get_module('fidget').setup(self.config.progress)
   end
 
   -- null-ls sources
@@ -232,11 +232,12 @@ function L:load()
   end
 
   for _, srv in ipairs(self.servers) do
-    get_module('lspconfig')[srv.server].setup {
+    vim.lsp.config(srv.server, {
       settings = srv.settings,
       capabilities = self.capabilities,
       on_attach = on_attach,
-    }
+    })
+    vim.lsp.enable(srv.server)
   end
   if self.use_nullls then
     get_module('null-ls').setup {
