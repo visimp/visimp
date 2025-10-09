@@ -5,7 +5,7 @@ function L.grammars()
 end
 
 function L.server()
-  return 'volar'
+  return 'vue-language-server'
 end
 
 return L
