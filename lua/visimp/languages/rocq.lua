@@ -87,7 +87,7 @@ L.default_config = {
       mode = 'n',
       bind = '<leader>rs',
       opts = {
-        desc = 'Rocq: coq search',
+        desc = 'Rocq: Rocq search',
       },
     }] = vim_cmd_cb 'CoqSearch',
     [{
