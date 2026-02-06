@@ -12,7 +12,7 @@ end
 function L.packages()
   return {
     'nvim-lua/plenary.nvim',
-    { "sindrets/diffview.nvim", opt = true },
+    { 'sindrets/diffview.nvim', opt = true },
     'NeogitOrg/neogit',
   }
 end
