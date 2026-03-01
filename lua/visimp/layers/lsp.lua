@@ -93,6 +93,13 @@ L.default_config = {
     }] = vim.lsp.buf.code_action,
     [{
       mode = 'n',
+      bind = '<leader>cc',
+      opts = {
+        desc = 'Run a code lens',
+      },
+    }] = vim.lsp.codelens.run,
+    [{
+      mode = 'n',
       bind = 'gr',
       opts = {
         desc = 'Go to references',
