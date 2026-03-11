@@ -13,7 +13,7 @@ function L.packages()
 end
 
 function L.load()
-  local config = get_module 'nvim-treesitter.configs'
+  local config = get_module 'nvim-treesitter.config'
   config.setup {
     highlight = {
       enable = L.config.highlight,
