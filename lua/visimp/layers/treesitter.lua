@@ -20,10 +20,8 @@ function L.load()
       additional_vim_regex_highlighting = false,
     },
     indent = { enable = L.config.indent },
+    ensure_installed = L.languages,
   }
-
-  local ts = get_module 'nvim-treesitter.install'
-  ts.ensure_installed(L.languages)
 end
 
 ---Ensures the given tree sitter parsers are installed
