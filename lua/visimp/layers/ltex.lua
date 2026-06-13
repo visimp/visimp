@@ -14,12 +14,9 @@ function L.dependencies()
 end
 
 function L.preload()
-  -- If the user has provided a config, we wrap it
-  -- into the ltex config
-  local cfg = L.config and { ltex = L.config } or {}
   layers
     .get('lsp') --[[@as LspLayer]]
-    :use_server('ltex', true, 'ltex_plus', cfg)
+    :use_server('ltex', true, 'ltex_plus', { ltex = L.config })
 end
 
 return L
