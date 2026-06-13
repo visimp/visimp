@@ -14,7 +14,7 @@ function L.dependencies()
 end
 
 function L.preload()
-  -- If the user has provided a config, we wrap it 
+  -- If the user has provided a config, we wrap it
   -- into the ltex config
   local cfg = L.config and { ltex = L.config } or {}
   layers
