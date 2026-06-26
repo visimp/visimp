@@ -17,7 +17,7 @@ function L.packages()
 end
 
 function L.load()
-  get_module('lean').setup(L.config)
+  vim.g.lean_config = L.config
 end
 
 return L
